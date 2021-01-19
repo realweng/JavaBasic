@@ -20,5 +20,16 @@ public class HomeWork16 {
             }//控制*
             System.out.println();  //换行
         }
+
+        //倒立等腰三角形
+//        for(int i = 1; i <= 5; i++){
+//            for(int j = 1; j <= i;j++){
+//                System.out.print(" ");
+//            }//控制空白
+//            for (int j = 4; j >= i; j--) {
+//                System.out.print("* ");
+//            }//控制*
+//            System.out.println();  //换行
+//        }
     }
 }
