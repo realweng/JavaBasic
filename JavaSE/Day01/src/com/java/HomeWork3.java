@@ -18,7 +18,7 @@ public class HomeWork3 {
 
         //问题2：根据天数（46）计算周数和剩余的天数
         int day1 = 46;
-        System.out.println("问题2：46天一共"+(46/7)+"周 余"+(46%7)+"天");
+        System.out.println("问题2：46天一共"+(46/7)+"整周 余"+(46%7)+"天");
 
         //问题3：已知圆的半径radius= 1.5，求其面积
         double radius = 1.5;
