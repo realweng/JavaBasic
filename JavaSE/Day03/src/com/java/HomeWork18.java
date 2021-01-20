@@ -14,16 +14,16 @@ public class HomeWork18 {
         不能被其他自然数整除的数叫做质数；否则称为合数（规定1既不是质数也不是合数）。】
          */
 
-        for(int i = 1;i <= 100;i++){
+        for(int i = 2;i <= 100;i++){
             boolean flag = true;
             for (int j = 2;j <= i/2;j++){
                 if(i < 3){
                     flag = true;
-                    continue;
+                    break;
                 }else if(i % j == 0){
                     //不是质数
                     flag = false;
-                    continue;
+                    break;
                 }
             }
             if(flag){

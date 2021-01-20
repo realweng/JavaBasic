@@ -12,6 +12,7 @@ import java.util.Scanner;
 public class HomeWork12 {
     public static void main(String[] args) {
         //计算用户输入的日期离1900年1月1日相距多少天
+
         Scanner sc = new Scanner(System.in);
         System.out.println("请分别输入年月日：");
         int year = sc.nextInt();
@@ -19,7 +20,7 @@ public class HomeWork12 {
         int day = sc.nextInt();
         int cnt = 0;
         if(year >= 1900){
-            System.out.println("在1900年1月1日之后的日期");
+            System.out.print("在1900年1月1日之后的：");
                 int count1 = 0,count2 = 0;
                 year = year - 1; //扣除当年的一整年
                 for(;year >= 1900;year--){
@@ -66,7 +67,7 @@ public class HomeWork12 {
 
         }else {
             int cnt1 = 0;
-            System.out.println("在1900年之前的日期");
+            System.out.print("在1900年之前的：");
                 //判断1900年之前的情况
                 int count1 = 0,count2 = 0;
                 year = year + 1; //扣除当年的一整年
