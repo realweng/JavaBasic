@@ -26,6 +26,7 @@ public class HomeWork3 {
                 numCounter++;
             }
         }
-        System.out.println("这个数组出现3的次数为"+numCounter);
+        System.out.println("这个数组出现3的次数为："+numCounter);
+
     }
 }

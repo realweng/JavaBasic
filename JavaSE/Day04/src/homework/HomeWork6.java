@@ -31,10 +31,10 @@ public class HomeWork6 {
         System.out.println("所有元素之和为："+sum);
 
         //输出所有奇数下标元素。如：array[1]
-        int count = 0;
+        int count = 0,count1 = 0;
         for (int i = 0; i < array.length; i++) {
-            if(array[i] % 2 !=0){
-                System.out.print("所有奇数下标元素: array["+i+"]"+"\t");
+            if(i % 2 !=0){
+                System.out.print("所有奇数下标元素: array["+i+"]"+"="+array[i]+"\t");
                 count++;
             }
         }
@@ -44,6 +44,7 @@ public class HomeWork6 {
         for (int i = 0; i < array.length; i++) {
             if(array[i] % 2 !=0){
                 System.out.print("奇数元素: "+array[i]+"\t");
+                count1++;
             }
         }
         System.out.println();
@@ -63,7 +64,7 @@ public class HomeWork6 {
         //将奇数位置元素存到B数组中
         int b[] = new int[count] ;
         for (int i = 0,cnt = 0; i < array.length; i++) {
-            if(array[i] % 2 != 0){
+            if(i % 2 != 0){
                 b[cnt] = array[i];
                 cnt++;
             }
@@ -71,7 +72,7 @@ public class HomeWork6 {
         System.out.println(Arrays.toString(b));
 
         //偶数元素存到C数组中
-        int c[] = new  int[array.length-count];
+        int c[] = new  int[array.length-count1];
         for (int i = 0,cnt = 0; i < array.length; i++) {
             if(array[i] % 2 == 0){
                 c[cnt] = array[i];
