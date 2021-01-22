@@ -7,7 +7,7 @@ import java.util.Arrays;
  * @Version：1.0
  * @Date：2021/1/20-17:35
  * @Since:jdk1.8
- * @Description:TODO
+ * @Description:插入排序
  */
 public class InsertSort {
     public static void main(String[] args) {

@@ -31,7 +31,7 @@ public class HomeWork4 {
                     count[i]++;
                 }
             }
-            System.out.println(stuAnswers[i][0]+"同学的成绩是"+(count[i]*5));
+            System.out.println(stuAnswers[i][0]+"同学的成绩是"+(count[i]*2));
 
         }
 
