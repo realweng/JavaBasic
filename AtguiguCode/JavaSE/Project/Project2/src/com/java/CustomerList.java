@@ -12,7 +12,7 @@ package com.java;
 *并提供相应的添加、修改、删除和遍历方法，供CustomerView调用
  */
 public class CustomerList {
-    private int total = 0; //记录存储的客户的个数
+    private int total; //记录存储的客户的个数
     //用对象数组存储每一个用户的信息
     private Customer[] customers = new Customer[total];
 
@@ -87,7 +87,10 @@ public class CustomerList {
      * @return 封装了客户信息的Customer对象
      */
     public Customer getCustomer(int index){
-        return null;
+        if(index >= total || index < 0){
+            return null;
+        }
+        return customers[index];
     }
 
     /**
