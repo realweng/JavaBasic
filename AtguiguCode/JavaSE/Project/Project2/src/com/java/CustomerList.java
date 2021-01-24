@@ -12,7 +12,8 @@ package com.java;
 *并提供相应的添加、修改、删除和遍历方法，供CustomerView调用
  */
 public class CustomerList {
-    private int total ; //记录存储的客户的个数
+    private int total = 0; //记录存储的客户的个数
+    //用对象数组存储每一个用户的信息
     private Customer[] customers = new Customer[total];
 
     /**
@@ -30,7 +31,9 @@ public class CustomerList {
      */
     public boolean addCustomer(Customer customer){
         if(customer != null && total < customers.length){
-
+            customers[total] = customer;
+            total++;
+            return true;
         }
         return false;
     }
@@ -42,7 +45,11 @@ public class CustomerList {
      * @return 替换成功返回true；false表示索引无效，无法替换
      */
     public boolean replaceCustomer(int index, Customer cust){
-        return true;
+       if(index >= total || index < 0){
+           return false;
+       }
+       customers[index] = cust;
+       return true;
     }
 
     /**
@@ -51,6 +58,14 @@ public class CustomerList {
      * @return 删除成功返回true；false表示索引无效，无法删除
      */
     public boolean deleteCustomer(int index){
+        if(index >= total || index < 0){
+            return false;
+        }
+        for (int i = index; i < total-1; i++) {
+            customers[i] = customers[i + 1];
+        }
+        customers[total - 1] = null;  //最后一位置空
+        total--;
         return true;
     }
 
@@ -59,7 +74,11 @@ public class CustomerList {
      * @return Customer[] 数组中包含了当前所有客户对象，该数组长度与对象个数相同
      */
     public Customer[] getAllCustomers(){
-        return null;
+        Customer [] custs = new Customer[total];
+        for (int i = 0; i < total; i++) {
+            custs[i] = customers[i];
+        }
+        return custs;
     }
 
     /**
