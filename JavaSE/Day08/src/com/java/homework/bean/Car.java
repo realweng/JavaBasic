@@ -8,11 +8,6 @@ package com.java.homework.bean;
  * @Description:TODO
  */
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
-
 /**
  * 作业1
  * 使用java来描述车class，车都具备轮子数、颜色 、与跑的行为，
