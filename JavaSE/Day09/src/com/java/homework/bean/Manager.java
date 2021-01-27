@@ -32,4 +32,9 @@ public class Manager extends Staff{
         this.proSalary = proSalary;
         this.bonus = bonus;
     }
+
+    public double calSalary(){
+        System.out.println("经理的工资为"+(baseSalary+proSalary+bonus));
+        return baseSalary+proSalary+bonus;
+    }
 }

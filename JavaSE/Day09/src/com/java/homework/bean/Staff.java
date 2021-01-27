@@ -29,4 +29,7 @@ public class Staff {
     /**
      * 结算工资的行为
      */
+    public double calSalary(){
+        return 0;
+    }
 }

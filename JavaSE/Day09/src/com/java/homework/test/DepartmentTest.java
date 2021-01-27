@@ -4,6 +4,9 @@ import com.java.homework.bean.Department;
 import com.java.homework.bean.GeneralStaff;
 import com.java.homework.bean.Manager;
 
+import java.util.Arrays;
+import java.util.Scanner;
+
 /**
  * @Author：wengxingguo
  * @Version：1.0
@@ -12,6 +15,11 @@ import com.java.homework.bean.Manager;
  * @Description:作业4 第5小题的测试方法
  */
 public class DepartmentTest {
+
+    Scanner scanner;
+    public DepartmentTest() {
+        scanner = new Scanner(System.in);
+    }
 
     /**
      * 展示部门信息的方法
@@ -25,7 +33,8 @@ public class DepartmentTest {
         System.out.println("提成"+department.getManager().getProSalary());
         System.out.println("分红"+department.getManager().getBonus());
         System.out.println("-----------------------------------");
-        double salary = department.getManager().getBaseSalary()+department.getManager().getProSalary()+department.getManager().getBonus();
+        double salary = department.getManager().getBaseSalary()+
+                department.getManager().getProSalary()+department.getManager().getBonus();
         //展示员工的信息
         for (int i = 0; i < department.getStaffs().length; i++) {
             System.out.println("该部门第"+(i+1)+"个员工的个人信息为：");
@@ -38,6 +47,28 @@ public class DepartmentTest {
         }
         System.out.println("该部门总的工资支出为"+salary);
     }
+
+    /**
+     * 添加新员工的方法
+     * @param department 哪个部门添加新员工
+     */
+    public void addGeneralStaff(Department department){
+        int total = department.getStaffs().length;
+        System.out.println("请分别输入要添加员工的id name salary title");
+        String id = scanner.next();
+        String name = scanner.next();
+        double salary = scanner.nextDouble();
+        String title = scanner.next();
+        //需要添加的新员工
+        GeneralStaff staff = new GeneralStaff(id,name,salary,title);
+        GeneralStaff []generalStaff = department.getStaffs();
+        generalStaff = Arrays.copyOf(generalStaff,total+1);
+        //添加新员工到数组的最后一位
+        generalStaff[generalStaff.length - 1] = staff;
+        //将这个员工添加到该部门
+        department.setStaffs(generalStaff);
+    }
+
     /**
      * 程序的入口
      * @param args

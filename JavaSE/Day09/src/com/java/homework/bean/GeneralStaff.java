@@ -30,4 +30,13 @@ public class GeneralStaff extends Staff{
         this.salary = salary;
         this.title = title;
     }
+
+    /**
+     * 获取普通员工的工资
+     * @return
+     */
+    public double calSalary(){
+        System.out.println("员工的工资为"+this.salary);
+        return this.salary;
+    }
 }
