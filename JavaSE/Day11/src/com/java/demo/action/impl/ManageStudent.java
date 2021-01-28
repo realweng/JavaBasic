@@ -1,6 +1,6 @@
-package com.java.homework.inter;
-
-import com.java.homework.bean.Grade;
+package com.java.demo.action.impl;
+import com.java.demo.bean.Grade;
+import com.java.demo.bean.Stu;
 
 /**
  * @Author：wengxingguo

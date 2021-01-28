@@ -1,7 +1,7 @@
 package com.java.work.test;
 
-import com.java.work.bean.Dept;
-import com.java.work.bean.PtEmp;
+import com.java.demo.bean.Dept;
+import com.java.demo.bean.PtEmp;
 
 import java.util.Arrays;
 import java.util.Scanner;

@@ -7,15 +7,15 @@ import lombok.NoArgsConstructor;
 /**
  * @Author：wengxingguo
  * @Version：1.0
- * @Date：2021/1/27-19:23
+ * @Date：2021/1/28-10:08
  * @Since:jdk1.8
- * @Description:作业3学生与成绩类
+ * @Description:成绩类
  */
-
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class Stu{
-    private String name;//学生姓名
-    private Grade[] grades;//成绩
+
+public class Grade {
+    private String subject;
+    private double grade;
 }

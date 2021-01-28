@@ -1,6 +1,8 @@
-package com.java.homework.bean;
+package com.java.demo.action;
 
-import com.java.homework.inter.ManageStudent;
+import com.java.demo.action.impl.ManageStudent;
+import com.java.demo.bean.Grade;
+import com.java.demo.bean.Stu;
 
 import java.util.Scanner;
 

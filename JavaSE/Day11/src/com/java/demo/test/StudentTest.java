@@ -1,13 +1,13 @@
-package com.java.homework.test;
+package com.java.demo.test;
 
-import com.java.homework.bean.ManageStuimpl;
+import com.java.demo.action.ManageStuimpl;
 
 /**
  * @Author：wengxingguo
  * @Version：1.0
- * @Date：2021/1/27-19:29
+ * @Date：2021/1/28-11:30
  * @Since:jdk1.8
- * @Description:作业3 测试类
+ * @Description:TODO
  */
 public class StudentTest {
     /**
