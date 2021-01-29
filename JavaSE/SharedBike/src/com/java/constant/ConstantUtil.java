@@ -16,6 +16,6 @@ public class ConstantUtil {
     public static final int STATUS_0 = 0;
     public static final String STATUS_ONE = "未借出";
     public static final int STATUS_1 = 1;
-    public static final int RENT = 10; //租金10元每天
+    public static final double RENT = 0.001; //租金0.001元每秒
 
 }

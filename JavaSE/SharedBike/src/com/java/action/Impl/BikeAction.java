@@ -39,4 +39,10 @@ public interface BikeAction {
      * @param bid 编号
      */
     public void returnBike(BikeCompany bikeCompany,int bid) throws ParseException;
+
+    /**
+     * 借出排行榜
+     * @param bikeCompanies
+     */
+    public void rankBike(BikeCompany[] bikeCompanies);
 }

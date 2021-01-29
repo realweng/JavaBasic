@@ -37,7 +37,7 @@ public class Start {
         companies[0] = new BikeCompany(1, ConstantUtil.OFO_COMPANY, null, 4, 0);
         OfoBike ofoBikes[] = new OfoBike[companies[0].getSum()];
         for (int i = 0; i < ofoBikes.length; i++) {
-            ofoBikes[i] = new OfoBike((i + 101), (ConstantUtil.OFO_COMPANY + (i + 101)), 1, null);
+            ofoBikes[i] = new OfoBike((i + 101), (ConstantUtil.OFO_COMPANY + (i + 101)), 1, null,null);
         }
         companies[0].setBikes(ofoBikes);
 
@@ -45,7 +45,7 @@ public class Start {
         companies[1] = new BikeCompany(2, ConstantUtil.HELLO_COMPANY, null, 5, 0);
         HelloBike helloBikes[] = new HelloBike[companies[1].getSum()];
         for (int i = 0; i < helloBikes.length; i++) {
-            helloBikes[i] = new HelloBike((i + 201), (ConstantUtil.HELLO_COMPANY + (i + 201)), 1, null);
+            helloBikes[i] = new HelloBike((i + 201), (ConstantUtil.HELLO_COMPANY + (i + 201)), 1, null,null);
         }
         companies[1].setBikes(helloBikes);
 
@@ -53,7 +53,7 @@ public class Start {
         companies[2] = new BikeCompany(3, ConstantUtil.MO_COMPANY, null, 3, 0);
         MoBike moBikes[] = new MoBike[companies[2].getSum()];
         for (int i = 0; i < moBikes.length; i++) {
-            moBikes[i] = new MoBike((i + 301), (ConstantUtil.MO_COMPANY + (i + 301)), 1, null);
+            moBikes[i] = new MoBike((i + 301), (ConstantUtil.MO_COMPANY + (i + 301)), 1, null,null);
         }
         companies[2].setBikes(moBikes);
     }
@@ -69,7 +69,8 @@ public class Start {
         System.out.println("3.删除单车");
         System.out.println("4.借出单车");
         System.out.println("5.归还单车");
-        System.out.println("6.退出系统");
+        System.out.println("6.借出排行");
+        System.out.println("7.退出系统");
         System.out.println("*************************");
         System.out.println("请输入你要进行的操作");
         int select = scanner.nextInt();
@@ -95,6 +96,11 @@ public class Start {
                 bikeTest.returnBike(companies);
                 break;
             case 6:
+                System.out.println("---->6.借出排行");
+                bikeTest.rankBike(companies);
+                break;
+            case 7:
+                System.out.println("---->感谢使用");
                 return;
         }
         returnMenu();

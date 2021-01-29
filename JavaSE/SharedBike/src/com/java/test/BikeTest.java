@@ -86,11 +86,11 @@ public class BikeTest {
      */
     public void showOne(BikeCompany[] bikeCompanies,int index){
         Bike bikes[] = bikeCompanies[index].getBikes();
-        System.out.println("单车编号"+"\t"+"单车名称"+"\t"+"单车状态"+"\t"+"借出时间"+"\t");
+        System.out.println("单车编号"+"\t"+"单车名称"+"\t"+"单车状态"+"\t"+"\t"+"\t"+"借出时间"+"\t"+"\t"+"\t"+"\t"+"\t"+"归还时间"+"\t");
         System.out.println("-------------------------------------------");
         for (Bike bike : bikes) {
             System.out.println(bike.getBid()+"\t"+"\t"+bike.getBname()
-                    +"\t"+ BikeUtil.getNameByStatus(bike.getStatus()) +"\t"+bike.getBorrowTime()+"\t");
+                    +"\t"+ BikeUtil.getNameByStatus(bike.getStatus()) +"\t"+bike.getBorrowTime()+"\t"+bike.getReturnTime()+"\t");
             System.out.println("-------------------------------------------");
         }
     }
@@ -158,10 +158,20 @@ public class BikeTest {
         }
     }
 
+    /**
+     * 归还测试流程
+     * @param bikeCompanies
+     * @param select
+     * @throws ParseException
+     */
     public void returnSelect(BikeCompany[] bikeCompanies,int select) throws ParseException {
         showOne(bikeCompanies,select-1);
         System.out.println("请输入要归还车辆的编号！");
         int bid = scanner.nextInt();
         bikeAction.returnBike(bikeCompanies[select-1],bid);
+    }
+
+    public void rankBike(BikeCompany[] bikeCompanies){
+        bikeAction.rankBike(bikeCompanies);
     }
 }

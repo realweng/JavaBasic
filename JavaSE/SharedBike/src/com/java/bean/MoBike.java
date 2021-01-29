@@ -8,7 +8,7 @@ package com.java.bean;
  * @Description:摩拜单车
  */
 public class MoBike extends Bike{
-    public MoBike(int bid, String bname, int status, String borrowTime) {
-        super(bid, bname, status, borrowTime);
+    public MoBike(int bid, String bname, int status, String borrowTime, String rerurnTime) {
+        super(bid, bname, status, borrowTime, rerurnTime);
     }
 }
