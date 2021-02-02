@@ -22,9 +22,10 @@ public class StudentTest {
         System.out.println(num1.equals(num2)); //true
 
         int n3 = 100;
+        Byte b1 = Byte.valueOf((byte) 10);
         System.out.println(n3 == num1); //true
 
-        Integer num4 = 100;
+        Integer num4 = Integer.valueOf(100);
         Integer num5 = 100;
         System.out.println(num4 == num5); //true
         System.out.println(n3 == num4); //true
