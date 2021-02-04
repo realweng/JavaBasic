@@ -17,8 +17,6 @@ import com.java.homework.bean.Student;
 import java.util.Arrays;
 import java.util.Date;
 import java.util.Scanner;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 /**
  * 实现学生注册和登录，显示成绩：
@@ -86,7 +84,7 @@ public class HomeWork5 {
             students[students.length-1].setGrade(grade);//把成绩存入学生实体中
             System.out.println("是否使用Base64加密(选否使用MD5加密) y/n?");
             String select = scanner.next();
-            Security securitiy = new Security();
+            Security securitiy = new Security();//临时存放安全信息
             if(select.equals("y")){
                 System.out.println("您选择了Base64加密方式");
                 securitiy.setBase(true);
