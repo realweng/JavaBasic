@@ -103,6 +103,7 @@ public class HomeWork3 {
         for (int i = 0; i < students.size(); i++) {
             if(students.get(i).getAge()<18){
                 students.remove(students.get(i));
+                i--;
             }
         }
         System.out.println("移除操作结束");
