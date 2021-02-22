@@ -1,7 +1,6 @@
 package com.java.action.Impl;
 
-import com.java.bean.Bike;
-import com.java.bean.BikeCompany;
+import com.java.demo.bean.BikeCompany;
 
 import java.text.ParseException;
 

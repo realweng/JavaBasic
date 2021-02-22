@@ -1,7 +1,7 @@
 package com.java.action;
 
 import com.java.action.Impl.BikeAction;
-import com.java.bean.*;
+import com.java.demo.bean.*;
 import com.java.constant.ConstantUtil;
 import com.java.util.BikeUtil;
 import com.java.util.DateUtil;
@@ -10,7 +10,6 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Arrays;
 import java.util.Date;
-import java.util.Scanner;
 
 /**
  * @Author：wengxingguo

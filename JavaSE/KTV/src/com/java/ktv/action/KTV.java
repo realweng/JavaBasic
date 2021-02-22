@@ -7,7 +7,6 @@ import com.java.ktv.util.DateUtil;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
-import java.util.regex.Pattern;
 
 /**
  * @Author：wengxingguo
@@ -43,7 +42,7 @@ public class KTV {
         musics[0] = new Music("眉飞色舞", "萧亚轩", "流行", "2:34", DateUtil.getNow(), 100);
         musics[1] = new Music("茉莉花", "宋祖英", "传统", "4:37", DateUtil.getNow(), 111);
         musics[2] = new Music("卖报歌", "贝瓦儿歌", "传统", "3:04", DateUtil.getNow(), 50);
-        musics[3] = new Music("素 颜", "许 嵩", "流行", "3:14", DateUtil.getNow(), 201);
+        musics[3] = new Music("素颜", "许嵩", "流行", "3:14", DateUtil.getNow(), 201);
         musics[4] = new Music("天外来物", "薛之谦", "流行", "4:17", DateUtil.getNow(), 177);
         musicList.add(musics[0]);//将初始化的歌曲对象添加到KTV系统歌单列表中
         musicList.add(musics[1]);
@@ -61,13 +60,13 @@ public class KTV {
      * @修改人和其它信息
      */
     public void showMusicList(List arrayList) {
-        System.out.println("序号\t\t歌曲名\t\t歌手\t\t\t时长");
+        System.out.println("序号\t\t歌曲名\t\t\t歌手\t\t\t时长\t\t\t点歌次数");
         if (arrayList.size() != 0) {
             for (int i = 0; i < arrayList.size(); i++) {
                 if (arrayList.get(i) instanceof Music) {
-                    System.out.println((i + 1) + "\t\t" + ((Music) arrayList.get(i)).getName() +
-                            "\t\t" + ((Music) arrayList.get(i)).getSinger() + "\t\t"
-                            + ((Music) arrayList.get(i)).getTime());
+                    System.out.println((i + 1) + "\t\t\t" + ((Music) arrayList.get(i)).getName() +
+                            "\t\t\t" + ((Music) arrayList.get(i)).getSinger() + "\t\t\t"
+                            + ((Music) arrayList.get(i)).getTime()+"\t\t\t"+((Music) arrayList.get(i)).getCount());
                 }
             }
         }
@@ -82,18 +81,27 @@ public class KTV {
         System.out.println("请输入你要点歌的拼音：");
         String s = scanner.next();
         s = s.toLowerCase();
-        System.out.println("序号\t\t歌曲名\t\t歌手\t\t\t时长");
+        System.out.println("序号\t\t歌曲名\t\t\t歌手\t\t\t时长");
         for (int i = 0; i < musicList.size(); i++) {    //找到与输入拼音缩写匹配的歌曲
             String s1 = new String(musicList.get(i).getName());
             String s2 = new String();
             s2 = ChineseCharacterUtil.convertHanzi2Pinyin(s1, false).toLowerCase();//首字母
-            if (ChineseCharacterUtil.match(s2, ".*" + s + ".*")) {      //通过拼音缩写匹配
-                System.out.println((i + 1) + "\t\t" + musicList.get(i).getName() +
-                        "\t\t" + musicList.get(i).getSinger() + "\t\t"
+            String s3 = new String();
+            s3 = ChineseCharacterUtil.convertHanzi2Pinyin(s1, true).toLowerCase();//首字母
+            if (ChineseCharacterUtil.match(s2, ".*" + s + ".*") || ChineseCharacterUtil.match(s3, ".*" + s + ".*")) {      //通过拼音缩写或全拼匹配
+                System.out.println((i + 1) + "\t\t\t" + musicList.get(i).getName() +
+                        "\t\t\t" + musicList.get(i).getSinger() + "\t\t\t"
                         + musicList.get(i).getTime());
                 list.add(musicList.get(i));
             }
         }
+        addByMusicName(list);
+    }
+
+    /**
+     * 通过歌曲名点歌重写的方法
+     */
+    public void addByMusicName(List<Music> list) {
         System.out.println("********点歌，输入歌名：***********");
         String musicName = scanner.next();
         int index = -1;
@@ -102,34 +110,10 @@ public class KTV {
                 index = i;
                 if (addList.indexOf(list.get(i)) == -1) {
                     addList.add(list.get(i));//将找到的歌曲添加到播放列表中
-                } else
-                    index = -2;
-                break;
-            }
-        }
-        if (index == -1) {
-            System.out.println("点歌失败，没有该首歌曲。可反馈给管理员，尽请期待！");
-            return;
-        } else if (index == -2) {
-            System.out.println("该歌曲已经被添加到播放列表中，不需要重复添加！");
-        } else {
-            System.out.println("点歌成功，已将[" + musicName + "]添加到歌曲列表中！");
-        }
-        backMenu();
-    }
-
-    /**
-     * 通过歌曲名点歌
-     */
-    public void addByMusicName() {
-        System.out.println("********点歌，输入歌名：***********");
-        String musicName = scanner.next();
-        int index = -1;
-        for (int i = 0; i < musicList.size(); i++) {
-            if (musicList.get(i).getName().equals(musicName)) {
-                index = i;
-                if (addList.indexOf(musicList.get(i)) == -1) {
-                    addList.add(musicList.get(i));//将找到的歌曲添加到播放列表中
+                    int musicIndex = musicList.indexOf(addList.get(addList.size()-1));
+                    //点歌次数+1
+                    addList.get(addList.size()-1).setCount(addList.get(addList.size()-1).getCount()+1);
+                    musicList.set(musicIndex,addList.get(addList.size()-1));
                 } else
                     index = -2;
                 break;
@@ -154,37 +138,16 @@ public class KTV {
         List<Music> list = new ArrayList(); //临时存放通过歌手名检索出来的歌曲列表
         System.out.println("请输入歌手名：");
         String singerName = scanner.next();
-        System.out.println("序号\t\t歌曲名\t\t歌手\t\t\t时长");
+        System.out.println("序号\t\t歌曲名\t\t\t歌手\t\t\t时长");
         for (int i = 0; i < musicList.size(); i++) {
             if (musicList.get(i).getSinger().equals(singerName)) {
-                System.out.println((i + 1) + "\t\t" + musicList.get(i).getName() +
-                        "\t\t" + musicList.get(i).getSinger() + "\t\t"
+                System.out.println((i + 1) + "\t\t\t" + musicList.get(i).getName() +
+                        "\t\t\t" + musicList.get(i).getSinger() + "\t\t\t"
                         + musicList.get(i).getTime());
                 list.add(musicList.get(i));
             }
         }
-        System.out.println("点歌，输入歌曲名");
-        String musicName = scanner.next();
-        int index = -1;
-        for (int i = 0; i < list.size(); i++) {
-            if (list.get(i).getName().equals(musicName)) {
-                index = i;
-                if (addList.indexOf(list.get(i)) == -1) {
-                    addList.add(list.get(i));//将找到的歌曲添加到播放列表中
-                } else
-                    index = -2;
-                break;
-            }
-        }
-        if (index == -1) {
-            System.out.println("点歌失败，没有该首歌曲。可反馈给管理员，尽请期待！");
-            return;
-        } else if (index == -2) {
-            System.out.println("该歌曲已经被添加到播放列表中，不需要重复添加！");
-        } else {
-            System.out.println("点歌成功，已将[" + musicName + "]添加到歌曲列表中！");
-        }
-        backMenu();
+        addByMusicName(list);
     }
 
     /**
@@ -220,28 +183,7 @@ public class KTV {
             System.out.println("您的输入有误");
             backMenu();
         }
-        System.out.println("点歌，输入歌曲名");
-        String musicName = scanner.next();
-        int index = -1;
-        for (int i = 0; i < list.size(); i++) {
-            if (list.get(i).getName().equals(musicName)) {
-                index = i;
-                if (addList.indexOf(list.get(i)) == -1) {
-                    addList.add(list.get(i));//将找到的歌曲添加到播放列表中
-                } else
-                    index = -2;
-                break;
-            }
-        }
-        if (index == -1) {
-            System.out.println("点歌失败，没有该首歌曲。可反馈给管理员，尽请期待！");
-            return;
-        } else if (index == -2) {
-            System.out.println("该歌曲已经被添加到播放列表中，不需要重复添加！");
-        } else {
-            System.out.println("点歌成功，已将[" + musicName + "]添加到歌曲列表中！");
-        }
-        backMenu();
+        addByMusicName(list);
     }
 
     /**
@@ -278,7 +220,7 @@ public class KTV {
                     musicMenu(); //显示点歌功能菜单
                     break;
                 case 2:
-                    showMusicList(addList); //显示已经添加到播放列表中的歌曲
+                    playList();
                     break;
                 case 0:
                     isFlag = false;
@@ -297,7 +239,7 @@ public class KTV {
      * @创建时间 2021/2/15
      * @修改人和其它信息
      */
-    private void musicMenu() {
+    public void musicMenu() {
         boolean isFlag = true;
         while (isFlag) {
             System.out.println("*************点歌台**************");
@@ -313,7 +255,7 @@ public class KTV {
                     addByPinyin();//通过拼音点歌
                     break;
                 case 2:
-                    addByMusicName();//通过歌曲名点歌
+                    addByMusicName(musicList);//通过歌曲名点歌
                     break;
                 case 3:
                     addBySinger();//通过歌星点歌
@@ -375,9 +317,15 @@ public class KTV {
             case 1:
                 System.out.println("请输入你要置顶的歌曲：");
                 String musicName = scanner.next();
-                if (addList.indexOf(musicName) != -1) {
-                    addList.add(0,addList.get(addList.indexOf(musicName))); //先加到第一位
-                    addList.remove(addList.indexOf(musicName));//再删除原来的
+                int index = -1;
+                for (int i = 0; i < addList.size(); i++) {
+                    if(addList.get(i).getName().equals(musicName)){
+                        index = i;
+                    }
+                }
+                if (index != -1) {
+                    addList.add(0,addList.get(index)); //先加到第一位
+                    addList.remove(index+1);//再删除原来的
                     System.out.println(musicName+"置顶成功");
                 } else
                     System.out.println("列表中不存在此歌曲");
@@ -385,8 +333,14 @@ public class KTV {
             case 2:
                 System.out.println("请输入你要移除的歌曲");
                 String musicName1 = scanner.next();
-                if (addList.indexOf(musicName1) != -1) {
-                    addList.remove(addList.indexOf(musicName1));//再删除原来的
+                int index1 = -1;
+                for (int i = 0; i < addList.size(); i++) {
+                    if(addList.get(i).getName().equals(musicName1)){
+                        index1 = i;
+                    }
+                }
+                if (index1 != -1)  {
+                    addList.remove(index1);//再删除原来的
                     System.out.println(musicName1+"删除成功");
                 } else
                     System.out.println("列表中不存在此歌曲");
@@ -394,11 +348,16 @@ public class KTV {
             case 3:
                 System.out.println("请输入你要前移的歌曲");
                 String musicName2 = scanner.next();
-                if (addList.indexOf(musicName2) != -1 && addList.indexOf(musicName2) != 0) {
-                    Music temp = addList.get(addList.indexOf(musicName2));
-                    int index = addList.indexOf(musicName2);
-                    addList.remove(addList.indexOf(musicName2));//删除原来的
-                    addList.add(index-1,temp);//再移动到前一位
+                int index2 = -1;
+                for (int i = 0; i < addList.size(); i++) {
+                    if(addList.get(i).getName().equals(musicName2)){
+                        index2 = i;
+                    }
+                }
+                if (index2 != -1 || index2 != 0) {
+                    Music temp = addList.get(index2);
+                    addList.remove(index2);//删除原来的
+                    addList.add(index2-1,temp);//再移动到前一位
                     System.out.println(musicName2+"删除成功");
                 } else
                     System.out.println("列表中不存在此歌曲或该歌曲已在第一位不需要前移");
