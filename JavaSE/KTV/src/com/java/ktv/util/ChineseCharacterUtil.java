@@ -111,7 +111,7 @@ public class ChineseCharacterUtil {
      *
      * @return true：匹配成功  false：匹配失败
      */
-    private static boolean match(String str,String regex){
+    public static boolean match(String str,String regex){
         Pattern pattern=Pattern.compile(regex);
         Matcher matcher=pattern.matcher(str);
         return matcher.find();

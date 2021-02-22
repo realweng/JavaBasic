@@ -22,11 +22,12 @@ public class Music {
     private Date upTime;    //上架时间
     private int count;      //点歌次数
 
-    public Music(String name, String singer, String kind, String time, Date upTime) {
+    public Music(String name, String singer, String kind, String time, Date upTime,int count) {
         this.name = name;
         this.singer = singer;
         this.kind = kind;
         this.time = time;
         this.upTime = upTime;
+        this.count = count;
     }
 }

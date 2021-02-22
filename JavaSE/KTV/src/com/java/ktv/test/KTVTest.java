@@ -1,5 +1,7 @@
 package com.java.ktv.test;
 
+import com.java.ktv.action.KTV;
+
 /**
  * @Author：wengxingguo
  * @Version：1.0
@@ -8,5 +10,8 @@ package com.java.ktv.test;
  * @Description:TODO
  */
 public class KTVTest {
-
+    public static void main(String[] args) {
+        KTV ktv = new KTV();
+        ktv.start();
+    }
 }
