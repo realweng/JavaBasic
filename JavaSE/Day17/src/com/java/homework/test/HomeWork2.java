@@ -62,7 +62,7 @@ public class HomeWork2 {
         System.out.println("请输入消费金额：");
         double price = scanner.nextDouble();
         double zk = (Math.random()*7+2)/10;
-        price = price*zk;
+        price = price - price*zk;
         System.out.println(price);
         
         //定义一个数组int [] nums = {20,21,12,15,16}; 
