@@ -19,7 +19,7 @@ public class StudentTest {
      * @param args
      */
     public static void main(String[] args) {
-        TreeSet<Student> set = new TreeSet<>();
+        TreeSet<Student> set = new TreeSet<>();//自然顺序存储，第一个就是最小值，最后一个就是最大值
         ArrayList<Integer> list = new ArrayList<>(20);//存放随机数
         int i = 0;
         //产生20个【1-40】不重复的随机数

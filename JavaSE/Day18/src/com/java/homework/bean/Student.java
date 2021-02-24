@@ -15,12 +15,12 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 
-public class Student implements Comparable<Student>{
+public class Student implements Comparable<Student> {
     private Integer id;//学号
     private Integer score;//成绩
 
     @Override
-    public int compareTo(Student o) {
-        return this.score-o.getScore();
+    public int compareTo(Student student) {
+        return this.score - student.getScore();
     }
 }

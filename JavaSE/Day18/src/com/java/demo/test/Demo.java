@@ -20,10 +20,36 @@ public class Demo {
     public static void main(String[] args) {
         HashMap<Integer, List<String>> hashMap = new HashMap<>(16);
         List<String> list = new ArrayList<>(10);
+        list.add("1");
+        list.add("2");
+        list.add("3");
+        list.add("4");
+        list.add("5");
+        list.add("6");
+        list.add("7");
+        list.add("8");
+        list.add("9");
+        list.add("10");
+        list.add("11");
+        list.add("12");
+        list.add("13");
+        list.add("14");
+        list.add("15");
+        list.add("16");
+        //遍历取值
         for (int i = 0; i < 4; i++) {
+            //每1次 创建一个新的list
+            List<String> list1 = new ArrayList<>(10);
             for (int j = 0; j < 4; j++) {
-                int index = (int)(Math.random()* list.size()+1);
+                //随机数
+                int index = (int) (Math.random() * list.size());
+                //通过索引取移除值，并且获取到
+                String removeName = list.remove(index);
+                //添加到集合中
+                list1.add(removeName);
             }
+            //添加到map
+            hashMap.put((i + 1), list1);
         }
     }
 }

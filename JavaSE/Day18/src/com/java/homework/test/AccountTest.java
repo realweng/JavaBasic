@@ -34,7 +34,7 @@ public class AccountTest {
 
         //System.out.println(list.size());
         Map<Long,Account> map = new HashMap<>(16);
-        for (int i = 0; i < list.size(); i++) {
+        for (int i = 0; i < list.size(); i++) {//将list放入Map中
             map.put(list.get(i).getId(),list.get(i));
         }
         map.forEach((key,value)->{
