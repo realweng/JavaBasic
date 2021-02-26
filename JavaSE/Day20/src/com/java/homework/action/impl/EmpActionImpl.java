@@ -1,7 +1,7 @@
 package com.java.homework.action.impl;
 
 import com.java.homework.action.EmpAction;
-import com.java.homework.bean.Emp;
+import com.java.homework.demo.Emp;
 import com.java.homework.util.SimpleEmpStream;
 
 import java.io.*;

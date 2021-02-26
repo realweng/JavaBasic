@@ -1,8 +1,8 @@
 package com.java.homework.test;
 
-import com.java.homework.bean.Department;
-import com.java.homework.bean.GeneralStaff;
-import com.java.homework.bean.Manager;
+import com.java.homework.demo.Department;
+import com.java.homework.demo.GeneralStaff;
+import com.java.homework.demo.Manager;
 
 import java.util.Arrays;
 import java.util.Scanner;

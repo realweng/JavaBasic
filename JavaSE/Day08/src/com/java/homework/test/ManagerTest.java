@@ -8,7 +8,7 @@ package com.java.homework.test;
  * @Description:作业5 管理员的测试类
  */
 
-import com.java.homework.bean.Manager;
+import com.java.homework.demo.Manager;
 
 import java.util.Scanner;
 

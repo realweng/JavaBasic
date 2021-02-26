@@ -8,7 +8,7 @@ package com.java.homework.test;
  * @Description:作业3
  */
 
-import com.java.homework.bean.Student;
+import com.java.homework.demo.Student;
 import com.java.homework.util.Base64Util;
 
 import java.util.ArrayList;

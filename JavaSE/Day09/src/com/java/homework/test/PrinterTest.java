@@ -1,8 +1,8 @@
 package com.java.homework.test;
 
-import com.java.homework.bean.ColorPrinters;
-import com.java.homework.bean.MonoPrinters;
-import com.java.homework.bean.Printer;
+import com.java.homework.demo.ColorPrinters;
+import com.java.homework.demo.MonoPrinters;
+import com.java.homework.demo.Printer;
 
 /**
  * @Author：wengxingguo

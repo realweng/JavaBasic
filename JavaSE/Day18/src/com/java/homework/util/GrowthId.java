@@ -1,6 +1,6 @@
 package com.java.homework.util;
 
-import com.java.homework.bean.User;
+import com.java.homework.demo.User;
 
 import java.util.Collections;
 import java.util.Comparator;

@@ -1,6 +1,6 @@
 package com.java.homework.inter;
 
-import com.java.homework.bean.Person;
+import com.java.homework.demo.Person;
 
 /**
  * @Author：wengxingguo

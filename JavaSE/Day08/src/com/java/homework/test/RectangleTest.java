@@ -1,6 +1,6 @@
 package com.java.homework.test;
 
-import com.java.homework.bean.Rectangle;
+import com.java.homework.demo.Rectangle;
 
 /**
  * @Author：wengxingguo

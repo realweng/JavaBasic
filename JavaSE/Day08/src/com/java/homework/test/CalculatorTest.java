@@ -1,6 +1,6 @@
 package com.java.homework.test;
 
-import com.java.homework.bean.Calculator;
+import com.java.homework.demo.Calculator;
 
 /**
  * @Author：wengxingguo

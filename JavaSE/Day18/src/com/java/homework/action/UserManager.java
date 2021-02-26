@@ -1,6 +1,6 @@
 package com.java.homework.action;
 
-import com.java.homework.bean.User;
+import com.java.homework.demo.User;
 
 import java.util.List;
 

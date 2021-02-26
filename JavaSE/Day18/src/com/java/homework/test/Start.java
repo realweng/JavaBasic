@@ -1,7 +1,7 @@
 package com.java.homework.test;
 
 import com.java.homework.action.Impl.UserManagerImpl;
-import com.java.homework.bean.User;
+import com.java.homework.demo.User;
 
 import java.util.ArrayList;
 import java.util.List;

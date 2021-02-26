@@ -11,8 +11,8 @@ package com.java.homework.test;
 import com.java.demo.util.Base64Util;
 import com.java.demo.util.DateUtil;
 import com.java.demo.util.MessageUtil;
-import com.java.homework.bean.Security;
-import com.java.homework.bean.Student;
+import com.java.homework.demo.Security;
+import com.java.homework.demo.Student;
 
 import java.util.Arrays;
 import java.util.Date;

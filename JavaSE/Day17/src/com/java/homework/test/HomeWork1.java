@@ -8,7 +8,7 @@ package com.java.homework.test;
  * @Description:TODO
  */
 
-import com.java.homework.bean.FootTeam;
+import com.java.homework.demo.FootTeam;
 
 import java.util.ArrayList;
 import java.util.List;

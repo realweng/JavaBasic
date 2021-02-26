@@ -1,7 +1,7 @@
 package com.java.homework.test;
 
-import com.java.homework.bean.BMW;
-import com.java.homework.bean.Driver;
+import com.java.homework.demo.BMW;
+import com.java.homework.demo.Driver;
 
 /**
  * @Author：wengxingguo

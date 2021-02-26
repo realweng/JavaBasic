@@ -8,10 +8,9 @@ package com.java.homework.test;
  * @Description:作业2
  */
 
-import com.java.homework.bean.PM;
-import com.java.homework.bean.SE;
-import com.java.homework.bean.Staff;
-import org.omg.CORBA.PERSIST_STORE;
+import com.java.homework.demo.PM;
+import com.java.homework.demo.SE;
+import com.java.homework.demo.Staff;
 
 import java.util.ArrayList;
 import java.util.List;

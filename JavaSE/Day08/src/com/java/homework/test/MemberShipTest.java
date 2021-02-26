@@ -1,6 +1,6 @@
 package com.java.homework.test;
 
-import com.java.homework.bean.Membership;
+import com.java.homework.demo.Membership;
 
 /**
  * @Author：wengxingguo

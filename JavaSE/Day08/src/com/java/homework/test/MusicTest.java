@@ -1,7 +1,7 @@
 package com.java.homework.test;
 
-import com.java.homework.bean.Music;
-import com.java.homework.bean.MusicPlay;
+import com.java.homework.demo.Music;
+import com.java.homework.demo.MusicPlay;
 
 import java.util.Scanner;
 

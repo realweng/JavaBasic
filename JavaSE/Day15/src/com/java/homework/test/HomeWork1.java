@@ -8,7 +8,7 @@ package com.java.homework.test;
  * @Description:作业1
  */
 
-import com.java.homework.bean.Stu;
+import com.java.homework.demo.Stu;
 
 import java.util.ArrayList;
 import java.util.List;

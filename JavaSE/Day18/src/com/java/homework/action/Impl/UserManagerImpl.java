@@ -1,7 +1,7 @@
 package com.java.homework.action.Impl;
 
 import com.java.homework.action.UserManager;
-import com.java.homework.bean.User;
+import com.java.homework.demo.User;
 
 import java.util.List;
 import java.util.Scanner;

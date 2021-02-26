@@ -1,9 +1,8 @@
 package com.java.homework.test;
 
-import com.java.homework.bean.Store;
-import com.java.homework.bean.StoreException;
+import com.java.homework.demo.Store;
+import com.java.homework.demo.StoreException;
 
-import java.util.Arrays;
 import java.util.Scanner;
 
 /**

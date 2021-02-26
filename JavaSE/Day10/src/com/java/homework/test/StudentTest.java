@@ -1,6 +1,6 @@
 package com.java.homework.test;
 
-import com.java.homework.bean.ManageStuimpl;
+import com.java.homework.demo.ManageStuimpl;
 
 /**
  * @Author：wengxingguo

@@ -10,15 +10,9 @@ package com.java.homework.test;
 
 import com.java.homework.action.EmpAction;
 import com.java.homework.action.impl.EmpActionImpl;
-import com.java.homework.bean.Emp;
-import com.java.homework.util.SimpleEmpStream;
-import lombok.AllArgsConstructor;
+import com.java.homework.demo.Emp;
 
 import java.io.File;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.ObjectOutputStream;
-import java.util.ArrayList;
 import java.util.List;
 
 /**

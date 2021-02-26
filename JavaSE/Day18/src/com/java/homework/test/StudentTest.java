@@ -1,7 +1,6 @@
 package com.java.homework.test;
 
-import com.java.demo.bean.Student1;
-import com.java.homework.bean.Student;
+import com.java.homework.demo.Student;
 
 import java.util.*;
 

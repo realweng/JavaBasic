@@ -1,8 +1,8 @@
 package com.java.homework.test;
 
-import com.java.homework.bean.PM;
-import com.java.homework.bean.SE;
-import com.java.homework.bean.Salary;
+import com.java.homework.demo.PM;
+import com.java.homework.demo.SE;
+import com.java.homework.demo.Salary;
 
 /**
  * @Author：wengxingguo

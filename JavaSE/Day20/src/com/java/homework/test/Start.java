@@ -2,7 +2,7 @@ package com.java.homework.test;
 
 import com.java.homework.action.EmpAction;
 import com.java.homework.action.impl.EmpActionImpl;
-import com.java.homework.bean.Emp;
+import com.java.homework.demo.Emp;
 
 import java.util.List;
 import java.util.Scanner;

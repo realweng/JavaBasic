@@ -1,6 +1,6 @@
 package com.java.homework.inter;
 
-import com.java.homework.bean.Grade;
+import com.java.homework.demo.Grade;
 
 /**
  * @Author：wengxingguo

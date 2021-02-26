@@ -1,7 +1,7 @@
 package com.java.homework.test;
 
-import com.java.homework.bean.Computer;
-import com.java.homework.bean.Student;
+import com.java.homework.demo.Computer;
+import com.java.homework.demo.Student;
 
 /**
  * @Author：wengxingguo

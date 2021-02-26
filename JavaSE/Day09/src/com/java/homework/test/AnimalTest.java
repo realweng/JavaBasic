@@ -1,8 +1,8 @@
 package com.java.homework.test;
 
-import com.java.homework.bean.Animal;
-import com.java.homework.bean.Fish;
-import com.java.homework.bean.Snake;
+import com.java.homework.demo.Animal;
+import com.java.homework.demo.Fish;
+import com.java.homework.demo.Snake;
 
 /**
  * @Author：wengxingguo
