@@ -13,6 +13,7 @@ import java.util.concurrent.CopyOnWriteArrayList;
  */
 public class OrderPool {
     CopyOnWriteArrayList<String> list = new CopyOnWriteArrayList<>();
+
     /**
      * 生产者生产
      */
@@ -49,12 +50,12 @@ public class OrderPool {
             stringBuffer.append(chars[i]);//拼接字符串
         }
         list.add(new String(stringBuffer));//生产者生产的字符串
-        if(list.size()!=0){
-            System.out.println(Thread.currentThread().getName()+"正在生产1个字符串："+list.get(list.size()-1)+
-                    " 共有"+list.size()+"个字符串待消费");
+        if (list.size() != 0) {
+            System.out.println(Thread.currentThread().getName() + "正在生产1个字符串：" + list.get(list.size() - 1) +
+                    " 共有" + list.size() + "个字符串待消费");
         }
         //0.5-1.5s后再生产
-        int randomTime = (int)(Math.random()*101+50);
+        int randomTime = (int) (Math.random() * 1001 + 500);
         try {
             Thread.sleep(randomTime);
         } catch (InterruptedException e) {
@@ -67,28 +68,28 @@ public class OrderPool {
      * 消费者消费
      */
     public synchronized void consumer() {
-            if (list.size() == 0) {
-                //缓冲区为空，需要等生产者生产后再消费
-                try {
-                    this.wait();
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                }
-            }
-            //消费者消费缓冲区的第一个元素
-            list.remove(0);
-            if(list.size()!=0){
-                System.out.println(Thread.currentThread().getName()+"正在消费字符串："+
-                        list.get(0)+" 还有"+(list.size())+"个待消费");
-            }
-
-            int randomTime = (int)(Math.random()*201+100);//200-300ms
+        if (list.size() == 0) {
+            //缓冲区为空，需要等生产者生产后再消费
             try {
-                Thread.sleep(randomTime);
+                this.wait();
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
-            //消费完毕提示生产者生产
-            this.notifyAll();
         }
+        //消费者消费缓冲区的第一个元素
+        list.remove(0);
+        if (list.size() != 0) {
+            System.out.println(Thread.currentThread().getName() + "正在消费字符串：" +
+                    list.get(0) + " 还有" + (list.size()) + "个待消费");
+        }
+
+        int randomTime = (int) (Math.random() * 1001 + 2000);//2000-3000ms
+        try {
+            Thread.sleep(randomTime);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        //消费完毕提示生产者生产
+        this.notifyAll();
+    }
 }
