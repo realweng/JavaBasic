@@ -89,6 +89,12 @@ select a.staff_name,c.department_name,a.department_id,a.staff_work_year,b.salary
 -- 查询所有薪资大于5000元的员工姓名和所属部门【tb_staff tb_salary】
 select a.staff_name,a.department_id from tb_staff a inner join tb_salary b on a.staff_id = b.staff_id where b.salary_money > 5000;
 -- 查询还没有招聘任何员工的部门信息【tb_department tb_staff】
--- select a.department_id,a.department_name from tb_department a inner join tb_staff b on a.department_id = b.department_id GROUP BY a.department_id where count(a.department_id) = 0;
+select a.department_id,a.department_name,b.staff_id
+from tb_department a left join tb_staff b on a.department_id = b.department_id 
+GROUP BY a.department_id HAVING b.staff_id is null;
 -- 查询工资最高的员工信息
--- select a.* from tb_staff a inner join tb_salary b on a.staff_id = b.staff_id where b.salary_money = max(b.salary_money) group by a.staff_id;
+/*
+select a.*, b.salary_money,max(b.salary_money)
+from tb_staff a inner join tb_salary b on a.staff_id = b.staff_id 
+group by a.staff_state HAVING b.salary_money = max(b.salary_money) ;
+*/
