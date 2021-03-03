@@ -85,16 +85,12 @@ select * from tb_staff order by staff_work_year desc;
 -- 查询所有的员工姓名、员工工龄、薪资、薪资发放时间 【tb_staff tb_salary】
 select a.staff_name,a.staff_age,b.salary_money,b.salary_date from tb_staff a inner join tb_salary b on a.staff_id = b.staff_id;
 -- 查询所有的员工姓名、所属部门、工龄、薪资、薪资发放时间【tb_staff tb_salary】
-select a.staff_name,c.department_name,a.department_id,a.staff_work_year,b.salary_money,b.salary_date from tb_staff a,tb_salary b,tb_department c where a.staff_id = b.staff_id;
+select a.staff_name,c.department_name,a.department_id,a.staff_work_year,b.salary_money,b.salary_date from tb_staff a,tb_salary b,tb_department c where a.staff_id = b.staff_id and a.department_id = c.department_id;
 -- 查询所有薪资大于5000元的员工姓名和所属部门【tb_staff tb_salary】
 select a.staff_name,a.department_id from tb_staff a inner join tb_salary b on a.staff_id = b.staff_id where b.salary_money > 5000;
 -- 查询还没有招聘任何员工的部门信息【tb_department tb_staff】
 select a.department_id,a.department_name,b.staff_id
 from tb_department a left join tb_staff b on a.department_id = b.department_id 
-GROUP BY a.department_id HAVING b.staff_id is null;
+where b.staff_id is null;
 -- 查询工资最高的员工信息
-/*
-select a.*, b.salary_money,max(b.salary_money)
-from tb_staff a inner join tb_salary b on a.staff_id = b.staff_id 
-group by a.staff_state HAVING b.salary_money = max(b.salary_money) ;
-*/
+select a.*,b.salary_money from tb_staff a INNER JOIN tb_salary b on a.staff_id = b.staff_id order by b.salary_money desc limit 1;
