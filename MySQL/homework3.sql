@@ -76,20 +76,17 @@ where b.mgr = a.empno and b.hiredate < a.hiredate;
 select d.*,e.* from emp e right join dept d on e.deptno = d.deptno; 
 -- 5. 列出最低薪金大于15000的各种工作及从事此工作的员工人数
 select job as '工资大于15000的工作',count(*) as '从事此工种人数' 
-from emp where sal > 15000 GROUP BY job; 
+from emp where job in (select job from emp where sal > 15000) GROUP BY job; 
 -- 6. 列出在销售部工作的员工的姓名，假定不知道销售部的部门编号。
 select e.ename from emp e,dept d where e.deptno = d.deptno and d.dname = '销售部';
 -- 7. 列出薪金高于公司平均薪金的所有员工信息，所在部门名称，上级领导，工资等级。 
-alter table emp add emp_group varchar(100);
-select b.*,d.dname as '所在部门名称',a.ename as '上级领导',s.grade as '工资等级' 
-from emp a,(select * from emp) b,dept d,salgrade s
-where b.mgr = a.empno and d.deptno = b.deptno and (b.sal between s.losal and s.hisal) 
-and b.sal > (select avg(sal) from emp group by emp_group);
-alter table emp drop emp_group;
+select d.dname,e2.*,e1.ename as '上级',d.*,s.grade from emp e1 RIGHT JOIN emp e2 on e1.empno = e2.mgr 
+left join dept d on d.deptno = e2.deptno,salgrade s 
+where e2.sal BETWEEN s.losal and s.hisal and e2.sal >= (select avg(sal) from emp); 
 -- 8.列出与庞统从事相同工作的所有员工及部门名称。
 select e.ename,d.dname from emp e,dept d where e.deptno = d.deptno and e.job = (select job from emp where ename = '庞统');
 -- 9.列出薪金高于在部门30工作的所有员工工姓名和薪金、部门名称。
 select e.ename,e.sal,d.dname from emp e,dept d where e.deptno = d.deptno and e.sal > 
 (select sal from emp where deptno = 30 order by sal desc LIMIT 1);
 -- 10.查出年份、利润、年度增长比
-select e1.*,e1.zz/e2.zz '增长率' from earn e1 left join earn e2 on e1.e_year - 1 = e2.e_year;
+select e1.*,e1.zz/e2.zz - 1 '增长率' from earn e1 left join earn e2 on e1.e_year - 1 = e2.e_year;
