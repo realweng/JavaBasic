@@ -10,9 +10,10 @@ package com.java.homework.test;
 public class StudentTest {
     /**
      * 程序的入口
+     *
      * @param args
      */
     public static void main(String[] args) {
-
+        new Start().menu();
     }
 }

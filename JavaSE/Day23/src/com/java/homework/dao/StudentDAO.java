@@ -6,6 +6,8 @@ import com.java.homework.constants.StudentConstants;
 import com.java.homework.util.DateUtil;
 
 import java.sql.*;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * @Author：wengxingguo
@@ -117,4 +119,91 @@ public class StudentDAO {
         return false;
     }
 
+    /**
+     * 通过id删除学生信息
+     * @param id
+     * @return
+     */
+    public boolean delStuById(int id){
+        con = getCon();
+        if(con!=null){
+            String sql = "DELETE from tb_student WHERE stu_id = ?";
+            try {
+                pstm = con.prepareStatement(sql);
+                pstm.setInt(1,id);
+                int i = pstm.executeUpdate();
+                if(i > 0){
+                    return true;
+                }
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }finally {
+                this.conClose();
+            }
+        }
+        return false;
+    }
+
+    /**
+     * 查询所有学生
+     * @return
+     */
+    public List<Student> findAllStu(){
+        List<Student> studentList = new ArrayList<>(10);
+        con = getCon();
+        if(con != null){
+            String sql = "SELECT * from tb_student";
+            try {
+                pstm = con.prepareStatement(sql);
+                rs = pstm.executeQuery();
+                while (rs.next()){
+                    Student student = new Student();
+                    student.setStuId(rs.getInt(1));
+                    student.setStuName(rs.getString(2));
+                    student.setStuAge(rs.getInt(3));
+                    student.setStuMajor(rs.getString(4));
+                    student.setStuDepart(rs.getString(5));
+                    student.setStuDate(DateUtil.stringToDate(rs.getString(6)));
+                    studentList.add(student);
+                }
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }finally {
+                this.conClose();
+            }
+        }
+        return studentList;
+    }
+
+    /**
+     * 输入专业名称，查询该专业下有多少人。以及具体的学生信息
+     * @param major
+     * @return
+     */
+    public List<Student> findStuByMajor(String major){
+        List<Student> list = new ArrayList(2);
+        con = getCon();
+        if(con!=null){
+            String sql = "SELECT * from tb_student where stu_major = ?";
+            try {
+                pstm = con.prepareStatement(sql);
+                pstm.setString(1,major);
+                rs = pstm.executeQuery();
+                while (rs.next()){
+                    Student student = new Student();
+                    student.setStuId(rs.getInt(1));
+                    student.setStuName(rs.getString(2));
+                    student.setStuAge(rs.getInt(3));
+                    student.setStuMajor(rs.getString(4));
+                    student.setStuDepart(rs.getString(5));
+                    student.setStuDate(DateUtil.stringToDate(rs.getString(6)));
+                    list.add(student);
+                }
+
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+        return list;
+    }
 }

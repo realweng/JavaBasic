@@ -1,5 +1,7 @@
 package com.java.homework.util;
 
+import java.text.DateFormat;
+import java.text.ParseException;
 import java.text.ParsePosition;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -18,9 +20,21 @@ public class DateUtil {
         return currentTime;
     }
 
-    public static String dateToString(Date currentTime){
+    public static String dateToString(Date currentTime) {
         SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
         String dateString = formatter.format(currentTime);
         return dateString;
+    }
+
+    public static Date stringToDate(String s) {
+        DateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+        Date date = null;
+        try {
+            date = format.parse(s);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        } finally {
+            return date;
+        }
     }
 }
