@@ -75,8 +75,8 @@ public class Start {
         System.out.println("请输入学生学院：");
         student.setStuDepart(scanner.next());
         student.setStuDate(DateUtil.getNowDate());
-        boolean isSuccess = studentDAO.addStu(student);
-        if (isSuccess) {
+        int id = studentDAO.addStu(student);
+        if (id > 0) {
             System.out.println("添加成功！");
         } else
             System.out.println("添加失败");
@@ -87,20 +87,55 @@ public class Start {
      */
     public void updateStu() {
         System.out.println("请输入要修改的学生的id：");
-        student.setStuId(scanner.nextInt());
-        System.out.println("请输入修改后学生姓名：");
-        student.setStuName(scanner.next());
-        System.out.println("请输入修改后学生年龄：");
-        student.setStuAge(scanner.nextInt());
-        System.out.println("请输入修改后学生专业：");
-        student.setStuMajor(scanner.next());
-        System.out.println("请输入修改后学生学院：");
-        student.setStuDepart(scanner.next());
-        boolean isSuccess = studentDAO.updateStu(student);
-        if (isSuccess) {
-            System.out.println("修改成功！");
-        } else
-            System.out.println("修改失败");
+        int id = scanner.nextInt();
+        Student stu = studentDAO.getStuById(id);
+        if(stu.getStuName() == null){
+            System.out.println("没有该学生，无法执行修改操作！");
+            return;
+        }else {
+            System.out.println("id\t\t\t\t姓名\t\t\t\t年龄\t\t\t\t专业\t\t\t\t学院\t\t\t\t入学时间");
+            System.out.println(stu.getStuId() + "\t\t\t\t" + stu.getStuName() + "\t\t\t\t" + stu.getStuAge() + "\t\t\t\t"
+                    + stu.getStuMajor() + "\t\t\t\t" + stu.getStuDepart() + "\t\t\t\t" + DateUtil.dateToString(stu.getStuDate()));
+            student.setStuId(id);
+            System.out.println("是否修改学生姓名？y/n");
+            String flag1 = scanner.next();
+            if(flag1.equals("y")){
+                System.out.println("请输入修改后学生姓名：");
+                student.setStuName(scanner.next());
+            }else {
+                student.setStuName(stu.getStuName());
+            }
+            System.out.println("是否修改学生年龄？y/n");
+            String flag2 = scanner.next();
+            if(flag2.equals("y")){
+                System.out.println("请输入修改后学生年龄：");
+                student.setStuAge(scanner.nextInt());
+            }else {
+                student.setStuAge(stu.getStuAge());
+            }
+            System.out.println("是否修改学生专业？y/n");
+            String flag3 = scanner.next();
+            if(flag3.equals("y")){
+                System.out.println("请输入修改后学生专业：");
+                student.setStuMajor(scanner.next());
+            }else {
+                student.setStuMajor(stu.getStuMajor());
+            }
+            System.out.println("是否修改学生所在学院？y/n");
+            String flag4 = scanner.next();
+            if(flag4.equals("y")){
+                System.out.println("请输入修改后学生学院：");
+                student.setStuDepart(scanner.next());
+            }else {
+                student.setStuDepart(stu.getStuDepart());
+            }
+            //执行修改操作
+            int result = studentDAO.updateStu(student);
+            if (result > 0) {
+                System.out.println("修改成功！");
+            } else
+                System.out.println("修改失败");
+        }
     }
 
     /**
