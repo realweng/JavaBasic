@@ -30,7 +30,7 @@
       <module fileurl="file://$PROJECT_DIR$/Day25/Day25.iml" filepath="$PROJECT_DIR$/Day25/Day25.iml" />
       <module fileurl="file://$PROJECT_DIR$/GuessFist/GuessFist.iml" filepath="$PROJECT_DIR$/GuessFist/GuessFist.iml" />
       <module fileurl="file://$PROJECT_DIR$/KTV/KTV.iml" filepath="$PROJECT_DIR$/KTV/KTV.iml" />
-      <module fileurl="file://$PROJECT_DIR$/MarketMannager/MarketMannager.iml" filepath="$PROJECT_DIR$/MarketMannager/MarketMannager.iml" />
+      <module fileurl="file://$PROJECT_DIR$/MarketManager/MarketManager.iml" filepath="$PROJECT_DIR$/MarketManager/MarketManager.iml" />
       <module fileurl="file://$PROJECT_DIR$/SharedBike/SharedBike.iml" filepath="$PROJECT_DIR$/SharedBike/SharedBike.iml" />
     </modules>
   </component>
