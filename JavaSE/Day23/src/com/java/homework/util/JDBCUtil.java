@@ -176,7 +176,7 @@ public class JDBCUtil {
                 ResultSetMetaData metaData = rs.getMetaData();//获取元数据(整张表)
                 int columnCount = metaData.getColumnCount();//获取列数
                 while (rs.next()) {
-                    //创建对象
+                    //创建对象用于接收数据
                     Object object = clazz.newInstance();
                     //循环取rs走到那一行的每一列数据
                     for (int i = 1; i <= columnCount; i++) {
@@ -186,13 +186,14 @@ public class JDBCUtil {
                         String methodName = ClassUtil.getClassName(lableName);
                         //反射获取第i个格子数据的数据类型
                         Class aClass = ClassUtil.getClass(metaData.getColumnClassName(i));
-                        //反射填充
-                        Method method = clazz.getDeclaredMethod(methodName, aClass);//set
+                        //反射填充通过方法名获取获取方法
+                        Method method = clazz.getMethod(methodName, aClass);//set
                         //获取值
                         Object objectValue = rs.getObject(lableName);
                         //将值存入对象
                         method.invoke(object, objectValue);
                     }
+                    list.add(object);
                 }
             } catch (SQLException e) {
                 e.printStackTrace();
@@ -217,6 +218,7 @@ public class JDBCUtil {
      */
     public static void main(String[] args) {
         String sql = "SELECT * from tb_student";
+
 //        List<Map> list = executeQuery(sql);
 //        for (Map map : list) {//遍历每一行
 //            map.forEach((k,v)->{
@@ -227,7 +229,7 @@ public class JDBCUtil {
         List<Object> list = executeQuery1(sql, Student.class);
         list.forEach(o -> {
             Student student = (Student) o;
-            System.out.println(student.getStuId()+"\t"+student.getStuName()+"\t"+student.getStuAge()+"\t"+student.getStuDepart());
+            System.out.println(student.getStuId() + "\t" + student.getStuName() + "\t" + student.getStuAge() + "\t" + student.getStuDepart()+"\t"+DateUtil.dateToString(student.getStuDate()));
         });
 //        }
     }

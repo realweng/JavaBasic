@@ -1,7 +1,7 @@
 package com.java.test;
 
-import com.java.bean.Computer;
-import com.java.bean.User;
+import com.java.wxg.Computer;
+import com.java.wxg.User;
 
 import java.util.Scanner;
 

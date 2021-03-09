@@ -2,8 +2,8 @@ package com.java.test;
 
 import com.java.action.BikeActionImpl;
 import com.java.action.Impl.BikeAction;
-import com.java.bean.Bike;
-import com.java.bean.BikeCompany;
+import com.java.wxg.Bike;
+import com.java.wxg.BikeCompany;
 import com.java.util.BikeUtil;
 
 import java.text.ParseException;

@@ -37,7 +37,7 @@ public class ClassUtil {
     public static Class getClass(String className){
         Class clazz = null;
         try {
-            if(className.equals("java.sql.Timestamp")){
+            if(className.equals("java.sql.Date")){
                 className = "java.util.Date";
             }
             clazz = Class.forName(className);

@@ -1,6 +1,6 @@
 package com.java.test;
 
-import com.java.bean.*;
+import com.java.wxg.*;
 import com.java.constant.ConstantUtil;
 
 import java.text.ParseException;

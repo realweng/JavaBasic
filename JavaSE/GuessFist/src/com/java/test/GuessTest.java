@@ -1,7 +1,5 @@
 package com.java.test;
 
-import com.java.bean.User;
-
 import java.util.Scanner;
 
 /**
