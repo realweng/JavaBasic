@@ -2,7 +2,9 @@ package com.java.wxg.dao.impl;
 
 import com.java.wxg.bean.VIP;
 import com.java.wxg.dao.VIPDao;
+import com.java.wxg.util.JDBCUtil;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -21,7 +23,10 @@ public class VIPDaoImpl implements VIPDao {
      */
     @Override
     public int addVIP(VIP vip) {
-        return 0;
+        int i = 0;
+        String sql = "insert into vip values(null,?,?,?,?,?,?,?,null)";
+        i = JDBCUtil.update(sql, vip.getCardNumber(), vip.getVipPassword(), vip.getVipName(), vip.getIphone(), vip.getJiFen(), vip.getMoney(), vip.getCreateTime());
+        return i;
     }
 
     /**
@@ -32,7 +37,10 @@ public class VIPDaoImpl implements VIPDao {
      */
     @Override
     public int updateVIP(VIP vip) {
-        return 0;
+        int i = 0;
+        String sql = "update vip set vipPassword = ?,vipName = ?,iphone = ?,jiFen = ?,updateTime = ? where id = ?";
+        i = JDBCUtil.update(sql, vip.getVipPassword(), vip.getVipName(), vip.getIphone(), vip.getJiFen(), vip.getUpdateTime(),vip.getId());
+        return i;
     }
 
     /**
@@ -42,7 +50,10 @@ public class VIPDaoImpl implements VIPDao {
      */
     @Override
     public List<VIP> queryVIP() {
-        return null;
+        List<VIP> list = new ArrayList<>(10);
+        String sql = "select * from vip";
+        list = JDBCUtil.query(sql, VIP.class);
+        return list;
     }
 
     /**
@@ -53,7 +64,10 @@ public class VIPDaoImpl implements VIPDao {
      */
     @Override
     public int deleteVIP(Integer id) {
-        return 0;
+        int i = 0;
+        String sql = "delete from vip where id = ?";
+        i = JDBCUtil.update(sql, id);
+        return i;
     }
 
     /**
@@ -63,8 +77,11 @@ public class VIPDaoImpl implements VIPDao {
      * @return
      */
     @Override
-    public int recharge(Double money) {
-        return 0;
+    public int recharge(Integer id,Double money) {
+        int i = 0;
+        String sql = "update vip set money = money + ? where id = ?";
+        JDBCUtil.update(sql,money,id);
+        return i;
     }
 
     /**
@@ -75,6 +92,21 @@ public class VIPDaoImpl implements VIPDao {
      */
     @Override
     public VIP findVipById(Integer id) {
-        return null;
+        String sql = "select * from vip where id = ?";
+        VIP vip = JDBCUtil.getResultById(sql, VIP.class, id);
+        return vip;
+    }
+
+    /**
+     * 查找数据库中编号最后的会员信息，以便生成下一个会员卡卡号
+     *
+     * @return
+     */
+    @Override
+    public List<VIP> findLastVipId() {
+        List<VIP> list = new ArrayList<>(10);
+        String sql = "select * from vip ORDER BY id desc LIMIT 1";
+        list = JDBCUtil.query(sql, VIP.class);
+        return list;
     }
 }

@@ -44,7 +44,7 @@ public interface VIPDao {
      * @param money
      * @return
      */
-    public int recharge(Double money);
+    public int recharge(Integer id,Double money);
 
     /**
      * 通过id查找会员
@@ -52,4 +52,10 @@ public interface VIPDao {
      * @return
      */
     public VIP findVipById(Integer id);
+
+    /**
+     * 查找数据库中编号最后的会员信息，以便生成下一个会员卡卡号
+     * @return
+     */
+    public List<VIP> findLastVipId();
 }

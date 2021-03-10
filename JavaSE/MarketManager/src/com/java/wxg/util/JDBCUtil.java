@@ -23,7 +23,7 @@ public class JDBCUtil {
      *
      * @return
      */
-    private static Connection getConnection() {
+    public static Connection getConnection() {
         Connection con = null;
         try {
             //加载驱动
@@ -58,6 +58,27 @@ public class JDBCUtil {
             } finally {
                 //关闭连接
                 DbUtils.closeQuietly(con);
+            }
+        }
+        return i;
+    }
+
+    /**
+     * 传入连接对象参数的更新数据操作
+     * @param con
+     * @param sql
+     * @param params
+     * @return
+     */
+    public static int update(Connection con,String sql, Object... params) {
+        int i = 0;
+        QueryRunner queryRunner = new QueryRunner();
+        if (con != null) {
+            try {
+                //执行更新数据操作
+                i = queryRunner.update(con, sql, params);
+            } catch (SQLException e) {
+                e.printStackTrace();
             }
         }
         return i;

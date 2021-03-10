@@ -82,6 +82,7 @@ public class MainAction {
                 break;
             case 3:
                 //会员管理的菜单
+                new VIPAction(scanner).vipMenu();
                 break;
             default:
                 System.out.println("选择错误，返回主菜单！");
@@ -93,6 +94,7 @@ public class MainAction {
         switch (select) {
             case 4:
                 //购买管理
+                new PurchaseManagerAction(scanner).purchaseMenu();
                 break;
             case 5:
                 //订单管理
