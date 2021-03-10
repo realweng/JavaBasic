@@ -1,25 +1,23 @@
-package com.java.wxg.dao.impl;
+package com.java.wxg.service;
 
 import com.java.wxg.bean.VIP;
-import com.java.wxg.dao.VIPDao;
 
 import java.util.List;
 
 /**
  * @Author：wengxingguo
  * @Version：1.0
- * @Date：2021/3/9-23:24
+ * @Date：2021/3/10-9:35
  * @Since:jdk1.8
- * @Description:会员管理数据层实现类
+ * @Description:会员信息业务处理层
  */
-public class VIPDaoImpl implements VIPDao {
+public class VIPService {
     /**
      * 添加会员信息
      *
      * @param vip
      * @return
      */
-    @Override
     public int addVIP(VIP vip) {
         return 0;
     }
@@ -30,7 +28,6 @@ public class VIPDaoImpl implements VIPDao {
      * @param vip
      * @return
      */
-    @Override
     public int updateVIP(VIP vip) {
         return 0;
     }
@@ -40,7 +37,6 @@ public class VIPDaoImpl implements VIPDao {
      *
      * @return
      */
-    @Override
     public List<VIP> queryVIP() {
         return null;
     }
@@ -51,7 +47,6 @@ public class VIPDaoImpl implements VIPDao {
      * @param id
      * @return
      */
-    @Override
     public int deleteVIP(Integer id) {
         return 0;
     }
@@ -62,7 +57,6 @@ public class VIPDaoImpl implements VIPDao {
      * @param money
      * @return
      */
-    @Override
     public int recharge(Double money) {
         return 0;
     }
@@ -73,7 +67,6 @@ public class VIPDaoImpl implements VIPDao {
      * @param id
      * @return
      */
-    @Override
     public VIP findVipById(Integer id) {
         return null;
     }
