@@ -1,5 +1,6 @@
 package com.java.wxg.bean;
 
+import com.java.wxg.constants.MarketConstants;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -26,10 +27,16 @@ public class ProductType {
 
     @Override
     public String toString() {
+        String isParent = new String();
+        if(flagParent == 1){
+            isParent = MarketConstants.FLAG_PARENT_ONE;
+        }else {
+            isParent =MarketConstants.FLAG_PARENT_ZERO;
+        }
         return  "商品类型编号：" + id +
                 ", 父级编号：" + parentId +
                 ", 商品类型名：'" + typeName + '\'' +
-                ", 父级标记：" + flagParent +
+                ", 父级标记：" + isParent +
                 ", 创建时间：" + createTime +
                 ", 修改时间：" + updateTime
                 ;

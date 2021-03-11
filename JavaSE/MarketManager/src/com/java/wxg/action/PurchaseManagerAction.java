@@ -4,7 +4,6 @@ import com.java.wxg.bean.OrderDetails;
 import com.java.wxg.bean.OrderInfo;
 import com.java.wxg.bean.Product;
 import com.java.wxg.bean.VIP;
-import com.java.wxg.constants.MarketConstants;
 import com.java.wxg.service.ProductService;
 import com.java.wxg.service.PurchaseManagerService;
 import com.java.wxg.service.VIPService;
@@ -58,7 +57,7 @@ public class PurchaseManagerAction {
      */
     public void purchaseMenu() {
         System.out.println("1.购买商品");
-        System.out.println("0.退出");
+        System.out.println("0.退出购买");
         //目录
         if (scanner.nextInt() == 1) {
             showProduct();//显示状态正常的商品
@@ -115,11 +114,17 @@ public class PurchaseManagerAction {
     public boolean vipLogin() {
         boolean loginSuccess = false;
         System.out.println("当前消费者是否为会员？(y/n)");
-        if (scanner.next().equals("y")) {
-            System.out.println("请输入会员编号：");
-            int vipId = scanner.nextInt();
-            vip = vipService.findVipById(vipId);
-            if (vipId != 1 && vip.getId() != null) {
+        String confirm = scanner.next().toLowerCase();
+        if (confirm.equals("y")) {
+            System.out.println("请输入会员卡号：");
+            String cardNum = scanner.next();
+            List<VIP> vipList = vipService.findVipByCardNum(cardNum);
+            if(vipList.size()==0){
+                System.out.println("没有找到该用户！");
+                return false;
+            }
+            vip = vipList.get(0);
+            if (vip.getId() != 1 && vip != null) {
                 System.out.println(vip.toString());
                 System.out.println("请输入密码：");
                 String pwd = scanner.next();
@@ -131,11 +136,14 @@ public class PurchaseManagerAction {
                 }
             } else {
                 System.out.println("会员编号输入错误！");
-                loginSuccess = true;
+                return false;
             }
-        } else {//非会员,默认不需要登录
+        } else if(confirm.equals("n")){//非会员,默认不需要登录
             vip = vipService.findVipById(1);
             loginSuccess = true;
+        }else {
+            System.out.println("输入错误！");
+            return false;
         }
         return loginSuccess;
     }
@@ -171,10 +179,10 @@ public class PurchaseManagerAction {
             System.out.println(product.toString());
             System.out.println("请输入购买该商品的数量：");
             int num = scanner.nextInt();
-            if(num > product.getNum()){
+            if (num > product.getNum()) {
                 System.out.println("商品数目选择大于库存上限！");
                 return;
-            }else if(num <= 0){
+            } else if (num <= 0) {
                 System.out.println("商品数目输入不规范(>0)");
                 return;
             }
@@ -196,10 +204,10 @@ public class PurchaseManagerAction {
             if (shopList.containsKey(id)) {
                 System.out.println("请输入修改后的商品数量：");
                 int num = scanner.nextInt();
-                if(num > product.getNum()){
+                if (num > product.getNum()) {
                     System.out.println("商品数目选择大于库存上限！");
                     return;
-                }else if(num <= 0){
+                } else if (num <= 0) {
                     System.out.println("商品数目输入不规范(>0)！");
                     return;
                 }
@@ -254,6 +262,8 @@ public class PurchaseManagerAction {
                 System.out.println(id + "\t\t\t" + product.getPname() + "\t\t" + product.getPrice() + "\t\t" + num);
             });
             System.out.println("-------------------------------------------------------");
+            System.out.println("当前订单总价：" + price + "元！");
+            System.out.println("-------------------------------------------------------");
         }
     }
 
@@ -279,6 +289,8 @@ public class PurchaseManagerAction {
                     System.out.println("会员卡消费成功，消费" + price + "元！");
                     vip.setMoney(vip.getMoney() - price);//卡内余额消费扣除
                     vip.setUpdateTime(new Date());
+                    //消费加积分
+                    vip.setJiFen(vip.getJiFen()+(int)(price*10));
                 }
             } else {
                 payType = 1;
@@ -289,6 +301,7 @@ public class PurchaseManagerAction {
             System.out.println("非会员使用现金消费了" + price + "元！");
             vip.setUpdateTime(new Date());
         }
+
         //填充订单信息
         orderInfo.setOrderDate(new Date());
         orderInfo.setPayType(payType);
@@ -319,6 +332,6 @@ public class PurchaseManagerAction {
         });
 
         //提交订单信息
-         purchaseManagerService.updateOrder(shopList, orderInfo, orderDetailsList, vip);
+        purchaseManagerService.updateOrder(shopList, orderInfo, orderDetailsList, vip);
     }
 }

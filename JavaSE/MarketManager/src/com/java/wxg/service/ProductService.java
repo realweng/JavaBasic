@@ -57,4 +57,22 @@ public class ProductService {
     public Product findProductById(Integer id){
         return productDao.findProductById(id);
     }
+
+    /**
+     * 查询数据库总条数
+     * @return
+     */
+    public List<Product> countRows(){
+        return productDao.countRows();
+    }
+
+    /**
+     * 分页
+     * @param arg1
+     * @param arg2
+     * @return
+     */
+    public List<Product> limitPage(int arg1,int arg2){
+        return productDao.limitPage(arg1,arg2);
+    }
 }

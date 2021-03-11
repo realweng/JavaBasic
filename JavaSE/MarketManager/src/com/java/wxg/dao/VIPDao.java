@@ -58,4 +58,11 @@ public interface VIPDao {
      * @return
      */
     public List<VIP> findLastVipId();
+
+    /**
+     * 通过卡号找会员
+     * @param cardNum
+     * @return
+     */
+    public List<VIP> findVipByCardNum(String cardNum);
 }

@@ -34,7 +34,7 @@ public class PurchaseManagerDaoImpl implements PurchaseManagerDao {
     public void updateOrder(Map<Integer, Integer> map, OrderInfo orderInfo, List<OrderDetails> orderDetailsList, VIP vip) {
         Connection con = JDBCUtil.getConnection();//获得连接
         String sql1 = "update product set num = num - ? where id = ?";
-        String sql2 = "update vip set money = ?,updateTime = ? where id = ?";
+        String sql2 = "update vip set money = ?,jiFen = ?,updateTime = ? where id = ?";
         String sql3 = "insert into orderinfo values(null,?,?,?,?)";
         String sql4 = "insert into orderdetails values(null,?,?,?,?)";
         if (con != null) {
@@ -46,7 +46,7 @@ public class PurchaseManagerDaoImpl implements PurchaseManagerDao {
                 });
                 //会员余额更改
                 if (vip.getId() != 1) {
-                    JDBCUtil.update(con,sql2,vip.getMoney(),vip.getUpdateTime(),vip.getId());
+                    JDBCUtil.update(con,sql2,vip.getMoney(),vip.getJiFen(),vip.getUpdateTime(),vip.getId());
                 }else {
                     JDBCUtil.update(con,sql2,null,vip.getUpdateTime(),vip.getId());
                 }

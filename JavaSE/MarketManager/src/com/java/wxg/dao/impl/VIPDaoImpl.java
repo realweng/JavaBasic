@@ -80,7 +80,7 @@ public class VIPDaoImpl implements VIPDao {
     public int recharge(Integer id,Double money) {
         int i = 0;
         String sql = "update vip set money = money + ? where id = ?";
-        JDBCUtil.update(sql,money,id);
+        i = JDBCUtil.update(sql,money,id);
         return i;
     }
 
@@ -108,5 +108,17 @@ public class VIPDaoImpl implements VIPDao {
         String sql = "select * from vip ORDER BY id desc LIMIT 1";
         list = JDBCUtil.query(sql, VIP.class);
         return list;
+    }
+
+    /**
+     * 通过卡号找会员
+     *
+     * @param cardNum
+     * @return
+     */
+    @Override
+    public List<VIP> findVipByCardNum(String cardNum) {
+        String sql = "select * from vip where cardNumber = ?";
+        return JDBCUtil.query(sql,VIP.class,cardNum);
     }
 }

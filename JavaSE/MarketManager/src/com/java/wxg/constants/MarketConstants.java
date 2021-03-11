@@ -15,4 +15,5 @@ public class MarketConstants {
     public static final String CASHIER_ACCOUNT = "user", CASHIER_PASSWORD = "user"; //收银员账号密码
     public static final String FLAG_PARENT_ONE = "是", FLAG_PARENT_ZERO = "否";//是否是父级id
     public static final String STATE_ONE = "上架", STATE_TWO = "下架", STATE_THREE = "删除";//商品状态
+    public static final String PAY_TYPE_ONE = "现金消费",PAY_TYPE_TWO = "卡内余额";//消费类型
 }

@@ -37,32 +37,46 @@ public class ProductAction {
      * 商品菜单
      */
     public void productMenu() {
-        System.out.println("1.添加商品信息");
-        System.out.println("2.修改商品信息");
-        System.out.println("3.查询商品信息");
-        System.out.println("4.删除商品信息");
-        System.out.println("请选择：");
-        int select = scanner.nextInt();
-        switch (select) {
-            case 1:
-                System.out.println("您选择添加商品信息-->");
-                addProduct();
-                break;
-            case 2:
-                System.out.println("您选择修改商品信息-->");
-                updateProduct();
-                break;
-            case 3:
-                System.out.println("您选择查询商品信息-->");
-                queryProduct();
-                break;
-            case 4:
-                System.out.println("您选择删除商品信息-->");
-                deleteProduct();
-                break;
-            default:
-                break;
+        boolean flag = true;
+        while (flag) {
+            System.out.println("1.添加商品信息");
+            System.out.println("2.修改商品信息");
+            System.out.println("3.查询商品信息");
+            System.out.println("4.删除商品信息");
+            System.out.println("5.分页显示商品信息");
+            System.out.println("0.退出当前菜单");
+            System.out.println("请选择：");
+            int select = scanner.nextInt();
+            switch (select) {
+                case 1:
+                    System.out.println("您选择添加商品信息-->");
+                    addProduct();
+                    break;
+                case 2:
+                    System.out.println("您选择修改商品信息-->");
+                    updateProduct();
+                    break;
+                case 3:
+                    System.out.println("您选择查询商品信息-->");
+                    queryProduct();
+                    break;
+                case 4:
+                    System.out.println("您选择删除商品信息-->");
+                    deleteProduct();
+                    break;
+                case 5:
+                    System.out.println("您选择分页显示商品信息-->");
+                    limitPages();
+                    break;
+                case 0:
+                    System.out.println("退出当前菜单中...");
+                    flag = false;
+                    break;
+                default:
+                    break;
+            }
         }
+
     }
 
     /**
@@ -83,7 +97,7 @@ public class ProductAction {
         System.out.println("请选择商品类型的id");
         int typeId = scanner.nextInt();
         int index = integerList.indexOf(typeId);
-        if (index > 0) {
+        if (index >= 0) {
             product.setTypeId(typeId);
         } else {
             System.out.println("商品类型选择错误！");
@@ -105,7 +119,7 @@ public class ProductAction {
         System.out.println("请输入要修改商品的商品编号：");
         int id = scanner.nextInt();
         product = productService.findProductById(id);
-        if (product.getId() != null) {
+        if (product != null) {
             System.out.println(product.toString());
             System.out.println("是否修改商品名字：(y/n)");
             if (scanner.next().equals("y")) {
@@ -202,6 +216,57 @@ public class ProductAction {
             System.out.println("删除成功！");
         } else {
             System.out.println("该商品id不存在，删除失败！");
+        }
+    }
+
+    /**
+     * 分页显示商品信息
+     */
+    public void limitPages() {
+        List<Product> countList = productService.countRows();
+        int rows = 0;
+        if (countList.size() > 0) {
+            rows = countList.get(0).getCountRows();
+        } else {
+            System.out.println("查询结果为空！");
+            return;
+        }
+        if (rows != 0) {
+            System.out.println("当前表中共有" + rows + "条数据");
+            System.out.println("请输入每页显示多少条数据");
+            int every = scanner.nextInt();
+            if (every >= rows) {//如果输入条数大于数据总条数
+                System.out.println("--------------------------第1页/共1页-----------------------------");
+                queryProduct();
+                return;
+            }
+            int pages = 0;
+            if (rows % every == 0) {
+                pages = rows / every;//可分成的页数
+                for (int i = 0; i < pages; i++) {
+                    List<Product> list = productService.limitPage(i * every, every);
+                    System.out.println("----------------------------第" + (i + 1) + "页/共" + pages + "页------------------------------------");
+                    for (Product product1 : list) {
+                        System.out.println(product1.toString());
+                    }
+                }
+            } else if (rows % every != 0 && every != 0) {
+                pages = rows / every + 1;//可分成的页数
+                for (int i = 0; i < pages - 1; i++) {
+                    List<Product> list = productService.limitPage(i * every, every);
+                    System.out.println("----------------------------第" + (i + 1) + "页/共" + pages + "页------------------------------------");
+                    for (Product product1 : list) {
+                        System.out.println(product1.toString());
+                    }
+                    if (i == pages - 2) {
+                        List<Product> list1 = productService.limitPage((i + 1) * every, rows % every);
+                        System.out.println("----------------------------第" + (i + 2) + "页/共" + pages + "页------------------------------------");
+                        for (Product product1 : list1) {
+                            System.out.println(product1.toString());
+                        }
+                    }
+                }
+            }
         }
     }
 }

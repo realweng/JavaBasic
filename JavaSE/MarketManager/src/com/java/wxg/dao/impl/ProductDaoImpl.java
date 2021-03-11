@@ -38,8 +38,8 @@ public class ProductDaoImpl implements ProductDao {
     @Override
     public int updateProduct(Product product) {
         int i = 0;
-        String sql = "update product set pname = ?,price = ?,num = ?,discount = ?,typeId = ?,state = ?";
-        i = JDBCUtil.update(sql,product.getPname(),product.getPrice(),product.getNum(),product.getDiscount(),product.getTypeId(),product.getState());
+        String sql = "update product set pname = ?,price = ?,num = ?,discount = ?,typeId = ?,state = ? where id = ?";
+        i = JDBCUtil.update(sql,product.getPname(),product.getPrice(),product.getNum(),product.getDiscount(),product.getTypeId(),product.getState(),product.getId());
         return i;
     }
 
@@ -79,5 +79,28 @@ public class ProductDaoImpl implements ProductDao {
     public Product findProductById(Integer id) {
         String sql = "select * from product where id = ?";
         return JDBCUtil.getResultById(sql,Product.class,id);
+    }
+
+    /**
+     * 查询数据库总条数
+     *
+     * @return
+     */
+    @Override
+    public List<Product> countRows() {
+        String sql = "select count(*) as 'countRows' from product";
+        return JDBCUtil.query(sql,Product.class);
+    }
+
+    /**
+     * 分页
+     * @param arg1
+     * @param arg2
+     * @return
+     */
+    @Override
+    public List<Product> limitPage(int arg1, int arg2) {
+        String sql = "select * from product limit ?,?";
+        return JDBCUtil.query(sql,Product.class,arg1,arg2);
     }
 }

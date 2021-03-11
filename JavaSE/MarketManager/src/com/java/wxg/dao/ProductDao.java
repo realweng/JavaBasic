@@ -45,4 +45,18 @@ public interface ProductDao {
      * @return
      */
     public Product findProductById(Integer id);
+
+    /**
+     * 查询数据库总条数
+     * @return
+     */
+    public List<Product> countRows();
+
+    /**
+     * 分页
+     * @param arg1
+     * @param arg2
+     * @return
+     */
+    public List<Product> limitPage(int arg1,int arg2);
 }

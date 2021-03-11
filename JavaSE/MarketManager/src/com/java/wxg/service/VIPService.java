@@ -81,4 +81,13 @@ public class VIPService {
         List<VIP> list = vipDao.findLastVipId();
         return list.get(0).getId();
     }
+
+    /**
+     * 通过卡号找会员
+     * @param cardNum
+     * @return
+     */
+    public List<VIP> findVipByCardNum(String cardNum){
+        return vipDao.findVipByCardNum(cardNum);
+    }
 }

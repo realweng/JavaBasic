@@ -46,19 +46,23 @@ public class MainAction {
         String inputPwd = scanner.next();
 
         //判断
-        if (inputName.equals(MarketConstants.MANAGER_ACCOUNT)&&inputPwd.equals(MarketConstants.MANAGER_PASSWORD)) {
+        if (inputName.equals(MarketConstants.MANAGER_ACCOUNT) && inputPwd.equals(MarketConstants.MANAGER_PASSWORD)) {
             System.out.println("管理员登录成功！");
-            if(select > 3 && select <= 6){
+            if (select > 3 && select <= 6) {
                 System.out.println("没有收银员权限");
+                mainMenu();
+                return;//执行结束直接退出,保证不会越权访问收银员才能操作的数据
             }
             adminSelect(select);
-        }else if(inputName.equals(MarketConstants.CASHIER_ACCOUNT)&&inputPwd.equals(MarketConstants.CASHIER_PASSWORD)){
+        } else if (inputName.equals(MarketConstants.CASHIER_ACCOUNT) && inputPwd.equals(MarketConstants.CASHIER_PASSWORD)) {
             System.out.println("收银员登录成功");
-            if(select <= 3 && select > 0){
+            if (select <= 3 && select > 0) {
                 System.out.println("没有管理员权限");
+                mainMenu();
+                return;//执行结束直接退出,保证不会越权访问管理员才能操作的数据
             }
             cashierSelect(select);
-        }else{
+        } else {
             System.out.println("用户名或者密码输入错误");
             //返回主菜单
             mainMenu();
@@ -84,27 +88,69 @@ public class MainAction {
                 //会员管理的菜单
                 new VIPAction(scanner).vipMenu();
                 break;
+            case 0:
+                System.out.println("退出中...");
+                return;
             default:
                 System.out.println("选择错误，返回主菜单！");
                 mainMenu();
         }
+        adminMenu();
     }
 
-    public void cashierSelect(int select) {
-        switch (select) {
-            case 4:
-                //购买管理
-                new PurchaseManagerAction(scanner).purchaseMenu();
-                break;
-            case 5:
-                //订单管理
-                break;
-            case 6:
-                //排行管理
-                break;
-            default:
-                System.out.println("选择错误，返回主菜单！");
-                mainMenu();
-        }
+    /**
+     * 管理员操作菜单
+     */
+    public void adminMenu() {
+        System.out.println("*****************************管理员操作台*****************************");
+        System.out.println("1、商品类型管理");
+        System.out.println("2、商品管理");
+        System.out.println("3、会员管理");
+        System.out.println("0、退出系统");
+        System.out.println("请输入要进行的操作：");
+        adminSelect(scanner.nextInt());
     }
+
+    /**
+     * 收银员操作
+     *
+     * @param select
+     */
+    public void cashierSelect(int select) {
+            switch (select) {
+                case 4:
+                    //购买管理
+                    new PurchaseManagerAction(scanner).purchaseMenu();
+                    break;
+                case 5:
+                    //订单管理
+                    new OrderQueryAction(scanner).orderQueryMenu();
+                    break;
+                case 6:
+                    //排行管理
+                    new RankStatisticsAction(scanner).rankStatisticsMenu();
+                    break;
+                case 0:
+                    System.out.println("退出中...");
+                    return;
+                default:
+                    System.out.println("选择错误，返回主菜单！");
+                    cashierMenu();
+            }
+            cashierMenu();
+    }
+
+    /**
+     * 收银员操作菜单显示
+     */
+    public void cashierMenu() {
+        System.out.println("*****************************收银员操作台*****************************");
+        System.out.println("4、购买管理");
+        System.out.println("5、订单管理");
+        System.out.println("6、排行统计管理");
+        System.out.println("0、退出系统");
+        System.out.println("请选择：");
+        cashierSelect(scanner.nextInt());
+    }
+
 }

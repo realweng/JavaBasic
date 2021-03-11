@@ -23,6 +23,8 @@ public class Product {
     private Integer typeId;//商品种类id
     private Integer state;//商品状态 1.上架 2.下架 3.删除
 
+    private Integer countRows;//总条数
+
     @Override
     public String toString() {
         return  "商品id：" + id +
