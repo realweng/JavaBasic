@@ -3,8 +3,6 @@ package com.java.wxg.action;
 import com.java.wxg.bean.Product;
 import com.java.wxg.constants.MarketConstants;
 import com.java.wxg.service.ProductService;
-
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
@@ -43,7 +41,6 @@ public class ProductAction {
             System.out.println("2.修改商品信息");
             System.out.println("3.查询商品信息");
             System.out.println("4.删除商品信息");
-            System.out.println("5.分页显示商品信息");
             System.out.println("0.退出当前菜单");
             System.out.println("请选择：");
             int select = scanner.nextInt();
@@ -58,15 +55,11 @@ public class ProductAction {
                     break;
                 case 3:
                     System.out.println("您选择查询商品信息-->");
-                    queryProduct();
+                    limitPages();
                     break;
                 case 4:
                     System.out.println("您选择删除商品信息-->");
                     deleteProduct();
-                    break;
-                case 5:
-                    System.out.println("您选择分页显示商品信息-->");
-                    limitPages();
                     break;
                 case 0:
                     System.out.println("退出当前菜单中...");
@@ -232,9 +225,7 @@ public class ProductAction {
             return;
         }
         if (rows != 0) {
-            System.out.println("当前表中共有" + rows + "条数据");
-            System.out.println("请输入每页显示多少条数据");
-            int every = scanner.nextInt();
+            int every = 10;//每页显示10条数据
             if (every >= rows) {//如果输入条数大于数据总条数
                 System.out.println("--------------------------第1页/共1页-----------------------------");
                 queryProduct();

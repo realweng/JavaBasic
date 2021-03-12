@@ -28,12 +28,11 @@ public class PurchaseManagerAction {
     private OrderInfo orderInfo;//订单实例
     private List<OrderDetails> orderDetailsList;//订单详情实例
     private OrderDetails orderDetails;
-    private Map<Integer, Integer> shopList;//购物车，存放商品id及其对应的购物数量
+    private Map<Integer, Integer> shopMap;//购物车，存放商品id及其对应的购物数量<id,num>
     private Double price;//订单总金额
 
     /**
      * 构造器 数据初始化
-     *
      * @param scanner
      */
     public PurchaseManagerAction(Scanner scanner) {
@@ -46,14 +45,14 @@ public class PurchaseManagerAction {
         orderInfo = new OrderInfo();
         orderDetailsList = new ArrayList<>(10);
         price = 0.0;
-        shopList = new HashMap<>(16);
+        shopMap = new HashMap<>(16);
     }
 
     /**
      * 订单管理菜单
      * 输入商品ID-->显示商品详情-->
      * 输入购买数量-->输入下一个商品ID，如此反复。
-     * 直到按下“确定购买”按钮。
+     * 直到提交订单确认购买。
      */
     public void purchaseMenu() {
         System.out.println("1.购买商品");
@@ -70,8 +69,8 @@ public class PurchaseManagerAction {
             }
             boolean flag = true;
             while (flag) {
-                System.out.println("1.添加商品");
-                System.out.println("2.修改商品数量");
+                System.out.println("1.添加商品到购物车");
+                System.out.println("2.修改购物车商品数量");
                 System.out.println("3.删除购物车的商品");
                 System.out.println("4.展示购物车商品列表");
                 System.out.println("0.提交订单，开始结算");
@@ -79,7 +78,7 @@ public class PurchaseManagerAction {
                 switch (scanner.nextInt()) {
                     case 1:
                         System.out.println("您选择添加商品-->");
-                        addProductToList();
+                        addProductToMap();
                         break;
                     case 2:
                         System.out.println("您选择修改商品数量-->");
@@ -91,11 +90,11 @@ public class PurchaseManagerAction {
                         break;
                     case 4:
                         System.out.println("您选择展示购物车商品列表-->");
-                        showList();
+                        showShopMap();
                         break;
                     case 0:
                         System.out.println("您选择提交订单-->");
-                        commitList();
+                        commitShopMap();
                         flag = false;
                         break;
                     default:
@@ -128,7 +127,7 @@ public class PurchaseManagerAction {
                 System.out.println(vip.toString());
                 System.out.println("请输入密码：");
                 String pwd = scanner.next();
-                pwd = MD5Util.encryption(pwd);
+                pwd = MD5Util.encryption(pwd);//比对MD5
                 if (pwd.equals(vip.getVipPassword())) {
                     loginSuccess = true;
                 } else {
@@ -167,18 +166,22 @@ public class PurchaseManagerAction {
     /**
      * 添加商品到购物车
      */
-    public void addProductToList() {
+    public void addProductToMap() {
         System.out.println("请输入商品编号：");
         int id = scanner.nextInt();
-        if (shopList.containsKey(id)) {
+        //判断商品是否已经在购物车中
+        if (shopMap.containsKey(id)) {
             System.out.println("该商品已经添加到购物车了，如果想修改购买该商品的数量请返回上级菜单修改！");
             return;
         }
+        //通过id找到商品
         product = productService.findProductById(id);
+        //判断是否该id是否存在对应的商品，同时还要判断商品是否是在上架状态
         if (product != null && product.getState() == 1) {
             System.out.println(product.toString());
             System.out.println("请输入购买该商品的数量：");
             int num = scanner.nextInt();
+            //判断加入购物车的数量是否超过库存总量
             if (num > product.getNum()) {
                 System.out.println("商品数目选择大于库存上限！");
                 return;
@@ -186,7 +189,9 @@ public class PurchaseManagerAction {
                 System.out.println("商品数目输入不规范(>0)");
                 return;
             }
-            shopList.put(id, num);
+            //将商品加入购物车
+            shopMap.put(id, num);
+            //更改购物车中商品的总价格
             price = price + product.getPrice() * num * (product.getDiscount() / 10);
         } else {
             System.out.println("商品编号选择错误");
@@ -197,11 +202,11 @@ public class PurchaseManagerAction {
      * 修改商品数量
      */
     public void replaceProductNums() {
-        showList();//显示购物车已有的商品
-        if (shopList.size() != 0) {
+        showShopMap();//显示购物车已有的商品
+        if (shopMap.size() != 0) {
             System.out.println("请输入你要修改数量的商品id:");
             int id = scanner.nextInt();
-            if (shopList.containsKey(id)) {
+            if (shopMap.containsKey(id)) {
                 System.out.println("请输入修改后的商品数量：");
                 int num = scanner.nextInt();
                 if (num > product.getNum()) {
@@ -213,8 +218,8 @@ public class PurchaseManagerAction {
                 }
                 product = productService.findProductById(id);
                 //修改前，先把之前算的钱要减了，重新算
-                price = price - shopList.get(id) * product.getPrice() * (product.getDiscount() / 10);
-                shopList.put(id, num);
+                price = price - shopMap.get(id) * product.getPrice() * (product.getDiscount() / 10);
+                shopMap.put(id, num);
                 //重新算购物车的钱
                 price = price + product.getPrice() * num * (product.getDiscount() / 10);
                 System.out.println("修改完成！");
@@ -230,15 +235,17 @@ public class PurchaseManagerAction {
      * 删除购物车的商品
      */
     public void deleteProductFromList() {
-        showList();//显示购物车已有的商品
-        if (shopList.size() != 0) {
+        showShopMap();//显示购物车已有的商品
+        //判断购物车是否为空
+        if (shopMap.size() != 0) {
             System.out.println("请输入你要删除购物车中的商品id:");
             int id = scanner.nextInt();
-            if (shopList.containsKey(id)) {
+            if (shopMap.containsKey(id)) {
                 product = productService.findProductById(id);
                 //删除前，要把之前算上的钱要扣了
-                price = price - shopList.get(id) * product.getPrice() * (product.getDiscount() / 10);
-                shopList.remove(id);
+                price = price - shopMap.get(id) * product.getPrice() * (product.getDiscount() / 10);
+                shopMap.remove(id);
+                System.out.println("删除成功！");
             } else {
                 System.out.println("你所选择的商品不在购物车中！");
             }
@@ -250,14 +257,14 @@ public class PurchaseManagerAction {
     /**
      * 展示购物车商品列表
      */
-    public void showList() {
-        if (shopList.size() == 0) {
+    public void showShopMap() {
+        if (shopMap.size() == 0) {
             System.out.println("购物车为空！");
         } else {
             System.out.println("购物车中的商品信息如下：");
             System.out.println("------------------------------------------------------");
             System.out.println("商品编号\t\t\t商品名称\t\t商品单价\t\t购买数量");
-            shopList.forEach((id, num) -> {
+            shopMap.forEach((id, num) -> {
                 product = productService.findProductById(id);
                 System.out.println(id + "\t\t\t" + product.getPname() + "\t\t" + product.getPrice() + "\t\t" + num);
             });
@@ -270,12 +277,12 @@ public class PurchaseManagerAction {
     /**
      * 提交订单，开始结算
      */
-    public void commitList() {
-        if (shopList.size() == 0) {
+    public void commitShopMap() {
+        if (shopMap.size() == 0) {
             System.out.println("当前购物车为空！");
             return;
         }
-        int payType = 1;
+        int payType = 1;//支付方式 1 现金 2 会员卡余额
         if (vip.getId() != 1) {//判断是否是会员
             System.out.println("请选择支付方式：1：现金，2：卡内余额");
             payType = scanner.nextInt();
@@ -320,7 +327,7 @@ public class PurchaseManagerAction {
             orderInfoId = lastOrderInfo.get(0).getId() + 1;//当前订单orderInfo的编号
         }
         int finalOrderInfoId = orderInfoId;
-        shopList.forEach((id, num) -> {
+        shopMap.forEach((id, num) -> {
             orderDetails = new OrderDetails();//注意：在构造中初始化不重新new每次都是加的最后一个数据
             orderDetails.setOrderId(finalOrderInfoId);//获得订单id
             orderDetails.setNum(num);//获得当前订购商品是数目
@@ -332,6 +339,6 @@ public class PurchaseManagerAction {
         });
 
         //提交订单信息
-        purchaseManagerService.updateOrder(shopList, orderInfo, orderDetailsList, vip);
+        purchaseManagerService.updateOrder(shopMap, orderInfo, orderDetailsList, vip);
     }
 }

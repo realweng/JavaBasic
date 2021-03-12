@@ -64,8 +64,8 @@ public class JDBCUtil {
     }
 
     /**
-     * 传入连接对象参数的更新数据操作
-     * @param con
+     * 重载update()方法，传入连接的更新数据方法
+     * @param con 将连接当形参传进来，确保事务中的 update 操作都是在一个连接里面
      * @param sql
      * @param params
      * @return
@@ -80,7 +80,7 @@ public class JDBCUtil {
             } catch (SQLException e) {
                 e.printStackTrace();
             }
-        }
+        }//在这里不能关闭连接，连接断开就不能保证事务中的操作在一个连接中
         return i;
     }
 

@@ -23,9 +23,9 @@ public class RankStatisticsDaoImpl implements RankStatisticsDao {
      */
     @Override
     public List<RankVO> rankByMonth(Integer month) {
-        String sql = "select od.id,month(oi.orderDate) as 'month',p.pname,count(od.num) as 'count',pt.typeName,oi.orderDate from orderinfo oi,orderdetails od,product p,vip v,producttype pt \n" +
+        String sql = "select od.id,month(oi.orderDate) as 'month',p.pname,sum(DISTINCT od.num) as 'count',pt.typeName,oi.orderDate from orderinfo oi,orderdetails od,product p,vip v,producttype pt \n" +
                 "where oi.id = od.orderId and od.productId = p.id and pt.id = p.typeId and month(oi.orderDate) = ?\n" +
-                "GROUP BY p.id ORDER BY count(od.num) desc limit 0,10";
+                "GROUP BY p.id ORDER BY sum(DISTINCT od.num) desc limit 0,10";
         return JDBCUtil.query(sql,RankVO.class,month);
     }
 
@@ -37,9 +37,9 @@ public class RankStatisticsDaoImpl implements RankStatisticsDao {
      */
     @Override
     public List<RankVO> rankByProductType(Integer productTypeId) {
-        String sql = "select od.id,month(oi.orderDate) as 'month',p.pname,count(od.num) as 'count',pt.typeName,oi.orderDate from orderinfo oi,orderdetails od,product p,vip v,producttype pt \n" +
+        String sql = "select od.id,month(oi.orderDate) as 'month',p.pname,sum(DISTINCT od.num) as 'count',pt.typeName,oi.orderDate from orderinfo oi,orderdetails od,product p,vip v,producttype pt \n" +
                 "where oi.id = od.orderId and od.productId = p.id and pt.id = p.typeId and pt.id = ?\n" +
-                "GROUP BY p.id ORDER BY count(od.num) desc limit 0,10";
+                "GROUP BY p.id ORDER BY sum(DISTINCT od.num) desc limit 0,10";
         return JDBCUtil.query(sql,RankVO.class,productTypeId);
     }
 

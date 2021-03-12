@@ -17,9 +17,9 @@ import java.util.Map;
 public interface PurchaseManagerDao {
     /**
      * 更新购买订单信息
-     * @param map 商品id及对应商品被购买的数量
+     * @param map 商品id及对应商品被购买的数量<id,num>
      * @param orderInfo 订单信息
-     * @param orderDetailsList 订单详细信息
+     * @param orderDetailsList 订单详细信息集合
      * @param vip 会员信息
      * @return
      */

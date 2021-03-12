@@ -84,10 +84,13 @@ public class ProductTypeAction {
             flagParent = 1;
         }
         List<Integer> integerList = queryParent();//查询所有父级商品
-        System.out.println("请从以上商品类型中的id作为父级id:");
+        System.out.println("请从以上商品类型中的id作为父级id(输入0表示没有父级)：");
         int parentId = scanner.nextInt();
         int index = integerList.indexOf(parentId);//查询输入是否正确
-        if (index >= 0) {
+        //如果输入0 表示没有父级
+        if(parentId == 0){
+            productType.setParentId(parentId);
+        }else if(index >= 0) {
             productType.setParentId(parentId);
         } else {
             System.out.println("父级编号选择错误");
@@ -200,10 +203,10 @@ public class ProductTypeAction {
             System.out.println("是否修改父级id:(y/n)");
             if (scanner.next().equals("y")) {
                 List<Integer> integerList = queryParent(); //查询所有父级商品类型
-                System.out.println("请从以上商品类型中的id作为父级id:");
+                System.out.println("请从以上商品类型中的id作为父级id:(输入0表示当前类型改为没有父级)");
                 int parentId = scanner.nextInt();
                 int index = integerList.indexOf(parentId);//查询输入是否正确
-                if (index >= 0) {
+                if (index >= 0 || parentId ==0 ) {
                     productType.setParentId(parentId);
                 } else {
                     System.out.println("父级编号选择错误");
@@ -222,7 +225,7 @@ public class ProductTypeAction {
                 //这样是否是父类的标记就改变了
                 int flagParent = Math.abs(productType.getId() - 1);//取绝对值，状态翻转
                 productType.setFlagParent(flagParent);
-                System.out.println("自动修改完成！");
+                System.out.println("父类标记自动修改完成！");
             }
             productType.setUpdateTime(new Date());
             //执行修改
