@@ -138,6 +138,7 @@ public class ProductAction {
                 if (index > 0) {
                     product.setTypeId(typeId);
                 } else {
+                    product.setTypeId(product.getTypeId());
                     System.out.println("商品类型选择错误！");
                     return;
                 }

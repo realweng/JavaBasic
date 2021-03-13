@@ -178,7 +178,7 @@ public class PurchaseManagerAction {
         product = productService.findProductById(id);
         //判断是否该id是否存在对应的商品，同时还要判断商品是否是在上架状态
         if (product != null && product.getState() == 1) {
-            System.out.println(product.toString());
+            System.out.println(product.toString());//显示商品基本信息
             System.out.println("请输入购买该商品的数量：");
             int num = scanner.nextInt();
             //判断加入购物车的数量是否超过库存总量

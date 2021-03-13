@@ -52,7 +52,7 @@ public class ProductTypeDaoImpl implements ProductTypeDao {
     @Override
     public List<ProductType> queryProductType() {
         List<ProductType> list = new ArrayList<>(10);
-        String sql = "select * from producttype";
+        String sql = "select a.id,b.typeName as 'parentName',a.typeName,b.id as 'typeId',a.flagParent,a.createTime,a.updateTime from producttype a LEFT JOIN producttype b on a.parentid = b.id";
         list = JDBCUtil.query(sql, ProductType.class);
         return list;
     }
@@ -80,7 +80,7 @@ public class ProductTypeDaoImpl implements ProductTypeDao {
     @Override
     public ProductType findProductTypeById(Integer id) {
         ProductType productType = new ProductType();
-        String sql = "select * from producttype where id = ?";
+        String sql = "select a.id,b.typeName as 'parentName',a.parentId,a.typeName,a.flagParent,a.createTime,a.updateTime from producttype a LEFT JOIN producttype b on a.parentid = b.id where a.id = ?";
         productType = JDBCUtil.getResultById(sql,ProductType.class,id);
         return productType;
     }

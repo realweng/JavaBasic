@@ -172,6 +172,15 @@ public class VIPAction {
     public void deleteVIP() {
         System.out.println("请输入要删除会员对应的编号：");
         int id = scanner.nextInt();
+        vip = vipService.findVipById(id);
+        if(vip.getMoney()!=0){
+            System.out.println("会员还有余额，禁止删除！");
+            return;
+        }
+        if(vip.getVipName().equals("未办理会员")){
+            System.out.println("非会员账号，禁止删除！");
+            return;
+        }
         int i = vipService.deleteVIP(id);
         if (i > 0) {
             System.out.println("删除成功！");

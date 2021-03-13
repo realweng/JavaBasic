@@ -37,7 +37,7 @@ public class ProductTypeAction {
      */
     public void typeMenu() {
         boolean flag = true;
-        while (flag){
+        while (flag) {
             System.out.println("1.添加商品类型信息");
             System.out.println("2.修改商品类型信息");
             System.out.println("3.查询商品类型信息");
@@ -80,7 +80,7 @@ public class ProductTypeAction {
         productType.setTypeName(scanner.next());
         System.out.println("是否为父级：(是/否？)");
         int flagParent = 0;//默认不是父级
-        if(scanner.next().equals(MarketConstants.FLAG_PARENT_ONE)){
+        if (scanner.next().equals(MarketConstants.FLAG_PARENT_ONE)) {
             flagParent = 1;
         }
         List<Integer> integerList = queryParent();//查询所有父级商品
@@ -88,9 +88,9 @@ public class ProductTypeAction {
         int parentId = scanner.nextInt();
         int index = integerList.indexOf(parentId);//查询输入是否正确
         //如果输入0 表示没有父级
-        if(parentId == 0){
+        if (parentId == 0) {
             productType.setParentId(parentId);
-        }else if(index >= 0) {
+        } else if (index >= 0) {
             productType.setParentId(parentId);
         } else {
             System.out.println("父级编号选择错误");
@@ -138,6 +138,7 @@ public class ProductTypeAction {
 
     /**
      * 查询商品类型的id和名字
+     *
      * @return 返回商品类型编号的list
      */
     public List<Integer> queryProductTypeIdAndName() {
@@ -183,6 +184,11 @@ public class ProductTypeAction {
     public void deleteProductType() {
         System.out.println("请输入要删除商品类型的id:");
         int id = scanner.nextInt();
+        productType = productTypeService.findProductTypeById(id);
+        if(productType.getFlagParent() == 1){
+            System.out.println("该商品类型为父级，删除会影响商品类型子类，不允许删除");
+            return;
+        }
         int i = productTypeService.deleteProductType(id);
         if (i > 0) {
             System.out.println("删除成功");
@@ -198,7 +204,7 @@ public class ProductTypeAction {
         System.out.println("请输入要修改的商品类型id");
         int id = scanner.nextInt();
         productType = productTypeService.findProductTypeById(id);//获取查询到的要修改商品种类的对象
-        if (productType!= null) {
+        if (productType != null) {
             System.out.println(productType.toString());
             System.out.println("是否修改父级id:(y/n)");
             if (scanner.next().equals("y")) {
@@ -206,33 +212,27 @@ public class ProductTypeAction {
                 System.out.println("请从以上商品类型中的id作为父级id:(输入0表示当前类型改为没有父级)");
                 int parentId = scanner.nextInt();
                 int index = integerList.indexOf(parentId);//查询输入是否正确
-                if (index >= 0 || parentId ==0 ) {
+                if (index >= 0 || parentId == 0) {
                     productType.setParentId(parentId);
+                } else if (parentId == productType.getParentId()) {
+                    System.out.println("不能设置自己为父类！");
                 } else {
                     System.out.println("父级编号选择错误");
                     return;
                 }
             }
             System.out.println("是否修改商品类型名字：(y/n)");
-            if(scanner.next().equals("y")){
+            if (scanner.next().equals("y")) {
                 System.out.println("请输入修改后商品类型名字：");
                 productType.setTypeName(scanner.next());
             }
-            System.out.println("是否修改商品父类标记：(y/n)");
-            if(scanner.next().equals("y")){
-                // 0 - 1 = -1 Math.abs(-1) = 1
-                // 1 - 1 = 0 Math.abs(0) = 0
-                //这样是否是父类的标记就改变了
-                int flagParent = Math.abs(productType.getId() - 1);//取绝对值，状态翻转
-                productType.setFlagParent(flagParent);
-                System.out.println("父类标记自动修改完成！");
-            }
+            
             productType.setUpdateTime(new Date());
             //执行修改
             int i = productTypeService.updateProductType(productType);
-            if(i > 0){
+            if (i > 0) {
                 System.out.println("修改成功！");
-            }else
+            } else
                 System.out.println("修改失败！");
         } else {
             System.out.println("不存在该商品类型！");

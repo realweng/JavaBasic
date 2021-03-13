@@ -77,7 +77,7 @@ public class ProductDaoImpl implements ProductDao {
      */
     @Override
     public Product findProductById(Integer id) {
-        String sql = "select * from product where id = ?";
+        String sql = "select p.id,p.pname,p.price,p.num,p.discount,pt.typeName,p.typeId,p.state from product p,producttype pt where p.typeId = pt.id and p.id = ?";
         return JDBCUtil.getResultById(sql,Product.class,id);
     }
 
@@ -100,7 +100,7 @@ public class ProductDaoImpl implements ProductDao {
      */
     @Override
     public List<Product> limitPage(int arg1, int arg2) {
-        String sql = "select * from product limit ?,?";
+        String sql = "select p.id,p.pname,p.price,p.num,p.discount,pt.typeName,p.typeId,p.state from product p,producttype pt where p.typeId = pt.id limit ?,?";
         return JDBCUtil.query(sql,Product.class,arg1,arg2);
     }
 }
