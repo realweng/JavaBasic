@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>表单</title>
+	</head>
+	<body>
+		<!-- 
+			表单标签				提交数据				确定提交的数据范围
+				表单提交之后的地址：http://127.0.0.1:8848/1.HTML/a.html?userName=asd&pwd=
+					?之后的内容是需要提交到服务器的数据信息  key=value&key=value&key=value
+				action:提交数据的地址
+				method:提交方式    get、post
+					get：url中的会显示提交的数据     安全性低  提交的数据大小(由浏览器决定)有限制  默认值
+					post：url中的不会显示提交的数据  安全性高  没有限制（文件上传）
+			表单元素
+				<input type="表单元素的类型" id="标签的唯一标识，在一个HTML页面中不能有两个标签ID值相同" name="名称，提交数据时的key，" value="值" placeholder="提示信息" size="尺寸" maxlength="最多可以填入多少个字符" readonly="只读" required="验证" />
+				type:
+					text:文本输入框
+					password:密码输入框
+		 -->
+		<form action="1.文本标签.html" method="post">
+			账号：<input type="text" name="userName" placeholder="请输入账号" maxlength="6" required="required" /><br />
+			密码：<input type="password" name="pwd" placeholder="请输入密码" maxlength="6" />
+			<br />
+			<input type="submit" value="提交" />
+		</form>
+	</body>
+</html>

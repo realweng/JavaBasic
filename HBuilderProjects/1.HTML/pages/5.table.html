@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>table:需要重点掌握</title>
+	</head>
+	<body>
+		<!-- 
+			表格：（1）用于数据的展示  员工信息 学生信息等等
+				 （2）完成页面中的简单布局（登录、注册）
+			表格的基本结构	
+		 -->
+		<!-- table是表格 -->
+		<table width="100px" height="100px" border="1">
+			<!-- tr是行 -->
+			<tr>
+				<!-- td:单元格，是table中的最小单位，在table中显示的页面内容放在td中 -->
+				<td>table</td>
+				<td>table2</td>
+			</tr>
+		</table>
+		<br />
+		<!-- 
+		 展示学生信息（3个学生的姓名、性别、年龄） 
+			width:宽度
+			border:边框
+			bgcolor:背景颜色
+			bodercolor：边框颜色
+		 -->
+		<table width="300px" border="1px" bgcolor="whitesmoke" bordercolor="salmon">
+			<tr height="100">
+				<td width="120">姓名</td>
+				<td width="90">性别</td>
+				<td width="90">年龄</td>
+			</tr>
+			<tr>
+				<td>111</td>
+				<td>男</td>
+				<td>21</td>
+			</tr>
+			<tr>
+				<td>222</td>
+				<td>男</td>
+				<td>24</td>
+			</tr>
+			<tr>
+				<td>333</td>
+				<td>男</td>
+				<td>23</td>
+			</tr>
+		</table>
+		<br />
+
+		<!-- 
+		table的结构
+		 -->
+		<table width="300px" align="center" border="1px" bgcolor="whitesmoke" bordercolor="salmon">
+			<thead>
+				<tr>
+					<th>姓名</th>
+					<th>性别</th>
+					<th>年龄</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr>
+					<td>111</td>
+					<td>男</td>
+					<td>21</td>
+				</tr>
+				<tr>
+					<td>222</td>
+					<td>男</td>
+					<td>22</td>
+				</tr>
+				<tr>
+					<td>333</td>
+					<td>男</td>
+					<td>23</td>
+				</tr>
+			</tbody>
+			<tfoot>
+				<tr>
+					<td colspan="3" align="center">
+					<a href="#">上一页</a>
+					<a href="#">下一页</a>
+					<a href="#">首页</a>
+					<a href="#">尾页</a>
+					</td>
+				</tr>
+			</tfoot>
+		</table>
+		<br />
+		<!-- 
+		表格的合并
+		colspan:合并列
+		rowspan:合并行
+		cellpaddin:单元格边框到内容的距离
+		cellspacing:单元格边框到边框的距离
+		 -->
+		 
+		 <table width="300px" border="1px" bgcolor="antiquewhite" bordercolor="salmon" cellpadding="10px" cellspacing="0px">
+			 <tr>
+				 <td colspan="2">1 2</td>
+				 <td>3</td>
+			 </tr>
+			 <tr>
+				 <td rowspan="2">4 7</td>
+				 <td>5</td>
+				 <td>6</td>
+			 </tr>
+			 <tr>
+				 <td>8</td>
+				 <td>9</td>
+			 </tr>
+		 </table>
+	</body>
+</html>

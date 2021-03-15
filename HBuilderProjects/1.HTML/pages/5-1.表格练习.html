@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>表格合并练习</title>
+	</head>
+	<body>
+		<table border="1px" cellspacing="0px" cellpadding="10px">
+			<tr>
+				<td colspan="2">1 2</td>
+				<td rowspan="2">3 6</td>
+			</tr>
+			<tr>
+				<td rowspan="2">4 7</td>
+				<td>5</td>
+			</tr>
+			<tr>
+				<td colspan="2">8 9</td>
+			</tr>
+		</table>
+		<br />
+		<!-- 薪资调查表 -->
+		<h1>薪资调查表</h1>
+		<table width="300px" align="left" border="1px" bgcolor="white" bordercolor="black">
+			<thead>
+				<tr>
+					<th>姓名</th>
+					<th>基本工资</th>
+					<th>绩效</th>
+					<th>保险个税</th>
+					<th>实发工资</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr>
+					<td>张三</td>
+					<td>2000</td>
+					<td>2800</td>
+					<td>320.30</td>
+					<td>4479.70</td>
+				</tr>
+				<tr>
+					<td>李四</td>
+					<td>2000</td>
+					<td>1800</td>
+					<td>320.3</td>
+					<td>3479.70</td>
+				</tr>
+				<tr>
+					<td>王五</td>
+					<td>2000</td>
+					<td>3800</td>
+					<td>320.3</td>
+					<td>5479.70</td>
+				</tr>
+				<tr>
+					<td>总实发工资：</td>
+					<td colspan="4">13439.1</td>
+				</tr>
+			</tbody>
+		</table>
+	</body>
+</html>
