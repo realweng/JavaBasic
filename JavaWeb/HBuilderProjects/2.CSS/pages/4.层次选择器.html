@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+		<style>
+			/* 层次选择：通过标签的嵌套关系，对标签设置样式（基于基本选择器）。 */
+			/* 后代选择器：body中所有的p标签(子标签、后代标签) */
+			/* 
+				父级元素 后代元素{
+					color: red;
+				}
+			 */
+			/* body p {
+				color: red;
+			} */
+
+			/* 
+				子选择器：body中的p标签(子标签)
+				父级元素>子元素{					
+				}
+			 */
+			/* body>p {
+				color: red;
+			} */
+
+			/*
+				相邻选择器：id=active之后的p标签
+				基本选择器+基本选择器{					
+				}
+			 */
+			/* #active+p {
+				color: red;
+			} */
+
+
+			/*
+				兄弟选择器：id=active之后所有的p标签
+				基本选择器~基本选择器{					
+				}
+			 */
+			#active~p{
+				color: red;				
+			}
+		</style>
+	</head>
+	<body>
+		<h1>标题</h1>
+		<p>1</p>
+		<p id="active">2</p>
+		<p>3</p>
+		<p>4</p>
+		<ul>
+			<li>
+				asdf
+				<p>5.1</p>
+			</li>
+			<li>
+				<p>5.2</p>
+			</li>
+			<li>
+				<p>5.3</p>
+			</li>
+		</ul>
+	</body>
+</html>

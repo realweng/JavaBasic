@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>超链接伪类</title>
+		<style>
+			a:link {
+				color: sandybrown;
+				text-decoration: none;
+			}
+
+			a:visited {
+				color: red;
+			}
+
+			a:hover {
+				color: salmon;
+				text-decoration: underline;
+			}
+
+			a:active {
+				color: blueviolet;
+				text-decoration: underline;
+			}
+		</style>
+	</head>
+	<body>
+		<!-- 
+		如果需要加载4个伪类，注意顺序： :link => :visited =>:hover =>:active
+		 :link     未访问的超链接的样式
+		 :visited  访问过的超链接的样式
+		 :hover    鼠标悬停超链接上的样式
+		 :active   未释放
+		-->
+		<a href="#"><img src="img/img1.png" /></a><br>
+		<a href="#">
+			菇凉
+		</a><br>
+		<a href="#">
+			作者
+		</a><br>
+		<span>￥15</span>
+	</body>
+</html>

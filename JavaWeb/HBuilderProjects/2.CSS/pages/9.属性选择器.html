@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+		<style type="text/css">
+			.demo a {
+				/* 向左浮动 */
+				float: left;
+				/* 将标签设置为块级元素 */
+				display: block;
+				height: 20px;
+				width: 50px;
+				/* 设置弧度 */
+				border-radius: 10px;
+				/* 对其方式 */
+				text-align: center;
+				/*背景颜色*/
+				background: #aac;
+				/*字体颜色*/
+				color: blue;
+				/*字体*/
+				font: bold 20px Arial;
+				/*右边框*/
+				margin-right: 5px;
+				/*去下划线*/
+				text-decoration: none;
+				/* 元素边框到元素边框的距离 */
+				margin: 5px;
+				/*边框到内容的距离*/
+				padding: 10px;
+			}
+
+			.demo a {
+				/* 向左浮动 */
+				float: left;
+				/* 将标签设置为块级元素 */
+				display: block;
+				height: 20px;
+				width: 50px;
+				/* 设置弧度 */
+				border-radius: 10px;
+				/* 对其方式 */
+				text-align: center;
+				/*背景颜色*/
+				background: #aac;
+				/*字体颜色*/
+				color: blue;
+				/*字体*/
+				font: bold 20px Arial;
+				/*右边框*/
+				margin-right: 5px;
+				/*去下划线*/
+				text-decoration: none;
+				/* 元素边框到元素边框的距离 */
+				margin: 5px;
+				/*边框到内容的距离*/
+				padding: 10px;
+			}
+
+			/* 
+				通过标签的属性来设置标签之上的样式
+				基本选择器[]{	
+				}
+			*/
+			/* 有设置title的a，将字体颜色设位红色 */
+			/* a[title] {
+				color: red;
+			}
+			a[id] {
+				color: red;
+			} */
+
+
+			/* id=first的a，将字体颜色设位红色 */
+			/* a[id=first] {
+				color: red;
+			} */
+			/* a[href=efc] {
+				color: red;
+			} */
+
+			/* href以sites开始的a，将字体颜色设位红色 */
+			/* a[href^=sites] {
+				color: red;
+			} */
+
+			/* href以html结束的a，将字体颜色设位红色 */
+			/* a[href$=pdf] {
+				color: red;
+			} */
+			
+			
+			/* href有file结束的a，将字体颜色设位红色 */
+			a[href*=c] {
+				color: red;
+			}
+		</style>
+	</head>
+	<body>
+		<p class="demo">
+			<a href="http://www.baidu.com" class="links item first" id="first">1</a>
+			<a href="" class="links active item" title="test website" target="_blank">2</a>
+			<a href="sites/file/test.html" class="links item">3</a>
+			<a href="sites/file/test.png" class="links item"> 4</a>
+			<a href="sites/file/image.jpg" class="links item">5</a>
+			<a href="efc" class="links item" title="website link">6</a>
+			<a href="/a.pdf" class="links item">7</a>
+			<a href="/abc.pdf" class="links item">8</a>
+			<a href="abcdef.doc" class="links item">9</a>
+			<a href="abd.doc" class="linksitem last" id="last">10</a>
+		</p>
+	</body>
+</html>

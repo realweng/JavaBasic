@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+		<!-- 内部样式表：页面中的标签都有样式，可以使用内部样式表 -->
+		<style type="text/css">
+			/* 
+				选择器{
+					样式属性：值;
+					样式属性：值;
+					样式属性：值;
+				}
+			*/
+			/* 
+			标签选择器:通过标签名给页面的演示加载样式
+			*/
+			a {
+				color: red;
+				text-decoration: none;
+			}
+
+			/* 
+				class选择器：同标签上的class属性加载样式给标签
+				.名称{
+					样式属性：值;
+					样式属性：值;					
+				}
+			*/
+			.title {
+				color: salmon;
+			}
+
+			/* 
+			 id选择器：通过标签上的ID属性给标签设置样式.在同一个页面中不能有两个的标签的ID相同
+			 #名称{
+					样式属性：值;
+					样式属性：值;		
+			 }
+			 */
+			#moveName {
+				color: red;
+			}
+
+			/* 
+			范围：标签选择器>class选择器>id选择器
+			*/
+
+
+			h1 {
+				color: blue;
+			}
+
+			/* 
+			 优先级：id选择器 > class > 标签选择器
+			 */
+		</style>
+
+	</head>
+	<body>
+		<div style="width: 600px; border: 1px salmon solid;">
+			<!-- 加载3个样式： h1   title  moveName  颜色是moveName设置的红色 -->
+			<!-- 加载3个样式： h1   title  颜色是title设置的salmon -->
+			<h1 class="title">
+				司藤
+			</h1>
+			<h4 class="title">
+				演员：景田 张彬彬
+			</h4>
+			<p class="title">
+				青年设计师秦放在寻根途中不小心触动残留机关，与沉睡数十年的司藤相遇而起。
+				记忆混乱的司藤在强迫秦放帮自己寻找身世真相的过程中，逐渐感受到了来自秦放无私的关爱与帮助，发现了这个世界的新奇与美好。
+				但因爱成痴的白英却在两人共同成长的道路上设置了不少障碍，悬念丛生。
+			</p>
+			<a href="#">默认值</a>
+			<a href="#">无下划线</a>
+			<a href="#">上划线</a>
+			<a href="#">上划线</a>
+			<br />
+			<br />
+		</div>
+	</body>
+</html>

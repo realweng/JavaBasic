@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+		<style type="text/css">
+			div {
+				margin: 10px;
+				padding: 7px;
+			}
+
+			#father {
+				border: 1px saddlebrown solid;
+				/* 解决父级塌陷1：给父级元素设置高度 */
+				/* height: 255px; */
+			}
+
+			.layer01 {
+				border: 1px seagreen solid;
+				/* float:让标签脱离原来的文档流。置于上层 */
+				float: left;
+			}
+
+			.layer02 {
+				border: 1px slategray solid;
+				float: left;
+			}
+
+			.layer03 {
+				border: 1px pink solid;
+				float: left;
+			}
+
+			.layer04 {
+				border: 1px salmon solid;
+				float: right;
+			}
+		</style>
+	</head>
+	<body>
+		<div id="father">
+			<div class="layer01"><img src="../img/photo-1.jpg" /></div>
+			<div class="layer02"><img src="../img/photo-2.jpg" /></div>
+			<div class="layer03"><img src="../img/photo-3.jpg" /></div>
+			<div class="layer04">
+				HTML称为超文本标记语言，是一种标识性的语言。
+				它包括一系列标签．通过这些标签可以将网络上的文档格式统一，
+				使分散的Internet资源连接为一个逻辑整体。
+				HTML文本是由HTML命令组成的描述性文本，HTML命令可以说明文字，
+				图形、动画、声音、表格、链接等
+			</div>
+			<!--  解决父级塌陷2：clear 清空标签附近的浮动效果  -->
+			<!-- <div style="clear: left;"></div> -->
+			<div style="clear: both;"></div>
+		</div>
+	</body>
+</html>
