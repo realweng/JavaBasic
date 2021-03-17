@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>js中的变量</title>
+		<script type="text/javascript">
+			// js中变量：存储数据。
+			// js中的变量在定义时不需要确定变量的数据类型，通过变量的值决定的变量的数据类型，所有变量的类型=> var
+			// js是一个弱类型语言
+			// java强类型语言
+
+			// 1.定义变量
+			var name; // var 变量名;
+			// 2.赋值
+			name = "小白";
+			// 3.取值
+			document.write(name);
+
+			// 初始化变量
+			var age = 18;
+			var sex = '男';
+			var gao = 182.2;
+			var flag = false;
+
+			console.log("name:" + name + ",age：" + age + ",sex:" + sex + ",gao:" + gao + ",flag:" + flag);
+			// js中的数据类型：string、number、boolean
+			var a = null;
+			var array = new Array();
+			var b;
+
+			// 获取数据类型：typeof
+			console.log("name=>" + typeof(name)); // string
+			console.log("age=>" + typeof(age)); // number:数字
+			console.log("sex=>" + typeof(sex)); // string
+			console.log("gao=>" + typeof(gao)); // number
+			console.log("flag=>" + typeof(flag)); // boolean
+			console.log("a=>" + typeof(a)); // object
+			console.log("array=>" + typeof(array)); // object
+			console.log("b=>" + typeof(b)); // undefined,变量未定义（没有赋值）
+		</script>
+	</head>
+	<body>
+
+	</body>
+</html>
