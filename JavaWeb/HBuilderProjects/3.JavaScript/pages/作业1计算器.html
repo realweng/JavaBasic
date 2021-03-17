@@ -13,30 +13,25 @@
 				width: 60px;
 				height: 60px;
 			}
-
-			.btn1 {
-				width: 120px;
-				height: 60px;
-			}
 		</style>
 		<script type="text/javascript">
 			function calculate(val) {
 				var textVal = document.getElementById("show");
-				if(val==="="){
-					alert("计算结果为：" + eval(textVal.value));
-				}else{
+				if (val === "=") {
+					textVal.value = "计算结果为：" + eval(textVal.value);
+				} else if (val === "C") {//清除
+					textVal.value = "";
+				} else {
 					textVal.value = textVal.value + val;
 				}
 			}
-			
-			
 		</script>
 	</head>
 	<body>
 		<table>
 			<tr>
 				<td colspan="4">
-					<input type="text" id="show" value=""/>
+					<input type="text" id="show" value="" />
 				</td>
 			</tr>
 			<tr>
@@ -82,8 +77,10 @@
 				</td>
 			</tr>
 			<tr>
-				<td colspan="2">
-					<input onclick="calculate('0')" type="button" value="0" class="btn1" />
+				<td>
+					<input onclick="calculate('0')" type="button" value="0" class="btn" />
+				</td>
+				<td><input onclick="calculate('C')" type="button" value="C" class="btn" />
 				</td>
 				<td>
 					<input onclick="calculate('=')" type="button" value="=" class="btn" />
