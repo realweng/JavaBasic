@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+		<style type="text/css">
+			input[type='text'] {
+				height: 20px;
+				width: 200px;
+			}
+
+			.btn {
+				width: 60px;
+				height: 60px;
+			}
+
+			.btn1 {
+				width: 120px;
+				height: 60px;
+			}
+		</style>
+		<script type="text/javascript">
+			function calculate(val) {
+				var textVal = document.getElementById("show");
+				if(val==="="){
+					alert("计算结果为：" + eval(textVal.value));
+				}else{
+					textVal.value = textVal.value + val;
+				}
+			}
+			
+			
+		</script>
+	</head>
+	<body>
+		<table>
+			<tr>
+				<td colspan="4">
+					<input type="text" id="show" value=""/>
+				</td>
+			</tr>
+			<tr>
+				<td>
+					<input onclick="calculate('1')" type="button" value="1" class="btn" />
+				</td>
+				<td>
+					<input onclick="calculate('2')" type="button" value="2" class="btn" />
+				</td>
+				<td>
+					<input onclick="calculate('3')" type="button" value="3" class="btn" />
+				</td>
+				<td>
+					<input onclick="calculate('+')" type="button" value="+" class="btn" />
+				</td>
+			</tr>
+			<tr>
+				<td>
+					<input onclick="calculate('4')" type="button" value="4" class="btn" />
+				</td>
+				<td>
+					<input onclick="calculate('5')" type="button" value="5" class="btn" />
+				</td>
+				<td>
+					<input onclick="calculate('6')" type="button" value="6" class="btn" />
+				</td>
+				<td>
+					<input onclick="calculate('-')" type="button" value="-" class="btn" />
+				</td>
+			</tr>
+			<tr>
+				<td>
+					<input onclick="calculate('7')" type="button" value="7" class="btn" />
+				</td>
+				<td>
+					<input onclick="calculate('8')" type="button" value="8" class="btn" />
+				</td>
+				<td>
+					<input onclick="calculate('9')" type="button" value="9" class="btn" />
+				</td>
+				<td>
+					<input onclick="calculate('/')" type="button" value="/" class="btn" />
+				</td>
+			</tr>
+			<tr>
+				<td colspan="2">
+					<input onclick="calculate('0')" type="button" value="0" class="btn1" />
+				</td>
+				<td>
+					<input onclick="calculate('=')" type="button" value="=" class="btn" />
+				</td>
+				<td>
+					<input onclick="calculate('*')" type="button" value="*" class="btn" />
+				</td>
+			</tr>
+		</table>
+
+	</body>
+</html>

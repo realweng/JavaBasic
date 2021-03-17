@@ -1,0 +1,204 @@
+<!DOCTYPE>
+<html lang="zh">
+	<head>
+		<meta http-equiv="content-type" content="text/html; charset=utf-8">
+		<meta name="viewport" content="width=device-width,initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+		<title>简易计算器</title>
+		<style>
+			#calculator {
+				width: 290px;
+				height: auto;
+				margin: 100px auto;
+				padding: 20px 20px 9px;
+				background: linear-gradient(#8094f1, #6a82f8);
+				border-radius: 8px;
+				box-shadow: 0 4px #001fec, 0 10px 15px rgba(0, 0, 0, .2);
+			}
+
+			.keys {
+				display: flex;
+				justify-content: space-between;
+				flex-wrap: wrap;
+			}
+
+			.screen {
+				margin-bottom: 11px;
+				height: 40px;
+				padding: 0 10px;
+				background: rgba(0, 0, 0, .2);
+				border-radius: 3px;
+				box-shadow: inset 0 4px rgba(0, 0, 0, .2);
+				font-size: 17px;
+				line-height: 40px;
+				color: #fff;
+				text-shadow: 1px 1px 2px rgba(0, 0, 0, .2);
+				text-align: right;
+				letter-spacing: 1px;
+				box-sizing: border-box;
+			}
+
+			.keys span {
+				cursor: pointer;
+				width: 66px;
+				height: 36px;
+				background: #fff;
+				border-radius: 3px;
+				box-shadow: 0 4px rgba(0, 0, 0, .2);
+				margin-bottom: 11px;
+				color: #888;
+				line-height: 36px;
+				text-align: center;
+				user-select: none;
+				transition: all .2s ease;
+				font-weight: bold;
+			}
+
+			.keys span.clear {
+				background: #ffb784;
+				box-shadow: 0 4px #fe8f3e;
+				color: #fff;
+			}
+
+
+
+			.keys span.operator {
+				background: #f4e1dd;
+			}
+
+			.keys span.eval {
+				background: #aaff80;
+				box-shadow: 0 4px #64b53b;
+				color: rgba(0, 0, 0, .5);
+				width: 141px;
+			}
+
+			.keys span.back {
+				background: #f1ff98;
+				box-shadow: 0 4px #9da858;
+				color: rgba(0, 0, 0, .5);
+			}
+		</style>
+	</head>
+	<body>
+		<div id="calculator">
+			<div class="screen"></div>
+			<div class="keys">
+				<span class="clear" onclick="handleClicl('C')">C</span>
+				<span class="back" onclick="handleClicl('←')">←</span>
+				<span class="operator" onclick="handleClicl('%')">%</span>
+				<span class="operator" onclick="handleClicl('÷')">÷</span>
+				<span onclick="handleClicl('7')">7</span>
+				<span onclick="handleClicl('8')">8</span>
+				<span onclick="handleClicl('9')">9</span>
+				<span class="operator" onclick="handleClicl('x')">x</span>
+				<span onclick="handleClicl('4')">4</span>
+				<span onclick="handleClicl('5')">5</span>
+				<span onclick="handleClicl('6')">6</span>
+				<span class="operator" onclick="handleClicl('-')">-</span>
+				<span onclick="handleClicl('1')">1</span>
+				<span onclick="handleClicl('2')">2</span>
+				<span onclick="handleClicl('3')">3</span>
+				<span class="operator" onclick="handleClicl('+')">+</span>
+				<span onclick="handleClicl('0')">0</span>
+				<span onclick="handleClicl('.')">.</span>
+				<span class="eval" onclick="handleClicl('=')">=</span>
+
+			</div>
+		</div>
+		<script>
+			var operators = ['+', '-', 'x', '÷'];
+			// 判断是否已经输入小数点
+			var dotAdd = false;
+
+			function handleClicl(btnVal) {
+				var input = document.querySelector('.screen');
+				var inputVal = input.innerHTML;
+				var lastChar = inputVal[inputVal.length - 1];
+				var lastTwoChar = inputVal[inputVal.length - 2];
+
+				if (inputVal == '不能除以0') { // 显示的内容为'不能除以0'
+					input.innerHTML = btnVal
+				} else if (btnVal == 'C') { // 点击 C
+					input.innerHTML = '';
+					dotAdd = false;
+				} else if (btnVal == '←') { // 点击 ←
+					input.innerHTML = inputVal.substr(0, inputVal.length - 1);
+					dotAdd = false;
+				} else if (btnVal == '%') { // 点击 %
+					// 如果时数字，直接除以100
+					if (!isNaN(inputVal)) {
+						input.innerHTML = inputVal / 100;
+					} else if (operators.indexOf(lastChar) > -1) {
+						//  如果最后一位是 运算符
+					} else {
+						let a = inputVal.lastIndexOf("+");
+						let b = inputVal.lastIndexOf("-");
+						let c = inputVal.lastIndexOf("x");
+						let d = inputVal.lastIndexOf("÷");
+
+						// 取最大值即为最右面的运算符位置
+						let i = Math.max(a, b, c, d);
+						input.innerHTML = inputVal.substr(0, i + 1) + (inputVal.substr(i + 1, inputVal.length - i) / 100);
+					}
+					dotAdd = false;
+				} else if (btnVal == '=') { // 点击 =
+					// 最后一位是 0 ，并且 倒数第二位是 ÷
+					if (lastChar == 0 && operators.indexOf(lastTwoChar) == 3) {
+						input.innerHTML = '不能除以0'
+						return
+					}
+					// 替换运算符
+					inputVal = inputVal.replace(/x/g, '*').replace(/÷/g, '/');
+					// 如果最后一位是 运算符 或 .,直接截掉
+					if (operators.indexOf(lastChar) > -1 || lastChar == '.') {
+						inputVal = inputVal.substr(0, inputVal.length - 1);
+					}
+					if (operators.indexOf(lastTwoChar) > -1 && lastChar == '.' || operators.indexOf(lastChar) > -1 &&
+						lastTwoChar == '.') {
+						inputVal = inputVal.substr(0, inputVal.length - 1);
+					}
+
+					if (inputVal) {
+						input.innerHTML = eval(inputVal);
+					}
+					dotAdd = false;
+				} else if (operators.indexOf(btnVal) > -1) { // 点击 运算符
+
+					if (inputVal != '' && operators.indexOf(lastTwoChar) > -1 && lastChar == '.') {
+						// 最后一位是 . 并且倒数第二位是 运算符
+						input.innerHTML = inputVal.substr(0, inputVal.length - 2) + btnVal;
+					} else if (inputVal == '' && btnVal == '-') {
+						// input 为空 . 并且 btnVal 为 -
+						input.innerHTML += btnVal;
+					} else if (inputVal != '' && operators.indexOf(lastChar) == -1) {
+						// input不为空，并且最后一位不是 运算符
+						input.innerHTML += btnVal;
+					} else if (operators.indexOf(lastChar) > -1 && inputVal != '') {
+						//input不为空，并且最后一位是 运算符
+						input.innerHTML = inputVal.replace(/.$/, btnVal);
+					}
+					dotAdd = false;
+				} else if (btnVal == '.') { // 点击 .
+					console.log(dotAdd);
+					if (!dotAdd) {
+						input.innerHTML += btnVal;
+						dotAdd = true;
+					}
+				} else if (btnVal == 0) { // 点击 0
+					// 拒绝开始0的反复，并且防止 0. 这种小数被和谐掉
+					if (parseInt(inputVal) === 0 && (!/0[\.|\s]/.test(inputVal))) {
+						input.innerHTM = btnVal
+					} else if (operators.indexOf(lastTwoChar) > -1 && lastChar == 0) {
+						// 最后一位是 0 ，倒数第二位是 运算符，禁止连续输入0
+						input.innerHTML = inputVal
+					} else {
+						input.innerHTML += btnVal
+					}
+					dotAdd = false;
+				} else {
+					input.innerHTML += btnVal;
+				}
+			}
+		</script>
+	</body>
+</html>

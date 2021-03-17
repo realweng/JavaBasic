@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>用户登录校验</title>
+		<script type="text/javascript">
+			//登录
+			function login() {
+				//获取用户名密码的值
+				var userNameValue = document.getElementById("userName").value;
+				var userPwdValue = document.getElementById("pwd").value;
+				if (userNameValue === "admin" && userPwdValue === "1234") {
+					alert("登录成功！");
+					return true;
+				} else {
+					alert("用户名或者密码输入错误！");
+					return false;
+				}
+			}
+		</script>
+	</head>
+	<body>
+		<form action="https://baidu.com" method="get" onsubmit="return login()">
+			<input type="text" name="userName" id="userName" />
+			<input type="password" name="pwd" id="pwd" />
+			<button type="submit">登录</button>
+		</form>
+	</body>
+</html>
