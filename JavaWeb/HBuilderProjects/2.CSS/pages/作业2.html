@@ -3,7 +3,283 @@
 	<head>
 		<meta charset="utf-8">
 		<title>作业2.页面布局</title>
+		<style>
+			#div {
+				width: 1000px;
+				height: 800px;
+				margin: 0px auto;
+			}
+
+			#div1 {
+				width: 996px;
+				height: 40px;
+				padding: 20px 0px 1px 10px;
+				margin: 0px auto;
+			}
+
+			#div2 {
+				width: 996px;
+				height: 30px;
+				margin: 0px auto;
+				background-color: #1F87CC;
+			}
+
+			#div3 {
+				width: 996px;
+				height: 370px;
+				margin: 0px auto;
+			}
+
+			#div4 {
+				width: 996px;
+				height: 400px;
+				margin: 0px auto;
+
+			}
+
+			#div5 {
+				width: 355px;
+				height: 200px;
+				margin: 1px 7px 1px 1px;
+				padding: 0px 0px;
+				float: left;
+				/* line-height: 2px; */
+				background-color: lightgray;
+				/* border: 1px salmon solid; */
+			}
+
+			#div6 {
+				width: 356px;
+				height: 200px;
+				margin: 1px 7px 1px 1px;
+				float: left;
+				background-color: lightgray;
+				/* border: 1px salmon solid; */
+			}
+
+			#div7 {
+				width: 261px;
+				height: 200px;
+				margin: 1px 1px 1px 1px;
+				float: left;
+				background-color: lightgray;
+				/* border: 1px salmon solid; */
+			}
+
+			#div8 {
+				padding: 0px 0px;
+				width: 240px;
+				height: 150px;
+				margin: 1px 1px 1px 1px;
+				padding: 0px 0px;
+				float: left;
+				/* border: 1px salmon solid; */
+			}
+
+			#div9 {
+				line-height: 25px;
+				width: 105px;
+				height: 150px;
+				margin: 1px 1px 1px 1px;
+				float: left;
+				color: #666666;
+				/* border: 1px salmon solid; */
+			}
+
+			#div10 {
+				line-height: 25px;
+				width: 108px;
+				height: 130px;
+				margin: 1px 7px 1px 1px;
+				float: left;
+				/* border: 1px salmon solid; */
+			}
+
+			#div11 {
+				width: 108px;
+				height: 130px;
+				margin: 1px 7px 1px 1px;
+				float: left;
+				/* border: 1px salmon solid; */
+			}
+
+			#div12 {
+				width: 108px;
+				height: 130px;
+				margin: 1px 7px 1px 1px;
+				float: left;
+				/* border: 1px salmon solid; */
+			}
+
+			#div13 {
+				width: 253px;
+				height: 80px;
+				margin: 1px 7px 1px 1px;
+				/* border: 1px salmon solid; */
+			}
+
+			#div14 {
+				width: 253px;
+				height: 110px;
+				margin: 1px 7px 1px 1px;
+				/* border: 1px salmon solid; */
+			}
+			
+
+			.td {
+				width: 70px;
+				color: azure;
+				border: 1px salmon solid;
+			}
+
+			ul li {
+				line-height: 30px;
+				list-style: none;
+				margin: 0 10px;
+				float: left;
+			}
+
+			.ul1 .l1 {
+				line-height: 27px;
+				list-style: none;
+				margin: 0 10px;
+				list-style-image: url(../img/wenzhang-bg.gif);
+				position: relative;
+				top: -10px;
+				left: -30px;
+			}
+
+			.a1 {
+				text-decoration: none;
+				color: white;
+			}
+
+			.a2 {
+				text-decoration: none;
+				color: #708090;
+			}
+		</style>
 	</head>
 	<body>
+		<div id="div">
+			<div id="div1">
+				<img src="../img/logo.gif">
+			</div>
+			<div id="div2">
+				<ul>
+					<li><a class="a1" href="#">首页</a></li>
+					<li><a class="a1" href="#">关于慧达</a></li>
+					<li><a class="a1" href="#">新闻慧达</a></li>
+					<li><a class="a1" href="#">卫浴产品</a></li>
+					<li><a class="a1" href="#">瓷砖产品</a></li>
+					<li><a class="a1" href="#">技术创新</a></li>
+					<li><a class="a1" href="#">服务支持</a></li>
+					<li><a class="a1" href="#">工程案例</a></li>
+				</ul>
+			</div>
+			<div id="div3">
+				<img style="width: 996px;" src="../img/banner.gif" />
+			</div>
+			<div id="div4">
+				<div id="div5">
+					<table>
+						<tr>
+							<td align="left">新闻动态</td>
+							<td align="right"> <a href="#"
+									style="text-decoration: none;font-size: 5;color: #000033;">MORE</a> </td>
+						</tr>
+						<tr>
+							<td colspan="2">
+								<hr align="center" width="351" />
+							</td>
+						</tr>
+					</table>
+					<div id="div8">
+						<ul class="ul1">
+							<li class="l1"><a class="a2" href="#">测试测试测试测</a></li>
+							<li class="l1"><a class="a2" href="#">测试测试测试测测试测试</a></li>
+							<li class="l1"><a class="a2" href="#">测试测试测试测</a></li>
+							<li class="l1"><a class="a2" href="#">测试测试测试测</a></li>
+							<li class="l1"><a class="a2" href="#">测试测试测试测</a></li>
+						</ul>
+					</div>
+					<div id="div9">
+						<table>
+							<tr>
+								<td>2020-7-15</td>
+							</tr>
+							<tr>
+								<td>2020-7-15</td>
+							</tr>
+							<tr>
+								<td>2020-7-15</td>
+							</tr>
+							<tr>
+								<td>2020-7-15</td>
+							</tr>
+							<tr>
+								<td>2020-7-15</td>
+							</tr>
+						</table>
+					</div>
+				</div>
+				<div id="div6">
+					<table>
+						<tr>
+							<td align="left">产品展示</td>
+							<td align="right"> <a href="#"
+									style="text-decoration: none;font-size: 5;color: #000033;">MORE</a> </td>
+						</tr>
+						<tr>
+							<td colspan="2">
+								<hr align="center" width="351" />
+							</td>
+						</tr>
+					</table>
+					<div id="div10">
+						<img width="100" src="../img/tu1.gif">
+						<span>厨卫龙头</span>
+					</div>
+					<div id="div11">
+						<img width="100" src="../img/tu2.gif">
+						<span>厨卫水龙</span>
+					</div>
+					<div id="div12">
+						<img width="100" src="../img/tu3.gif">
+						<span>浴室龙头</span>
+					</div>
+				</div>
+				<div id="div7">
+					<div id="div13">
+						<table>
+							<tr>
+								<td rowspan="2"><img width="50ox" height="50px" src="../img/ren.gif"></td>
+								<td align="left">总部电话</td>
+							</tr>
+							<tr>
+								<td><span style="color: red;font-weight: 600;">020-872837294</span></td>
+							</tr>
+						</table>
+
+					</div>
+					<div id="div14">
+						<form action="2.文本样式.html" method="get">
+							<table>
+								<tr align="right"><td>用户名：<input type="text" name="userName" id="userId" value="" /></td></tr>
+								<tr align="right"><td>密码：<input type="password" name="pwd" id="pwdId" value="" /></td></tr>
+							</table>
+							<br />
+							<table>
+								<tr>
+									<td width="80px"><input type="submit" value="登录" /></td>
+									<td width="80px"><input type="submit" value="注册" /></td>
+									<td align="right"><a style="text-decoration: none;color: #666666;" href="#">忘记密码</a></td>
+								</tr>
+							</table>
+						</form>
+					</div>
+				</div>
+			</div>
+		</div>
 	</body>
 </html>

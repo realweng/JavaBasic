@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+		<style type="text/css">
+			body {
+				padding: 20px;
+			}
+
+			div {
+				margin: 10px;
+				padding: 10px;
+				line-height: 20px;
+				font-size: 14px;
+			}
+
+			#father {
+				border: 1px #666666 solid;
+				padding: 0px;
+				position: relative;
+			}
+
+			#first {
+				border: salmon 1px dashed;
+				background-color: sandybrown;
+				/* 相对定位：相对于元素之前的位置 */
+				/* position: relative;
+				top: -50px;
+				left: 10px; */
+			}
+
+			#second {
+				border: 1px seagreen dashed;
+				background-color: #C8ECE3;
+				/* 绝对定位：相对于通过position定位的父级节点（离本节点最近父级节点）进行定位。所有的父节点都没有定位，那么根据远点位置（body）进行定位 */
+				position: absolute;
+				top: 0px;
+				left: 0px;
+			}
+
+			#third {
+				border: 1px blue dashed;
+				background-color: #00FFFF;
+			}
+		</style>
+	</head>
+	<body>
+		<div id="father">
+			<div id="first">第一盒子</div>
+			<div id="second">第二盒子</div>
+			<div id="third">第三盒子</div>
+		</div>
+	</body>
+</html>
