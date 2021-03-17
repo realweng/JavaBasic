@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+		<script type="text/javascript">
+			/*
+				事件：由页面元素触发某个动作时，完成某一功能（函数）
+				事件3要素：1.对象   2.事件类型   3.功能
+				事件实现的步骤
+					1.在标签上绑定事件
+					2.调用函数
+				事件类型
+				鼠标事件
+					onclick：鼠标单击事件
+					onmouseover：鼠标移入
+					onmouseout：鼠标移出
+				==============
+				onfocus：获得到焦点
+				onblur：失去焦点
+				onsubmit：表单的提交事件(属于form)				
+			*/
+			function show() {
+				console.log("按钮的单击事件")
+			}
+
+			function show2() {
+				console.log("鼠标移入")
+			}
+
+			function show3() {
+				console.log("鼠标移出")
+			}
+
+			// 当username失去焦点时，显示username中的值
+			function showUserName() {
+				// 1.获取到userName元素对象
+				var userNameObject = document.getElementById("userName");
+				// alert(userNameObject); // HTMLInputElement
+				// 2.获取userName输入框中value
+				var userNameValue = userNameObject.value;
+				// 3.输出
+				console.log(userNameValue);
+			}
+
+			// 如果userName中的内容是admin，则清空userName当中的value值
+			function clearValue() {
+				// 1.获取userName对象
+				var userNameObject = document.getElementById("userName");
+				// 2.获取value值
+				var userNameValue = userNameObject.value;
+				// 3.判断value是否等于admin
+				if (userNameValue == "admin") {
+					// 4.如果等于，将userName中的数据清空
+					userNameObject.value = "";
+				}
+			}
+
+			// 如果username=xiaobai   pwd=123456  登录成功
+			function login() {
+				console.log("表单提交");
+				// 获取username、pwd的value值
+				var userName = document.getElementById("userName").value;
+				var pwd = document.getElementById("pwd").value;
+				// 判断值是否合法
+				if (userName === "xiaobai" && pwd === "123456") {
+					// 提醒用户
+					alert("登录成功");
+					return true;
+				} else {
+					alert("登录失败");
+					return false; // 防止表单提交
+				}
+			}
+		</script>
+	</head>
+	<body>
+		<button onclick="show()">按钮</button><br />
+		<img src="img/photo-2.jpg" onmouseover="show2()" onmouseout="show3()" /><br />
+		<form action="http://www.baidu.com" method="get" onsubmit="return login()">
+			<input type="text" onblur="showUserName()" onfocus="clearValue()" value="admin" id="userName"
+				name="userName" />
+			<input type="password" id="pwd" name="pwd" />
+			<button type="submit">登录</button>
+		</form>
+
+	</body>
+</html>

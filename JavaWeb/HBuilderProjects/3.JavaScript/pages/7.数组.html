@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+		<script type="text/javascript">
+			// js中的数组通过Array()对象来进行声明
+			// 1.声明
+			var array = new Array();
+			// 2.赋值
+			array[0] = 12;
+			array[1] = "小白";
+			array[2] = true;
+
+			// 在js中可以间隔索引来存储数据，中间没有赋值的元素是undefined
+			array[7] = "男";
+
+			// 3.取值
+			console.log(array[0]);
+			console.log(array[1]);
+			console.log(array[2]);
+			console.log(array[7]);
+
+			console.log(array.length);
+			// 循环取值
+			for (var i = 0; i < array.length; i++) {
+				console.log(array[i])
+			}
+
+			// foreach
+			for (var index in array) {
+				console.log(index + "====>" + array[index]);
+			}
+		</script>
+	</head>
+	<body>
+	</body>
+</html>

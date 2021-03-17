@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+		<script type="text/javascript">
+			// 内置对象，由浏览器提供
+			// Math:数学运算对象
+			// 四舍五入
+			var number = 78.95;
+			var n = Math.round(number);
+			console.log(n);
+
+			// 随机数
+			n = Math.random();
+			console.log(parseInt(n * 10) + 1);
+
+			// Date:时间
+			var date = new Date();
+			console.log(date);
+			var year = date.getFullYear();
+			var month = date.getMonth() + 1;
+			var day = date.getDate()
+			var werk = date.getDay()
+			var h = date.getHours()
+			var m = date.getMinutes()
+			var s = date.getSeconds()
+			console.log(year + "-" + month + "-" + day + " " + werk + " " + h + ":" + m + ":" + s);
+		</script>
+	</head>
+	<body>
+	</body>
+</html>

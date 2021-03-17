@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8" />
+		<title></title>
+		<script type="text/javascript">
+			// 函数：相当于java中方法。
+			// 无参数无返回值的函数
+			/*
+				语法：
+				function 函数名(){
+				}
+				调用：
+				函数名();
+			*/
+			function sum() {
+				console.log(2 + 4);
+			}
+
+			sum();
+
+			// 有参数无返回值的函数
+			/*
+				语法：
+				function 函数名(参数名,参数名2){
+				}
+				调用：
+				sum(常量,常量)
+				sum(变量,变量)
+			*/
+			// js中不存在方法重载，会出现方法覆盖的问题（js中可以实现重载）
+			// 正常情况下是从上到下去加载js代码，会先加载function，再按照从上之下的顺序加载js代码
+			function sum(number, number2) {
+				console.log(number + number2);
+			}
+			sum(45, 67);
+			var a = 23;
+			var b = 34;
+			sum(a, b);
+
+			// 有参数有返回值的函数
+			/*
+				语法：
+				function 函数名(参数名,参数名2){
+					return 值;
+				}
+				调用：
+				var message = 函数名(值);
+			*/
+			function sum3(number, number2) {
+				return number + number2;
+			}
+			var numberSum = sum3(45, 45);
+			console.log(numberSum);
+
+			// 匿名函数
+			// window:浏览器对象，有每个浏览器厂商
+			// onload: 事件，当body中标签内容加载完成之后触发
+			/*
+				function() {
+					console.log("你好！！")
+				}
+			*/
+			window.onload = function() {
+				console.log("你好！！")
+			}
+		</script>
+	</head>
+	<body>
+	</body>
+</html>
