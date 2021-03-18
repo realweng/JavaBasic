@@ -18,7 +18,7 @@
 			function calculate(val) {
 				var textVal = document.getElementById("show");
 				if (val === "=") {
-					textVal.value = "计算结果为：" + eval(textVal.value);
+					textVal.value = eval(textVal.value);
 				} else if (val === "C") {//清除
 					textVal.value = "";
 				} else {

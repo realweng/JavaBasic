@@ -4,14 +4,20 @@
 		<meta charset="utf-8">
 		<title>切换div内容</title>
 		<script type="text/javascript">
-			
+			function showDiv1(){
+				var divObj = document.getElementById("div");
+				divObj.innerHTML = "tab-1第一个容器内容";
+			}
+			function showDiv2(){
+				var divObj = document.getElementById("div");
+				divObj.innerHTML = "tab-2第一个容器内容";
+			}
 		</script>
 	</head>
 	<body>
-		<span  id="tab1">tab1</span>
-		<span id="tab2">tab2</span><br />
-		<div style="border: 1px black solid;width: 300px;height: 200px;margin: 1px 7px 1px 1px;padding: 0px 0px;">
-			111
+		<button onmouseover="showDiv1()" id="tab1">tab1</button>
+		<button onmouseover="showDiv2()" id="tab2">tab2</button><br />
+		<div id="div" style="border: 1px black solid;width: 300px;height: 200px;margin: 1px 7px 1px 1px;padding: 0px 0px;">
 		</div>
 	</body>
 </html>
