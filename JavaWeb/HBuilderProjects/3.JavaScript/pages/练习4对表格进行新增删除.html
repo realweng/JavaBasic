@@ -3,10 +3,47 @@
 	<head>
 		<meta charset="utf-8">
 		<title>表格的新增删除操作</title>
+		<script type="text/javascript">
+			/**
+			 * 添加一行
+			 */
+			function add() {
+				// HTMLTableElement
+				var table = document.getElementById("tb1"); // 获取id为userTable的HTMLTableElement对象
+				// 获取table中所有的行
+				var trs = table.rows; // table.rows:tr的集合
+				// 获取table中某一行所有的单元格
+				var trCell = trs[0].cells;
+				// 在table中添加一行
+				var tr = table.insertRow();
+				// 在tr中添加td(单元格)
+				for (var i = 0; i < trCell.length; i++) {
+					tr.insertCell().innerHTML = "aaa" + i;
+				}
+			}
+			/**
+			 * 删除一行
+			 */
+			function delLast() {
+				var table = document.getElementById("tb1");
+				var trs = table.rows;
+				if(trs.length>1){
+					trs[trs.length-1].remove();
+				}else{
+					alert("表头不能删除！");
+				}
+			}
+		</script>
 	</head>
 	<body>
-		<button>添加一行</button>
-		<button>删除最后一行</button>
-		
+		<button onclick="add()">添加一行</button>
+		<button onclick="delLast()">删除最后一行</button>
+		<table border="1px" id="tb1" style="width: 300px;">
+			<tr>
+				<td>编号</td>
+				<td>姓名</td>
+				<td>年龄</td>
+			</tr>
+		</table>
 	</body>
 </html>
