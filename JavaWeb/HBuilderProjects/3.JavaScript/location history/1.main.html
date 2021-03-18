@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+		<script type="text/javascript">
+			function tiaozhuan(){
+			// location对象：是window中属性对象
+			//href：设置当前浏览器对象
+			location.href = "2.index.html";
+			}
+			
+			function shuaxin(){
+				//reolad()刷新当前页面
+				location.reload();
+			}
+			
+			function goNextPage(){
+				//当前是0 下一页是1 上一页-1
+				history.go(1);
+			}
+		</script>
+	</head>
+	<body>
+		<a href="2.index.html">index.html</a>
+		<a href="javascript:void(0)" onclick="goNextPage()">下一页</a>
+		<input type="button" onclick="tiaozhuan()" value="跳转"/>
+		<input type="button" onclick="shuaxin()" value="刷新"/>
+	</body>
+</html>

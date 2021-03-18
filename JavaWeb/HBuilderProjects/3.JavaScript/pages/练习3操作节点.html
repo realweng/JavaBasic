@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>操作节点</title>
+		<script type="text/javascript">
+			function addElem(){
+				var liTag = document.createElement("li");
+				var ipt = document.createElement("input");
+				var ulObj = document.getElementById("ul1");
+				ipt.value = "请输入内容";
+				liTag.appendChild(ipt);
+				ulObj.appendChild(liTag);
+			}
+		</script>
+	</head>
+	<body>
+		<button onclick="addElem()" id="btn">新增</button>
+		<ul id="ul1">
+			<li>
+				<input type="text" value="请输入内容"/>
+			</li>
+		</ul>
+	</body>
+</html>

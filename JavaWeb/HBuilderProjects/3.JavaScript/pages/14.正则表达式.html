@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+		<script type="text/javascript">
+			/*正则表达式的验证规则
+		字母：[a-z] 数字：[0-9] 
+		起始第一个字符开始验证：^
+		从几个字符规则中选一个：[abc]
+		结束字符：$
+		非：[^0-9]非数字
+	长度要求：
+		匹配n次：{n}
+		匹配n-m次：{n,m}
+		至少匹配n次：{n,}
+		* {n,}
+		+ 至少一次
+		？ 
+	 */
+			function checkName() {
+				//获取userName输入框的对象
+				var userNameObject = document.getElementById("userName");
+				//获取userName的值==>通过userNameObject对象中的value属性来获取
+				var userNameVal = userNameObject.value;
+				//制定正则表达式规则，通过//来确定当前的内容正则，规则放//之间
+				// var reg = /[0-9]/;//只要有0-9就合法
+
+				//userName的值要以数字开始
+				// var reg = /^[0-9]/;
+
+				//userName的值要以abc中的一个开始
+				// var reg = /^[abc]/;
+
+				//userName可以匹配3-6次
+				// var reg = /^[a-z]{3,6}/;
+				
+				//userName可以匹配3-6次
+				// var reg = /^[a-z]{3,6}$/;
+				
+				//userName要求0-9或者字母 长度3-6
+				// var reg = /^[0-9A-Za-z]{3,6}$/;
+				
+				//username手机号的验证 第一个字符1 第二个3 5 6 7 8 9 长度11
+				// var reg = /^1{1}[3,5,6,7,8,9]{1}[0-9]{9}$/;
+				
+				//邮箱地址
+				var reg = /^[0-9a-z]{1,}@{1}[0-9a-z]{1,}(.com|.cn)$/;
+				var flag = reg.test(userNameVal);
+				console.log(flag);
+			}
+		</script>
+	</head>
+	<body>
+		<input type="text" id="userName" checked="checked" name="userName" onblur="checkName()" />
+	</body>
+</html>

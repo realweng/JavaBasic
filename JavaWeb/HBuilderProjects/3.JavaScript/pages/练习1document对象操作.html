@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>document对象操作</title>
+		<script type="text/javascript">
+			function changeTitle(){
+				var obj = document.getElementById("title");
+				obj.innerText = "改变后的标题";
+			}
+			
+			function showSeason(){
+				var obj1 = document.getElementById("txt1");
+				var obj2 = document.getElementById("txt2");
+				var obj3 = document.getElementById("txt3");
+				var obj4 = document.getElementById("txt4");
+				obj1.value = "春";
+				obj2.value = "夏";
+				obj3.value = "秋";
+				obj4.value = "冬";
+			}
+			
+			function showFlower(){
+				var obj1 = document.getElementById("txt1");
+				var obj2 = document.getElementById("txt2");
+				var obj3 = document.getElementById("txt3");
+				var obj4 = document.getElementById("txt4");
+				obj1.value = "梅";
+				obj2.value = "兰";
+				obj3.value = "竹";
+				obj4.value = "菊";
+			}
+		</script>
+	</head>
+	<body>
+		<h1 id="title">默认标题</h1>
+		<button onclick="changeTitle()" id="bt1">改变标题内容</button><br />
+		<input type="text" id="txt1" value=""/>
+		<input type="text" id="txt2" value=""/>
+		<input type="text" id="txt3" value=""/>
+		<input type="text" id="txt4" value=""/><br />
+		<button onclick="showSeason()" id="bt2">显示春夏秋冬</button>
+		<button onclick="showFlower()" id="bt3">显示梅兰竹菊</button>
+	</body>
+</html>
