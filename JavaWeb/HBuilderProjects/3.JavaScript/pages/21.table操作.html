@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+		<script type="text/javascript">
+			function addTr() {
+				// 1.获取输入框内容
+				var cookName = document.getElementById("cookName").value;
+				var cookNumber = document.getElementById("cookNumber").value;
+				// 2.获取table对象
+				var table = document.getElementById("cooks");
+				// 获取table中所有的<tr></tr>
+				// var trs = table.rows; // HTMLCollection:<tr></tr>集合
+				// alert(trs);
+				// console.log(trs[0]);
+				// 获取tr中的所有td
+				// var tds = trs[0].cells;
+				// alert(tds);// HTMLCollection
+				// console.log(tds[0]);
+
+				// 3.向table中添加tr
+				var tr = table.insertRow();
+				// console.log(tr);
+
+				// 4.在tr中添加td
+				var td = tr.insertCell();
+				var td2 = tr.insertCell();
+
+				// 5.给td设置内容
+				td.innerText = cookName;
+				td2.innerText = cookNumber;
+			}
+			
+			function deleteTr(){
+				document.getElementById("cooks").deleteRow(1);
+				
+				// 选做：删除选中的行
+			}
+		</script>
+	</head>
+	<body>
+		<input type="text" id="cookName" name="cookName" />
+		<input type="text" id="cookNumber" name="cookNumber" />
+		<button onclick="addTr()">点菜</button>
+		<button onclick="deleteTr()">删菜</button>
+		<br /><br />
+		<table id="cooks" width="200px" border="1" cellspacing="0">
+			<tr>
+				<td>
+					菜名
+				</td>
+				<td>
+					数量
+				</td>
+			</tr>
+		</table>
+	</body>
+</html>

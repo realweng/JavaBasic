@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+	</head>
+	<body>
+		<h1 id="title"></h1>
+		<script type="text/javascript">
+			function show(){
+				// src、alt...：通过setAttribute()设置属性值
+				// value：给表单元素设置value值，h1-h6、div、span。。。没有value属性
+				// innerText:给元素标签设置文本信息，双标签
+				// innerHTML:给元素标签设置html信息，双标签
+				
+				// document.getElementById("title").innerText = "<a href='#'>你好</a>";
+				document.getElementById("title").innerHTML = "<a href='#'>你好</a>";
+			}
+			show();
+		</script>
+	</body>
+</html>

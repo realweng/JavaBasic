@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+		<style type="text/css">
+			* {
+				font-size: 12px;
+				font-family: "Arial", "微软雅黑";
+				line-height: 25px;
+			}
+
+			div {
+				padding: 5px;
+				text-align: center;
+			}
+
+			div span {
+				display: block;
+			}
+		</style>
+		<script type="text/javascript">
+			function changeImg(index) {
+				// 1.获取图片标签
+				var imgObject = document.getElementById("image");
+				// 2.通过index决定img的src的值
+				if (index === 1) {
+					// setAttribute("属性的类型","值"):给元素设置属性
+					imgObject.setAttribute("src", "img/dog.jpg");
+				} else if (index === 2) {
+					imgObject.setAttribute("src", "img/mai.jpg");
+				}
+			}
+
+			function changeImg2() {
+				// 1.获取img对象
+				var img = document.getElementById("image");
+				// 2.获取img的src属性
+				var src = img.getAttribute("src");
+				// alert(src);
+				// 3.如果src=img/dog.jpg ==> img/mai.jpg
+				// 如果src=img/mai.jpg ==> img/dog.jpg
+				// 如果src="" ==> img/dog.jpg
+				switch (src) {
+					case 'img/dog.jpg':
+						img.setAttribute("src", "img/mai.jpg");
+						break;
+					case 'img/mai.jpg':
+					case '':
+						img.setAttribute("src", "img/dog.jpg");
+						break;
+				}
+			}
+		</script>
+	</head>
+	<body>
+		<p>
+			选择你喜欢的书：
+			<input type="radio" value="0" onclick="changeImg(1)" name="book">我和狗狗一起活下来
+			<input type="radio" value="1" onclick="changeImg(2)" name="book">灰霾来了怎么办
+
+			<button onclick="changeImg2()">替换</button>
+
+		</p>
+		<div><img src="" alt="" id="image"><span></span></div>
+	</body>
+</html>

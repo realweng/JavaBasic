@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+		<style type="text/css">
+			* {
+				font-size: 12px;
+				font-family: "Arial", "微软雅黑";
+				line-height: 25px;
+			}
+
+			div {
+				padding: 5px;
+				text-align: center;
+			}
+
+			div span {
+				display: block;
+			}
+		</style>
+		<script type="text/javascript">
+			function addImg() {
+				var imgSrc;
+				// 如果单选按钮选中的第一个，那么创建img的src为img/dog.jpg
+				// 如果单选按钮选中的第二个，那么创建img的src为img/mai.jpg
+				var radios = document.getElementsByName("book"); // 获取所有的单选按钮
+				// alert(radios.length);
+				// 遍历单选按钮
+				for (var i = 0; i < radios.length; i++) {
+					var radio = radios[i]; // 获取单个的单选按钮
+					// 获取radio的选中状态,不是通过getAttribute来获取，通过元素对象的checked属性来获取
+					var check = radio.checked; // check=ture 选中   check=false为选中
+					if (check) {
+						imgSrc = radio.value === "0" ? "img/dog.jpg" : "img/mai.jpg";
+						break;
+					}
+				}
+				// 1.创建img元素对象
+				var imgObject = document.createElement("img");
+				// alert(imgObject);
+
+				// 2.设置图片路径
+				imgObject.setAttribute("src", imgSrc);
+
+				// 3.将创建的img对象加载到确定的位置
+				document.getElementById("imgDiv").appendChild(imgObject);
+			}
+
+			function deleteImg() {
+				// 获取所有的图片元素
+				var imgs = document.getElementsByTagName("img");
+				// remove:删除元素   删除第一张图片
+				imgs[0].remove();
+			}
+		</script>
+	</head>
+	<body>
+		<p>
+			选择你喜欢的书：
+			<input type="radio" checked="checked" value="0" name="book">我和狗狗一起活下来
+			<input type="radio" value="1" name="book">灰霾来了怎么办
+			<button onclick="addImg()">添加</button>
+			<button onclick="deleteImg()">删除</button>
+		</p>
+		<div id="imgDiv"></div>
+	</body>
+</html>

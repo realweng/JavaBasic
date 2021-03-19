@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+		<script type="text/javascript">
+			function setTimeoutPrint() {
+				document.write("setTimeout <br />");
+			}
+
+
+			// setTimeout(要执行的函数,毫秒数)：过多少毫秒执行一次函数
+			// setTimeout(setTimeoutPrint, 1000);
+			// setTimeout("setTimeoutPrint()", 1000);
+
+
+			function setIntervalPrint() {
+				document.write("setInterval <br />");
+			}
+
+			// setTimeout(要执行的函数,毫秒数)：间隔多少毫秒执行一次函数
+			// setInterval(setIntervalPrint, 2000);
+		</script>
+
+	</head>
+	<body>
+		<h1 id="time" style="color: red;"></h1>
+		<button onclick="stopTime()">暂停</button>
+		<button onclick="printTime()">开始</button>
+		<script type="text/javascript">
+			// 显示系统时间
+			// 获取时间
+			function printTime() {
+				var date = new Date();
+				console.log(date);
+				var year = date.getFullYear();
+				var month = date.getMonth() + 1;
+				var day = date.getDate()
+				var werk = date.getDay()
+				var h = date.getHours()
+				var m = date.getMinutes()
+				var s = date.getSeconds()
+				// 获取h1标签
+				var h1 = document.getElementById("time");
+				// 设置h1的文本内容
+				h1.innerText = year + "-" + month + "-" + day + " " + h + ":" + m + ":" + s;
+
+				// timeOutId:setTimeout执行之后返回的唯一标识
+				// timeOutId = setTimeout("printTime()", 1000);
+			}
+			var timeOutId = 0;
+			var timeIntervalId = 0;
+
+			// printTime();
+			timeIntervalId = setInterval("printTime()", 1000);
+
+			// 练习：setTimeout   ==》  显示系统时间
+			printTime();
+			// setTimeout("printTime()", 1000);
+			// while (true) {
+			// 	setTimeout("printTime()", 1000);
+			// }
+
+			function stopTime() {
+				// clearTimeout(timeOutId);
+				clearInterval(timeIntervalId);
+			}
+		</script>
+	</body>
+</html>
