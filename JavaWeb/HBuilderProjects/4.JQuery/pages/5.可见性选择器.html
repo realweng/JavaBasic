@@ -37,24 +37,24 @@
 					$("p:visible").hide();
 				});
 
-				// $("[type=button]").click(function() {
-				// 	// this:HTMLInputElement，js对象，不能调用jquery中函数
-				// 	// alert(this);
-				// 	// alert($(this));
-				// 	// 将this转为jquery对象
-				// 	var $btn = $(this);
-				// 	// 获取到触发事件的标签的id
-				// 	// val()：获取input输入框中的value属性值  ==>  var value = document.getElementBy("aa").value;
-				// 	var value = $btn.val();
-				// 	// console.log(this.value);
-				// 	// 判断value的值，如果是”显示隐藏的P元素“,显示隐藏的P元素
-				// 	// 如果是”隐藏显示的P元素“,隐藏显示的P元素
-				// 	if (value == "显示隐藏的P元素") {
-				// 		$("p:hidden").show();
-				// 	} else {
-				// 		$("p:visible").hide();
-				// 	}
-				// });
+				$("[type=button]").click(function() {
+					// this:HTMLInputElement，js对象，不能调用jquery中函数
+					// alert(this);
+					// alert($(this));
+					// 将this转为jquery对象
+					var $btn = $(this);
+					// 获取到触发事件的标签的id
+					// val()：获取input输入框中的value属性值  ==>  var value = document.getElementBy("aa").value;
+					var value = $btn.val();
+					// console.log(this.value);
+					// 判断value的值，如果是”显示隐藏的P元素“,显示隐藏的P元素
+					// 如果是”隐藏显示的P元素“,隐藏显示的P元素
+					if (value == "显示隐藏的P元素") {
+						$("p:hidden").show();
+					} else {
+						$("p:visible").hide();
+					}
+				});
 			})
 		</script>
 	</head>

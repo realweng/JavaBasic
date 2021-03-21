@@ -2,8 +2,41 @@
 <html>
 	<head>
 		<meta charset="utf-8">
-		<title></title>
+		<title>点击换背景</title>
+		<script type="text/javascript" src="../js/jquery-3.2.1.min.js"></script>
+		<script>
+			$(function(){
+				$("#h2").click(function(){
+					$("#h2").css("background-color","red");
+				});
+				$("#span1").click(function(){
+					$("#span1").css("background-color","red");
+				});
+				$("#span2").click(function(){
+					$("#span2").css("background-color","red");
+				});
+				$("#span3").click(function(){
+					$("#span3").css("background-color","red");
+				});$("#span4").click(function(){
+					$("#span4").css("background-color","red");
+				});
+				$("#span5").click(function(){
+					$("#span5").css("background-color","red");
+				});$("#span6").click(function(){
+					$("#span6").css("background-color","red");
+				});
+			});
+		</script>
 	</head>
 	<body>
+		<div id="div1" style="border:1px #000000 solid;width: 280px;">
+			<h2 id="h2">全部旅游产品分类</h2>
+			<span id="span1">背景周边旅游特价</span><br />
+			<span id="span2">按天数 海边旅游 草原</span><br />
+			<span id="span3">景点门票</span><br />
+			<span id="span4">名胜 暑期 乐园</span><br />
+			<span id="span5">山水 双休</span><br />
+			<span id="span6">更多分类</span>
+		</div>
 	</body>
 </html>
