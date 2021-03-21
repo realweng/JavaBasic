@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+		<style type="text/css">
+			#txt_show {
+				display: none;
+				color: #00C;
+			}
+
+			#txt_hide {
+				display: block;
+				color: #F30;
+			}
+		</style>
+		<script src="../js/jquery-3.2.1.min.js" type="text/javascript" charset="utf-8"></script>
+		<script type="text/javascript">
+			$(function() {
+
+				// 给show的btn绑定事件
+				/*
+					事件绑定：
+					$("选择器").事件类型(function(){
+						
+					});
+					单机事件：click
+				*/
+				$("#show").click(function() {
+					// 将隐藏的标签显示
+					$("p:hidden").show();
+				});
+
+				// 给hide绑定事件 
+				$("#hide").click(function() {
+					// 隐藏显示的P元素
+					$("p:visible").hide();
+				});
+
+				// $("[type=button]").click(function() {
+				// 	// this:HTMLInputElement，js对象，不能调用jquery中函数
+				// 	// alert(this);
+				// 	// alert($(this));
+				// 	// 将this转为jquery对象
+				// 	var $btn = $(this);
+				// 	// 获取到触发事件的标签的id
+				// 	// val()：获取input输入框中的value属性值  ==>  var value = document.getElementBy("aa").value;
+				// 	var value = $btn.val();
+				// 	// console.log(this.value);
+				// 	// 判断value的值，如果是”显示隐藏的P元素“,显示隐藏的P元素
+				// 	// 如果是”隐藏显示的P元素“,隐藏显示的P元素
+				// 	if (value == "显示隐藏的P元素") {
+				// 		$("p:hidden").show();
+				// 	} else {
+				// 		$("p:visible").hide();
+				// 	}
+				// });
+			})
+		</script>
+	</head>
+	<body>
+		<p id="txt_hide">点击按钮，我会被隐藏哦~</p>
+		<p id="txt_show">隐藏的我，被显示了，嘿嘿^^</p>
+		<input name="show" type="button" value="显示隐藏的P元素" id="show" />
+		<input name="hide" type="button" value="隐藏显示的P元素" id="hide" />
+	</body>
+	</body>
+</html>

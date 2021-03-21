@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8" />
+		<title></title>
+		<!-- 导入jquery的文件 -->
+		<!-- 在当前的script标签不能加入js代码 -->
+		<script src="../js/jquery-3.2.1.min.js" type="text/javascript" charset="utf-8"></script>
+		<script type="text/javascript">
+			$(document).ready(function() {
+				// document.write("你好。。。");
+			});
+
+			// document:dom对象,js的对象
+			// $()：jquery中的工厂函数，将js对象转为jquery对象
+			// ready()：是jquery中的函数，相当于window.onload
+			$(document).ready(function() {
+				// document.write("，jquery");
+			});
+			// 缩写
+			$(function() {
+				// document.write("，jquery好多选择器");
+			});
+
+			// window.onload：1.等页面的所有内容加载完了之后执行  2.没有缩写  3.只能有一个，写了多个，出现覆盖
+			// $(document).ready()：1.页面元素的结构加载完成之后就会执行  2。有缩写   3.只可以写了多个
+
+			$(function() {
+				// alert("jquery");
+				console.log("jquery")
+			});
+			$(function(){
+				alert("hello world!");
+			});
+			window.onload = function() {
+				// alert("js");
+				console.log("js")
+			}
+			window.onload = function() {
+				console.log("js2222");
+			}
+			window.onload = function() {
+				// alert("js");
+				console.log("js44444")
+			}
+		</script>
+	</head>
+	<body>
+		<h1>aaaa</h1>
+		<!-- <img src="img/sdf.jpg" /> -->
+	</body>
+</html>

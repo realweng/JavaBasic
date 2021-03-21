@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+		<link rel="stylesheet" href="../css/3newStyle.css" />
+		<script type="text/javascript" src="../js/jquery-3.2.1.min.js"></script>
+		<script type="text/javascript">
+			$(function() {
+				// a标签中有设置class的元素对象
+				// $("a[class]").css("color", "red");
+
+				// a标签class=hot
+				// $("a[class=hot]").css("color", "red");
+
+				// a标签class!=hot
+				// $("a[class!=hot]").css("color", "red");
+				
+				// a标签href 以 sale 开始
+				// $("a[href^=sale]").css("color", "red");
+				
+				// a标签href 以 29257 结束
+				// $("a[href$=29257]").css("color", "red");
+				
+
+
+			});
+		</script>
+	</head>
+	<body>
+		<section id="news">
+			<header>京东快报<a href="#" class="more">更多 > </a></header>
+			<ul>
+				<li><a href="sale.jd.com/act/h7mf8.html" class="hot"><span>[618]</span>志玲姐姐：墨镜300减30</a></li>
+				<li><a href="http://www.jd.com/news.aspx?id=29257"><span>[公告]</span>京东无锡馆正式启动</a></li>
+				<li><a href="sale.jd.com/act/k2ad45v.html"><span>[特惠]</span>99元抢平板！品牌配件199-100</a></li>
+				<li><a href="www.jd.com/news.aspx?id=29252"><span>[公告]</span>节能领跑京东先行</a></li>
+				<li><a href="sale.jd.com/act/ugk2937w.html" class="last"><span>[特惠]</span>高洁丝实力撩货，领券五折</a></li>
+			</ul>
+		</section>
+	</body>
+</html>

@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+		<link type="text/css" rel="stylesheet" href="../css/5games.css" />
+		<script type="text/javascript" src="../js/jquery-3.2.1.min.js"></script>
+
+		<script type="text/javascript">
+			/**
+			 * 基本过滤选择器
+			 * :first：选取第一个元素（单个元素）
+			 * :last：选取最后一个元素（单个元素）
+			 * :eq(index）：选取索引等于index的元素（单个元素）
+			 * :gt(index)：选取索引大于index的元素（元素集合）
+			 * :lt(index)：选取索引小于index的元素（元素集合）
+			 * :even：选取索引是偶数的所有元素，索引从0开始（元素集合）
+			 * :odd：选取索引是奇数的所有元素，索引从0开始（元素集合）
+			 * 
+			 * :not(selector)：去除所有与给定选择器匹配的元素（元素集合）
+			 * 
+			 * :header：选取所有的标题元素（元素集合）
+			 * :focus：选取当前获得焦点的元素（元素集合）
+			 * :animated：选取当前正在执行动画的所有元素（元素集合）
+			 */
+			$(function() {
+				// 获取第一个<li></li>
+				// $("div.contain ul li:first").css("color","red");
+
+				// 索引为3的元素
+				// $("div.contain ul li:eq(3)").css("color", "red");
+
+				//索引大于2的<li></li>
+				// $("div.contain ul li:gt(2)").css("color", "red");
+
+				// 索引为偶数的<li></li>,奇数行
+				// $("div.contain ul li:even()").css("color", "red");
+
+				// 索引为奇数的<li></li>,偶数行
+				// $("div.contain ul li:odd()").css("color", "red");
+
+				// 获取除最后一个<li></li>
+				// $("div.contain ul li:not(:eq(1))").css("color", "red");
+
+				// 练习：table单双行显示不同的背景颜色
+				// $("div.contain table tr:odd()").css("color","red");
+
+			})
+		</script>
+	</head>
+	<body>
+		<div class="contain">
+			<h2>祝福冬奥</h2>
+			<!-- <h4>祝福冬奥</h4> -->
+			<ul>
+				<li> 贝克汉姆：衷心希望北京能够申办成功！</li>
+				<li> 姚明：北京申冬奥是个非常棒的机会！加油！</li>
+				<li> 张虹：北京办冬奥，大家的热情定超乎想象！ </li>
+				<li> 肖恩怀特：我爱北京，支持北京申办冬奥会！</li>
+				<li> 赵宏博：北京申办冬奥会是再合适不过了！</li>
+				<li> 你喜欢哪些冬季运动项目？(点击进入调查页)</li>
+			</ul>
+			<table>
+				<tr>
+					<td>111111111111111</td>
+				</tr>
+				<tr>
+					<td>111111111111111</td>
+				</tr><tr>
+					<td>111111111111111</td>
+				</tr><tr>
+					<td>111111111111111</td>
+				</tr><tr>
+					<td>111111111111111</td>
+				</tr>
+			</table>
+		</div>
+	</body>
+</html>

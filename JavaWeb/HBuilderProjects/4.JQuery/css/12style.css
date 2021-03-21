@@ -1,0 +1,33 @@
+* {
+	margin: 0;
+	padding: 0;
+	font-family: "微软雅黑";
+}
+
+fieldset {
+	width: 300px;
+	margin: 10px auto;
+}
+
+dl {
+	clear: both;
+}
+
+dt,
+dd {
+	display: inline-block;
+	height: 35px;
+	line-height: 35px;
+	;
+}
+
+dt {
+	width: 80px;
+	text-align: right;
+}
+
+input[type="submit"] {
+	width: 60px;
+	text-align: center;
+	line-height: 25px;
+}
