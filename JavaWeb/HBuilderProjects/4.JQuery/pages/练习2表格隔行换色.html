@@ -2,8 +2,40 @@
 <html>
 	<head>
 		<meta charset="utf-8">
-		<title></title>
+		<title>表格隔行换色</title>
+		<script type="text/javascript" src="../js/jquery-3.2.1.min.js"></script>
+		<script type="text/javascript">
+			$(function(){
+				 $("#div table tr:odd()").css("color","red");
+			});
+		</script>
 	</head>
 	<body>
+		<div id="div">
+			<table border="1px">
+				<tr>
+					<td>11111111111111</td>
+				</tr>
+				<tr>
+					<td>22222222222222</td>
+				</tr>
+				<tr>
+					<td>33333333333333</td>
+				</tr>
+				<tr>
+					<td>44444444444444</td>
+				</tr>
+				<tr>
+					<td>55555555555555</td>
+				</tr>
+				<tr>
+					<td>66666666666666</td>
+				</tr>
+				<tr>
+					<td>77777777777777</td>
+				</tr>
+			</table>
+		</div>
+
 	</body>
 </html>
