@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+		<script src="js/jquery-3.2.1.min.js" type="text/javascript" charset="utf-8"></script>
+		<link type="text/css" rel="stylesheet" href="css/5games.css" />
+		<script type="text/javascript">
+			$(function() {
+				// 获取父级节点:parent()  单个
+				// var parents = $(".gameList").parent();
+
+				// 获取所有的父级节点：parents()  多个
+				// var parents = $(".gameList").parents();
+
+				// 获取所有的子元素
+				// var parents = $(".gameList").children();
+
+				// 获取上一个元素
+				// var parents = $(".gameList").prev()
+				
+				// 获取下一个元素
+				// var parents = $(".gameList").next();
+				
+				// 获取所有的同辈元素
+				// var parents = $(".gameList").siblings();
+				
+				// 练习：通过yaoming获取父级元素第二个的同辈元素
+
+
+				console.log("长度：" + parents.length)
+
+				parents.each(function(index, obj) {
+					console.log(obj);
+				})
+
+			});
+		</script>
+	</head>
+	<body>
+		<div class="contain">
+			<img src="img/1.jpg" width="100px" height="100px" />
+			<h2>祝福冬奥</h2>
+			<ul class="gameList">
+				<li> 贝克汉姆：衷心希望北京能够申办成功！</li>
+				<li id="yaoming"> 姚明：北京申冬奥是个非常棒的机会！加油！</li>
+				<li> 张虹：北京办冬奥，大家的热情定超乎想象！ </li>
+				<li> 肖恩怀特：我爱北京，支持北京申办冬奥会！</li>
+			</ul>
+			<span>大家好</span>
+		</div>
+	</body>
+</html>

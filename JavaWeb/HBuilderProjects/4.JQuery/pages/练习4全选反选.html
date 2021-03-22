@@ -2,8 +2,74 @@
 <html>
 	<head>
 		<meta charset="utf-8">
-		<title></title>
+		<title>全选反选</title>
+		<script type="text/javascript" src="../js/jquery-3.2.1.min.js" charset="UTF-8"></script>
+		<script type="text/javascript">
+			$(function() {
+				//通过button全选
+				$("#checkAllBtn").click(function() {
+					$("[name=person]").each(function() {
+						this.checked = true;
+					});
+				});
+				//通过button全不选
+				$("#checkNoneBtn").click(function() {
+					$("[name=person]").each(function() {
+						this.checked = false;
+					});
+				});
+				//通过button反选
+				$("#checkedRevBtn").click(function() {
+					$("[name=person]").each(function() {
+						this.checked = !this.checked;
+					});
+				});
+				//通过checkbox全选
+				var dom1 = $("#checkAll")[0];
+				$("#checkAll").change(function() {
+					if (dom1.checked) {
+						$("[name=person]").each(function() {
+							this.checked = true;
+						});
+					}
+				});
+
+				//通过checkbox全不选
+				var dom2 = $("#checkNone")[0];
+				$("#checkNone").change(function() {
+					if (dom2.checked) {
+						$("[name=person]").each(function() {
+							this.checked = false;
+						});
+					}
+				});
+
+				//通过checkbox反选
+				$("#checkRev").change(function() {
+					$("[name=person]").each(function() {
+						this.checked = !this.checked;
+					});
+				});
+
+			});
+		</script>
 	</head>
 	<body>
+		<div>
+			<ul>
+				<li><input type="checkbox" name="person" value="项羽">项羽</li>
+				<li><input type="checkbox" name="person" value="范增">范增</li>
+				<li><input type="checkbox" name="person" value="龙且">龙且</li>
+				<li><input type="checkbox" name="person" value="刘邦">刘邦</li>
+				<li><input type="checkbox" name="person" value="萧何">萧何</li>
+				<li><input type="checkbox" name="person" value="韩信">韩信</li>
+			</ul><br />
+			<input type="button" id="checkAllBtn" name="checkAll" value="全选">
+			<input type="button" id="checkNoneBtn" name="checkNone" value="全不选">
+			<input type="button" id="checkedRevBtn" name="checkedRevBtn" value="反选"><br />
+			<input type="checkbox" id="checkAll" name="checkAll" /><span>全选</span>
+			<input type="checkbox" id="checkNone" name="checkNone" /><span>全不选</span>
+			<input type="checkbox" id="checkRev" name="checkRev" /><span>反选</span>
+		</div>
 	</body>
 </html>

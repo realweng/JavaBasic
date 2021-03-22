@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+		<link type="text/css" rel="stylesheet" href="css/62style.css" />
+		<script type="text/javascript" src="js/jquery-3.2.1.min.js"></script>
+		<script type="text/javascript">
+			$(function() {
+				$(".nav-box ul li").mouseover(function() {
+					// 将当前li中的div显示出来
+					// $(this).children("div").show();
+					$(this).children("div").fadeIn(3000);
+				});
+
+				$(".nav-box ul li").mouseout(function() {
+					// 将当前li中的div隐藏
+					// $(this).children("div").hide();
+					$(this).children("div").fadeOut(3000); // 透明度 0-1
+				})
+			})
+		</script>
+	</head>
+	<body>
+		<div class="nav-box">
+			<div class="nav-top"><a href="">全部商品分类</a></div>
+			<ul>
+				<li>
+					<a href="">家用电器</a>
+					<div><img src="img/erji.jpg" /></div>
+				</li>
+				<li>
+					<a href="">手机</a>、<a href="">数码</a>、<a href="">京东通信</a>
+					<div><img src="img/erji1.jpg" /></div>
+				</li>
+				<li>
+					<a href="">电脑</a>、<a href="">办公</a>
+					<div><img src="img/erji2.jpg" /></div>
+				</li>
+				<li>
+					<a href="">家居</a>、<a href="">家具</a>、<a href="">家装</a>、<a href="">厨具</a>
+					<div><img src="img/erji3.jpg" /></div>
+				</li>
+				<li>
+					<a href="">男装</a>、<a href="">女装</a>、<a href="">珠宝</a>
+					<div><img src="img/erji4.jpg" /></div>
+				</li>
+			</ul>
+		</div>
+	</body>
+</html>

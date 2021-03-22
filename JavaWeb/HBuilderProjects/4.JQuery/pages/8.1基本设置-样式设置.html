@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>样式设置</title>
+		<script src="js/jquery-3.2.1.min.js" type="text/javascript" charset="utf-8"></script>
+		<style type="text/css">
+			h2 {
+				padding: 5px;
+			}
+
+			.color {
+				color: salmon;
+			}
+
+			.font {
+				font-size: 30px;
+			}
+		</style>
+		<script type="text/javascript">
+			$(function() {
+				// 给p标签设置字体样式  css
+				// $("p").css("color", "red");
+				// 给标签设置多个yangshi
+				// $("p").css({
+				// 	color: "red",
+				// 	"font-size": "28px"
+				// });
+
+				// 通过addClass给标签设置class属性，通过class选择器来给标签加载样式
+				// $("p").addClass("color");// 设置一个样式
+				$("p").addClass("color font"); // 设置多个样式
+
+				// 删除标签上的class选择器样式
+				// $("p").removeClass("color");//删除一个
+				// $("p").removeClass("color font"); // 删除多个样式
+				// $("p").removeClass(); // 删除所有的class样式
+
+			});
+		</script>
+	</head>
+	<body>
+		<h2>什么是受益人?</h2>
+		<p>
+			<strong>解答：</strong>
+			受益人是指人身保险中由被保险人或者投保人指定的
+			享有保险金请求权的人，投保人、被保险人可以为受益人。
+		</p>
+	</body>
+</html>

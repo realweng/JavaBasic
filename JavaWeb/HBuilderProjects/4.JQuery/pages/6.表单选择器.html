@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>表单选择器</title>
+		<style type="text/css">
+			.input {
+				width: 150px;
+				height: 20px;
+				border: 1px skyblue solid;
+				margin-bottom: 5px;
+			}
+
+			select {
+				width: 50px;
+				height: 20px;
+				border: 1px skyblue solid;
+				margin-bottom: 5px;
+			}
+
+			.focus {
+				border: 1px red solid;
+			}
+
+			span {
+				color: red;
+			}
+		</style>
+		<script src="js/jquery-3.2.1.min.js" type="text/javascript" charset="utf-8"></script>
+		<script type="text/javascript">
+			$(function() {
+				// :input：获取所有的表单元素（input标签、select标签、textaret标签）
+				// var inputs = $(":input");
+				// console.log(inputs);
+
+				// :text：获取所有文本输入框
+				// var inputs = $("#myFrm :text");
+
+				// :checkbox：获取所有的复选框
+				// var inputs = $("#myFrm :checkbox");
+
+				// :checked：所有选择中元素（radio、checkbox、select）
+				// var inputs = $(":checked");
+
+				// 练习：获取所有选中的复选框。。？
+				var inputs = $("#myFrm :checkbox:checked");
+
+
+				// 数组对象.each(function(index,obj){})
+				inputs.each(function(index, obj) {
+					console.log(index);
+					console.log(obj)
+				})
+
+
+			});
+		</script>
+	</head>
+	<body>
+		<form action="#" method="get" id="myFrm">
+			<table width="400px" align="center">
+				<tr>
+					<td align="right">
+						<label for="username">账号：</label>
+					</td>
+					<td>
+						<input type="text" name="username" id="username" placeholder="请输入账号" class="input"
+							value="小白" /><span></span>
+					</td>
+				</tr>
+				<tr>
+					<td align="right">
+						<label for="password">密码：</label>
+					</td>
+					<td>
+						<input type="password" name="password" id="password" placeholder="请输入密码" class="input" />
+					</td>
+				</tr>
+				<tr>
+					<td align="right">
+						<label>地址：</label>
+					</td>
+					<td>
+						<select name="sheng">
+							<option value="湖北">湖北</option>
+							<option value="湖南">湖南</option>
+						</select>
+						<select name="city">
+							<option value="武汉">武汉</option>
+							<option value="武汉">长沙</option>
+						</select>
+						<br />
+						<input type="text" name="address" placeholder="请输入详细地址" class="input" />
+					</td>
+				</tr>
+				<tr>
+					<td align="right">
+						<label>电话：</label>
+					</td>
+					<td>
+						<input type="text" name="phone" placeholder="请输入电话" class="input" />
+					</td>
+				</tr>
+				<tr>
+					<td align="right">
+						<label>性别：</label>
+					</td>
+					<td>
+						<input type="radio" name="sex" value="0" /> <img src="img/user_suit.png" />
+						<input type="radio" name="sex" value="1" checked="checked" /> <img src="img/user_female.png" />
+					</td>
+				</tr>
+				<tr>
+					<td align="right">
+						<label>爱好：</label>
+					</td>
+					<td>
+						<input type="checkbox" name="aihao" value="打篮球" checked="checked" /> 打篮球
+						<input type="checkbox" name="aihao" value="睡觉" /> 睡觉
+						<input type="checkbox" name="aihao" value="敲代码" /> 敲代码
+						<input type="checkbox" name="aihao" value="打游戏" /> 打游戏
+					</td>
+				</tr>
+				<tr>
+					<td align="right">
+						<label>个人简介：</label>
+					</td>
+					<td>
+						<textarea name="jianjie" cols="15" rows="2">个人简介</textarea>
+					</td>
+				</tr>
+				<tr>
+					<td align="right">
+						<label>图像：</label>
+					</td>
+					<td>
+						<input type="file" name="image" />
+					</td>
+				</tr>
+				<tr>
+					<td></td>
+					<td>
+						<input type="submit" value="subimt" />
+						<input type="reset" value="reset" />
+					</td>
+				</tr>
+			</table>
+		</form>
+	</body>
+</html>
