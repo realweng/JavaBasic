@@ -9,6 +9,7 @@
             $("#btn").click(function () {
                 var $obj = $(":checkbox:checked");
                 $obj.each(function(){
+					
 					$("p").append("<b>" + this.value + "</b><br/>");
 				});				
             });
