@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>节点属性</title>
+		<link type="text/css" rel="stylesheet" href="css/5games.css" />
+		<script src="js/jquery-3.2.1.min.js" type="text/javascript" charset="utf-8"></script>
+		<script type="text/javascript">
+			$(function() {
+				$("li").click(function() {
+					// 获取li的text
+					var liText = $(this).text();
+					// console.log(liText === " 姚明：北京申冬奥是个非常棒的机会！加油！");
+					// 判断text = 姚明：北京申冬奥是个非常棒的机会！加油！
+					if (liText === " 姚明：北京申冬奥是个非常棒的机会！加油！") {
+						// 将img的src换位winter.jpg
+						// $("img").attr("src", "img/winter.jpg");// 设置元素单个的属性
+						$("img").attr({
+							"src": "img/winter.jpg",
+							"width": "150px",
+							"height": "150px"
+						}); // 设置多个属性
+						// 如果是设置text、html、value、class... 通过对应函数 text(),html(),val(),addClass()
+					} else {
+						// $("img").removeAttr("src");// 删除单个属性
+						// $("img").removeAttr("src width");// 删除多个属性
+					}
+
+				})
+			})
+		</script>
+	</head>
+	<body>
+		<div class="contain">
+			<img src="img/1.jpg" width="100px" height="100px" />
+			<h2>祝福冬奥</h2>
+			<ul class="gameList">
+				<li> 贝克汉姆：衷心希望北京能够申办成功！</li>
+				<li> 姚明：北京申冬奥是个非常棒的机会！加油！</li>
+				<li> 张虹：北京办冬奥，大家的热情定超乎想象！ </li>
+				<li> 肖恩怀特：我爱北京，支持北京申办冬奥会！</li>
+			</ul>
+		</div>
+	</body>
+</html>

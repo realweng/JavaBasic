@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+		<link href="css/dangStyle2.css" rel="stylesheet" type="text/css" />
+		<script type="text/javascript" src="js/jquery-3.2.1.min.js"></script>
+		<script type="text/javascript">
+			$(function() {
+				$(".on").hover(function() {
+					$(this).children(".topDown").show();
+				}, function() {
+					$(this).children(".topDown").hide();
+				});
+
+				// 使用on给标签绑定单事件
+				// $(选择器).on("事件类型",function(){});
+				// $(".nav-ul li:eq(0)").on("mouseover", function() {
+				// 	$(this).css("background-color", "salmon");
+				// });
+
+				// 使用on给标签绑定事件
+				// $(选择器).on({"事件类型":function(){},"事件类型":function(){}});
+				$(".nav-ul li").on({
+					"mouseover": function() {
+						$(this).css("background-color", "salmon");
+					},
+					"mouseout": function() {
+						$(this).css("background-color", "#ff2832");
+					}
+				});
+
+
+
+
+			})
+		</script>
+	</head>
+	<body>
+		<div class="top">
+			<div class="wrap">
+				<div class="top-l left">欢迎光临当当，请<a href="" class="top-login">登录</a><a href="">免费注册</a></div>
+				<ul class="top-m right">
+					<li><a href=""><i class="top-car left"></i>购物车</a></li>
+					<li class="line"></li>
+					<li><a href="">我的订单</a></li>
+					<li class="line"></li>
+					<li><a href="">当当自出版</a></li>
+					<li class="line"></li>
+					<li><a href=""><i class="top-tel left"></i>手机当当</a></li>
+					<li class="line"></li>
+					<li class="on">
+						<a href="" class="menu-btn">我的当当</a>
+						<ul class="topDown">
+							<li><a href="">我的积分</a></li>
+							<li><a href="">我的收藏</a></li>
+							<li><a href="">我的余额</a></li>
+							<li><a href="">我的评论</a></li>
+							<li><a href="">电子书架</a></li>
+						</ul>
+					</li>
+					<li class="line"></li>
+					<li><a href="" class="menu-btn">企业采购</a></li>
+					<li class="line"></li>
+					<li><a href="" class="menu-btn">客户服务</a></li>
+					<li class="line"></li>
+				</ul>
+				<div class="clearfix"></div>
+			</div>
+		</div>
+		<div class="wrap">
+			<a href=""><img src="img/logo.jpg" /></a>
+		</div>
+		<div class="nav-box">
+			<div class="wrap">
+				<ul class="nav-ul">
+					<li class="all"><a href="">全部商品详细分类</a></li>
+					<li><a href="">尾品会</a></li>
+					<li><a href="">图书</a></li>
+					<li><a href="">电子书</a></li>
+					<li><a href="">服装</a></li>
+					<li><a href="">运动户外</a></li>
+					<li><a href="">婴孕童</a></li>
+					<li><a href="">家具</a></li>
+					<li><a href="">当当优品</a></li>
+					<li><a href="">电器城</a></li>
+					<li><a href="">当当超市</a></li>
+					<li><a href="">海外购</a></li>
+					<div class="clearfix"></div>
+				</ul>
+			</div>
+		</div>
+	</body>
+</html>

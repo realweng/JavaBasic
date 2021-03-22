@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+		<link type="text/css" rel="stylesheet" href="css/5games.css" />
+		<script src="js/jquery-3.2.1.min.js" type="text/javascript" charset="utf-8"></script>
+		<script type="text/javascript">
+			$(function() {
+				// 创建li对象
+				var $li = $("<li>清明流行补偿式返乡</li>"); // jquery的元素对象
+
+				// 将li加载到ul中（最后以子元素）
+				// $("ul.gameList").append($li);
+				// $li.appendTo("ul.gameList");
+
+				// 将li追加到ul中（第一个子元素）
+				// $("ul.gameList").prepend($li);
+				// $li.prependTo("ul.gameList");
+
+				// 将li追加到ul之后（是ul的下一个同辈元素）
+				// $("ul.gameList").after($li);
+				// $li.insertAfter("ul.gameList");
+
+				// 将li追加到ul之前（是ul的下一个同辈元素）
+				// $("ul.gameList").before($li);
+				$li.insertBefore("ul.gameList");
+
+
+				// 删除节点
+				// $li.remove();// 将整个元素对象删除
+				// $li.detach();// 删除对象，保留数据/事件
+				// $li.empty(); // 删除对象（数据），元素对象还存在在页面
+
+				$("h2").click(function() {
+					alert("aaa");
+				})
+
+
+				// 复制
+				var $h2New = $("h2").clone(true); // true：将h2的事件一起复制给$h2New，$h2New也会具有h2上绑定的事件
+				// false（默认值）：将h2的事件不会复制给$h2New
+				console.log($h2New[0]);
+				$("ul").after($h2New);
+
+			});
+		</script>
+	</head>
+	<body>
+		<div class="contain">
+			<h2 id="title">祝福冬奥</h2>
+			<ul class="gameList">
+				<li> 贝克汉姆：衷心希望北京能够申办成功！</li>
+				<li> 姚明：北京申冬奥是个非常棒的机会！加油！</li>
+				<li> 张虹：北京办冬奥，大家的热情定超乎想象！ </li>
+				<li> 肖恩怀特：我爱北京，支持北京申办冬奥会！</li>
+			</ul>
+		</div>
+	</body>
+</html>

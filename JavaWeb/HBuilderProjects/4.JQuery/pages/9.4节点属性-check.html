@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+		<script src="../js/jquery-3.2.1.min.js" type="text/javascript" charset="utf-8"></script>
+		<script type="text/javascript">
+			$(function() {
+
+				$("#checkAll").click(function() {
+					// 如果 checkall 选中   下面的checkbox也要选中
+					// 如果 checkall 没有选中   下面的checkbox也要没有选中
+					// 1.获取checkall的选中状态  jq中获取选中状态:prop()
+					var checkAllChecked = $(this).prop("checked");
+					console.log(checkAllChecked)
+					// 2.通过checkall的选中状态来给其他的checkbox赋值选中状态
+					$(":checkbox").prop("checked", checkAllChecked);
+					// if (checkAllChecked) {
+					// 	$(":checkbox").prop("checked", checkAllChecked);
+					// } else {
+					// 	$(":checkbox").prop("checked", checkAllChecked);
+					// }
+
+				});
+
+				$("#checkRev").click(function() {
+					var checkRevChecked = $(this).prop("checked");
+					$(":checkbox:not(#checkAll):not(#checkRev)").each(function() {
+						this.checked = !this.checked;
+					})
+				});
+
+			})
+		</script>
+	</head>
+	<body>
+		<table width="300px" align="center" border="1px" cellspacing="0">
+			<tr>
+				<td>
+					<input type="checkbox" id="checkAll" />
+					<input type="checkbox" id="checkRev" />
+				</td>
+				<td>
+					姓名
+				</td>
+				<td>
+					性别
+				</td>
+			</tr>
+			<tr>
+				<td>
+					<input type="checkbox" />
+				</td>
+				<td>
+					王二小
+				</td>
+				<td>
+					男
+				</td>
+			</tr>
+			<tr>
+				<td>
+					<input type="checkbox" />
+				</td>
+				<td>
+					司马光
+				</td>
+				<td>
+					男
+				</td>
+			</tr>
+			<tr>
+				<td>
+					<input type="checkbox" />
+				</td>
+				<td>
+					董存瑞
+				</td>
+				<td>
+					男
+				</td>
+			</tr>
+
+		</table>
+	</body>
+</html>
