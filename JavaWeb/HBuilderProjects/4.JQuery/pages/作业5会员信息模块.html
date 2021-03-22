@@ -1,0 +1,117 @@
+<!DOCTYPE html
+	PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+		<title>会员信息模块 </title>
+		<script type="text/javascript" src="../js/jquery-3.2.1.min.js"></script>
+		<style type="text/css">
+			* {
+
+				font-size: 12px;
+			}
+
+			tr {
+				text-align: center;
+				height: 40px;
+			}
+		</style>
+		<script type="text/javascript">
+			$(function() {
+				//添加一行
+				$(".newone").click(function() {
+					var $tr = $("<tr bgcolor='#FAF3E9'>" +
+						"<td><input type='checkbox' /></td><td>张三</td><td>男</td><td>6565654315321321</td><td>短工</td><td>18625455412</td><td>1995-12-09</td><td>10,000.00</td><td><img class='add' src='../img/add.jpg' /> <img class='del' src='../img/del.jpg' /></td></tr>"
+					);
+					$tr.appendTo("table");
+				});
+				//全选
+				$("#checkAll").click(function() {
+					var checkAllChecked = $(this).prop("checked");
+					if (checkAllChecked) {
+						$(":checkbox").prop("checked", checkAllChecked);
+					}
+				});
+				//删除已经选中的
+				$(".delelem").click(function() {
+					//找到已经选中的
+					$(":checkbox:checked:not(#checkAll)").each(function() {
+						var $parent = $(this).parent().parent(); //删除被选中的那一行
+						$parent.remove();
+					});
+				});
+				//点击x图标删除对应的行
+				$("body").on("click", ".del", function() {
+					var $parent = $(this).parent().parent();
+					$parent.remove();
+				});
+				//点击蓝色图标新增
+				$("body").on("click", ".add", function() {
+					var $tr = $("<tr bgcolor='#FAF3E9'>" +
+						"<td><input type='checkbox' /></td><td>张三</td><td>男</td><td>6565654315321321</td><td>短工</td><td>18625455412</td><td>1995-12-09</td><td>10,000.00</td><td><img class='add' src='../img/add.jpg' /> <img class='del' src='../img/del.jpg' /></td></tr>"
+					);
+					$tr.appendTo("table");
+				});
+			});
+		</script>
+	</head>
+	<body>
+		<table width="800" border="0" cellspacing="0" cellpadding="0">
+			<tr bgcolor="#EBE7DC">
+				<td><input id="checkAll" type="checkbox" /></td>
+				<td>姓名</td>
+				<td>性别</td>
+				<td>卡号</td>
+				<td>会员级别</td>
+				<td>电话号码</td>
+				<td>出生年月日</td>
+				<td>消费金额</td>
+				<td>&nbsp;</td>
+			</tr>
+			<tr bgcolor="#FAF3E9">
+				<td><input type="checkbox" /></td>
+				<td>张三</td>
+				<td>男</td>
+				<td>6565654315321321</td>
+				<td>短工</td>
+				<td>18625455412</td>
+				<td>1995-12-09</td>
+				<td>10,000.00</td>
+				<td>
+					<img class="add" src="../img/add.jpg" />
+					<img class="del" src="../img/del.jpg" />
+				</td>
+			</tr>
+			<tr bgcolor="#FEFAF7">
+				<td><input type="checkbox" /></td>
+				<td>张三</td>
+				<td>男</td>
+				<td>6565654315321321</td>
+				<td>短工</td>
+				<td>18625455412</td>
+				<td>1995-12-09</td>
+				<td>10,000.00</td>
+				<td>
+					<img class="add" src="../img/add.jpg" />
+					<img class="del" src="../img/del.jpg" />
+				</td>
+			</tr>
+			<tr bgcolor="#FAF3E9">
+				<td><input type="checkbox" /></td>
+				<td>张三</td>
+				<td>男</td>
+				<td>6565654315321321</td>
+				<td>短工</td>
+				<td>18625455412</td>
+				<td>1995-12-09</td>
+				<td>10,000.00</td>
+				<td>
+					<img class="add" src="../img/add.jpg" />
+					<img class="del" src="../img/del.jpg" />
+				</td>
+			</tr>
+		</table>
+		<a href="#" class="newone">新增</a>
+		<a href="#" class="delelem">删除</a>
+	</body>
+</html>
