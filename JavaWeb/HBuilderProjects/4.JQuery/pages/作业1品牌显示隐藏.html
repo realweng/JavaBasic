@@ -76,26 +76,26 @@
 		<script type="text/javascript" src="../js/jquery-3.2.1.min.js"></script>
 		<script type="text/javascript">
 			$(function() {
-				//隐藏
+				//先隐藏部分
 				$("li:gt(5):not(:last)").hide();
-		// 		$("div div a").click(function() {
-		// 			$("li:gt(5):not(:last)").toggle();
-		// 			if ($("li:gt(5):not(:last)").is(":hidden")) {
-		// 				$("div div a span").text("显示全部品牌");
-		// 				$("div div").removeClass();
-		// 				$("div div").addClass("showmore");
+				//通过点击链接显示、隐藏
+				$("div div a").click(function() {
+					$("li:gt(5):not(:last)").toggle();
+					if ($("li:gt(5):not(:last)").is(":hidden")) {
+						$("div div a span").text("显示全部品牌");
+						$("div div").removeClass();
+						$("div div").addClass("showmore");
 		
-		// 				$("li:eq(0)").removeClass("promoted");
+						$("li:eq(0)").removeClass("promoted");
 		
-		// 			} else {
-		// 				$("div div a span").text("显示精简品牌");
-		// 				$("div div").removeClass();
-		// 				$("div div").addClass("showless");
+					} else {
+						$("div div a span").text("显示精简品牌");
+						$("div div").removeClass();
+						$("div div").addClass("showless");
 		
-		// 				$("li:eq(0)").addClass("promoted");
-		// 			}
-		// 			return false;
-		// 		})
+						$("li:eq(0)").addClass("promoted");
+					}
+				})
 			});
 		</script>
 	</head>
