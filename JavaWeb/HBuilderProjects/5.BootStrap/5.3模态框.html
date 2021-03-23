@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+		<link href="css/bootstrap.min.css" rel="stylesheet" />
+		<script src="js/jquery-3.2.1.min.js" type="text/javascript" charset="utf-8"></script>
+		<script src="js/bootstrap.min.js" type="text/javascript" charset="utf-8"></script>
+		<script src="js/modal.js" type="text/javascript" charset="utf-8"></script>
+	</head>
+	<body>
+		<div class="container">
+			<!-- 展示数据 -->
+			<div class="row">
+				<div class="col-md-6 col-md-offset-3">
+					<table id="hero" class="table table-bordered table-striped table-hover">
+						<tr>
+							<td colspan="4">
+								<button class="btn btn-danger" data-toggle="modal" data-target="#myModal">添加</button>
+							</td>
+						</tr>
+						<tr>
+							<th>英雄</th>
+							<th>生命值</th>
+							<th>法力值</th>
+							<th>操作</th>
+						</tr>
+						<tr>
+							<td>疾风剑豪</td>
+							<td>1000</td>
+							<td>0</td>
+							<td>
+								<button class="btn btn-primary">修改</button>
+								<button class="btn btn-danger">删除</button>
+							</td>
+						</tr>
+						<tr>
+							<td>皮城女警</td>
+							<td>500</td>
+							<td>0</td>
+							<td>
+								<button class="btn btn-primary">修改</button>
+								<button class="btn btn-danger">删除</button>
+							</td>
+						</tr>
+						<tr>
+							<td>奥拉夫</td>
+							<td>2000</td>
+							<td>100</td>
+							<td>
+								<button class="btn btn-primary">修改</button>
+								<button class="btn btn-danger">删除</button>
+							</td>
+						</tr>
+					</table>
+				</div>
+			</div>
+
+			<!-- 添加数据 -->
+			<div class="row">
+				<div class="modal fade" id="myModal" tabindex="-1" role="dialog">
+					<div class="modal-dialog" role="document">
+						<div class="modal-content">
+
+							<!-- 头部 -->
+							<div class="modal-header">
+								<button class="close" data-dismiss="modal" aria-label="Close">x</button>
+								<h2>添加英雄。。。</h2>
+							</div>
+
+
+							<!-- 主体 -->
+							<div class="modal-body">
+								<!-- 表单（录入英雄信息） -->
+								<form class="form-horizontal">
+									<div class="form-group row">
+										<label class="control-label col-md-4">名称：</label>
+										<div class="col-md-7">
+											<input type="text" class="form-control" name="name" id="name"
+												placeholder="请输入英雄名称..." required="required" />
+										</div>
+										<div class="col-md-1"></div>
+									</div>
+									<div class="form-group">
+										<label class="control-label col-md-4">生命值：</label>
+										<div class="col-md-7">
+											<input type="text" class="form-control" name="life" id="life"
+												placeholder="请输入英雄生命值..." required="required" />
+										</div>
+										<div class="col-md-1"></div>
+
+									</div>
+									<div class="form-group">
+										<label class="control-label col-md-4">法力值：</label>
+										<div class="col-md-7">
+											<input type="text" class="form-control" name="power" id="power"
+												placeholder="请输入英雄法力值..." required="required" />
+										</div>
+										<div class="col-md-1"></div>
+									</div>
+								</form>
+							</div>
+
+
+							<!-- 脚部 -->
+							<div class="modal-footer">
+								<button type="button" id="saveHero" class="btn btn-primary">添加</button>
+								<button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+							</div>
+
+						</div>
+					</div>
+				</div>
+			</div>
+
+			<!-- 修改数据 -->
+
+		</div>
+	</body>
+</html>

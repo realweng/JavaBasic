@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+		<link href="css/bootstrap.min.css" rel="stylesheet" />
+		<style>
+			.row div {
+				border: 1px salmon solid;
+			}
+
+			.container {
+				border: 1px seagreen solid;
+			}
+		</style>
+	</head>
+	<body>
+		<div class="container">
+			<!-- row:栅格系统中的行 -->
+			<div class="row">
+				<!-- 
+				栅格系统：将浏览器中的一行等分为12列，每一列的宽度是通过浏览器的尺寸来决定的。
+				超大尺寸：浏览器 >= 1200        97   col-lg-单元格的数量（1-12）
+				中等尺寸：1200<浏览器 >= 970    81   col-md-单元格的数量（1-12）
+				小尺寸：  970<浏览器 >= 768px   62   col-sm-单元格的数量（1-12）
+				超小尺寸：浏览器 < 768px        自动  col-xs-单元格的数量（1-12）
+				 -->
+				<div class="col-lg-1">div1</div>
+				<div class="col-lg-1">div1</div>
+				<div class="col-lg-1">div1</div>
+				<div class="col-lg-1">div1</div>
+				<div class="col-lg-1">div1</div>
+				<div class="col-lg-1">div1</div>
+				<div class="col-lg-1">div1</div>
+				<div class="col-lg-1">div1</div>
+				<div class="col-lg-1">div1</div>
+				<div class="col-lg-1">div1</div>
+				<div class="col-lg-1">div1</div>
+				<div class="col-lg-1">div1</div>
+
+
+				<div class="col-md-1">div1</div>
+				<div class="col-md-1">div1</div>
+				<div class="col-md-1">div1</div>
+				<div class="col-md-1">div1</div>
+				<div class="col-md-1">div1</div>
+				<div class="col-md-1">div1</div>
+				<div class="col-md-1">div1</div>
+				<div class="col-md-1">div1</div>
+				<div class="col-md-1">div1</div>
+				<div class="col-md-1">div1</div>
+				<div class="col-md-1">div1</div>
+				<div class="col-md-1">div1</div>
+
+				<div class="col-sm-1">div1</div>
+				<div class="col-sm-1">div1</div>
+				<div class="col-sm-1">div1</div>
+				<div class="col-sm-1">div1</div>
+				<div class="col-sm-1">div1</div>
+				<div class="col-sm-1">div1</div>
+				<div class="col-sm-1">div1</div>
+				<div class="col-sm-1">div1</div>
+				<div class="col-sm-1">div1</div>
+				<div class="col-sm-1">div1</div>
+				<div class="col-sm-1">div1</div>
+				<div class="col-sm-1">div1</div>
+
+				<div class="col-xs-1">div1</div>
+				<div class="col-xs-1">div1</div>
+				<div class="col-xs-1">div1</div>
+				<div class="col-xs-1">div1</div>
+				<div class="col-xs-1">div1</div>
+				<div class="col-xs-1">div1</div>
+				<div class="col-xs-1">div1</div>
+				<div class="col-xs-1">div1</div>
+				<div class="col-xs-1">div1</div>
+				<div class="col-xs-1">div1</div>
+				<div class="col-xs-1">div1</div>
+				<div class="col-xs-1">div1</div>
+			</div>
+
+			<div class="row">
+				<div class="col-md-2">2</div>
+				<div class="col-md-5">5</div>
+				<div class="col-md-2">2</div>
+				<div class="col-md-3">3</div>
+			</div>
+
+			<!-- 大尺寸：5  3  3   1 -->
+			<!-- 小尺寸：3  4  3   2 -->
+			<div class="row">
+				<div class="col-md-5 col-sm-3">md-5 sm-3</div>
+				<div class="col-md-3 col-sm-4">md-3 sm-4</div>
+				<div class="col-md-3 col-sm-3">md-3 sm-3</div>
+				<div class="col-md-1 col-sm-2">md-1 sm-2</div>
+			</div>
+
+			<!-- 偏移 -->
+			<div class="row">
+				<!-- 4  居中 -->
+				<div class="col-md-4 col-md-offset-4">col-md-4</div>
+			</div>
+
+		</div>
+	</body>
+</html>

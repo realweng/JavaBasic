@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>模态框练习</title>
+		<link href="css/bootstrap.min.css" rel="stylesheet" type="text/css" />
+		<script src="js/jquery-3.2.1.min.js" type="text/javascript"></script>
+		<script src="js/bootstrap.min.js" type="text/javascript"></script>
+		<script src="js/newmodal.js" type="text/javascript"></script>
+	</head>
+	<body>
+		<div class="container">
+			<div class="row">
+				<div class="col-md-6 col-md-offset-3">
+					<table id="hero" class="table table-bordered table-striped table-hover">
+						<!-- 添加按钮这一行 -->
+						<tr>
+							<td colspan="4">
+								<button class="btn btn-danger" data-toggle="modal" data-target="#myModal">添加</button>
+							</td>
+						</tr>
+						<tr>
+							<th>英雄</th>
+							<th>生命值</th>
+							<th>法力值</th>
+							<th>操作</th>
+						</tr>
+						<tr>
+							<td>疾风剑豪</td>
+							<td>1000</td>
+							<td>0</td>
+							<td>
+								<button class="btn btn-primary" data-toggle="modal" data-target="#myModal2">修改</button>
+								<button class="btn btn-danger">删除</button>
+							</td>
+						</tr>
+						<tr>
+							<td>皮城女警</td>
+							<td>500</td>
+							<td>0</td>
+							<td>
+								<button class="btn btn-primary" data-toggle="modal" data-target="#myModal2">修改</button>
+								<button class="btn btn-danger">删除</button>
+							</td>
+						</tr>
+						<tr>
+							<td>奥拉夫</td>
+							<td>2000</td>
+							<td>100</td>
+							<td>
+								<button class="btn btn-primary" data-toggle="modal" data-target="#myModal2">修改</button>
+								<button class="btn btn-danger">删除</button>
+							</td>
+						</tr>
+					</table>
+				</div>
+			</div>
+
+			<!-- 通过模态框添加新的一行数据 -->
+			<div class="row">
+				<div class="modal fade" id="myModal" tabindex="-1" role="dialog">
+					<div class="modal-dialog" role="document">
+						<div class="modal-content">
+							<div class="modal-header">
+								<button class="close" data-dismiss="modal" aria-label="Close">x</button>
+								<h2>添加英雄</h2>
+							</div>
+							<div class="modal-body">
+								<!-- 表单信息 -->
+								<form class="form-horizontal">
+									<div class="form-group row">
+										<label class="control-label col-md-4">名称：</label>
+										<div class="col-md-8">
+											<input type="text" class="form-control" name="name" id="name"
+												placeholder="请输入英雄名称" required="required" />
+										</div>
+										<label class="control-label col-md-4">生命值：</label>
+										<div class="col-md-8">
+											<input type="text" class="form-control" name="life" id="life"
+												placeholder="请输入生命值" required="required" />
+										</div>
+										<label class="control-label col-md-4">法力值：</label>
+										<div class="col-md-8">
+											<input type="text" class="form-control" name="power" id="power"
+												placeholder="请输入法力值" required="required" />
+										</div>
+									</div>
+								</form>
+							</div>
+
+							<!-- 脚部 -->
+							<div class="modal-footer">
+								<button type="button" id="saveHero" class="btn btn-primary">添加</button>
+								<button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+
+			<!-- 修改模态框 -->
+			<div class="row">
+				<div class="modal fade" id="myModal2" tabindex="-1" role="dialog">
+					<div class="modal-dialog" role="document">
+						<div class="modal-content">
+							<div class="modal-header">
+								<button class="close" data-dismiss="modal" aria-label="Close">x</button>
+								<h2>修改英雄</h2>
+							</div>
+							<div class="modal-body">
+								<!-- 表单信息 -->
+								<form class="form-horizontal">
+									<div class="form-group row">
+										<label class="control-label col-md-4">名称：</label>
+										<div class="col-md-8">
+											<input type="text" class="form-control" name="name" id="name"
+												placeholder="请输入修改的名称" required="required" />
+										</div>
+										<label class="control-label col-md-4">生命值：</label>
+										<div class="col-md-8">
+											<input type="text" class="form-control" name="life" id="life"
+												placeholder="请输入修改的生命值" required="required" />
+										</div>
+										<label class="control-label col-md-4">法力值：</label>
+										<div class="col-md-8">
+											<input type="text" class="form-control" name="power" id="power"
+												placeholder="请输入修改的法力值" required="required" />
+										</div>
+									</div>
+								</form>
+							</div>
+
+							<!-- 脚部 -->
+							<div class="modal-footer">
+								<button type="button" id="changeHero" class="btn btn-primary">修改</button>
+								<button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<!-- 删除 -->
+		</div>
+	</body>
+</html>
