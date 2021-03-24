@@ -15,7 +15,6 @@ $(function() {
 		var $td4 = $(
 			'<td><button name="change" class="btn btn-primary" data-toggle="modal" data-target="#myModal2">修改</button> ' +
 			'<button name = "delete" class="btn btn-danger">删除</button></td>');
-
 		//将列添加到一行中
 		$tr.append($td1).append($td2).append($td3).append($td4);
 		//将行添加到table中
@@ -66,55 +65,61 @@ $(function() {
 	});
 
 
+	//添加姓名非空验证
 	$("#name").blur(function() {
 		if ($(this).val() == "") {
-			$("#exName").text("姓名不能为空").css("color", "red");
+			$("#nameInfo").text("姓名不能为空").css("color", "red");
 		} else {
-			$("#exName").text("");
+			$("#nameInfo").text("");
 		}
 	})
 
+	//添加验证
 	$("#life").blur(function() {
-		var reg = /^[0-9]{1,}$/;
+		var reg = /^\d{1,}$/;
 		if (!reg.test($(this).val())) {
-			$("#exLife").text("请输入数字").css("color", "red");
+			$("#lifeInfo").text("请输入数字").css("color", "red");
 		} else {
-			$("#exLife").text("");
+			$("#lifeInfo").text("");
 		}
 	})
 
+	//添加验证
 	$("#power").blur(function() {
-		var reg = /^[0-9]{1,}$/;
+		var reg = /^\d{1,}$/;
 		if (!reg.test($(this).val())) {
-			$("#exPower1").text("请输入数字").css("color", "red");
+			$("#powerInfo").text("请输入数字").css("color", "red");
 		} else {
-			$("#exPower1").text("");
+			$("#powerInfo").text("");
 		}
 	})
 
+	//修改验证
 	$("#name1").blur(function() {
 		if ($(this).val() == "") {
-			$("#exName1").text("姓名不能为空").css("color", "red");
+			$("#nameInfo1").text("姓名不能为空").css("color", "red");
 		} else {
-			$("#exName1").text("");
+			$("#nameInfo1").text("");
 		}
 	})
 
+	//修改验证
 	$("#life1").blur(function() {
-		var reg = /^[0-9]{1,}$/;
+		var reg = /^\d{1,}$/;
 		if (!reg.test($(this).val())) {
-			$("#exLife1").text("请输入数字").css("color", "red");
+			$("#lifeInfo1").text("请输入数字").css("color", "red");
 		} else {
-			$("#exLife1").text("");
+			$("#lifeInfo1").text("");
 		}
 	})
 
+	//修改验证
 	$("#power1").blur(function() {
-		var reg = /^[0-9]{1,}$/;
+		var reg = /^\d{1,}$/;
 		if (!reg.test($(this).val())) {
-			$("#exPower1").text("请输入数字").css("color", "red");
+			$("#powerInfo1").text("请输入数字").css("color", "red");
 		} else {
-			$("#exPower1").text("");
+			$("#powerInfo1").text("");
 		}
 	})
 
