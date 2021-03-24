@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+		<link href="css/bootstrap.min.css" rel="stylesheet" />
+		<script src="js/jquery-3.2.1.min.js" type="text/javascript" charset="utf-8"></script>
+		<script type="text/javascript">
+			$(function() {
+				$("li").click(function() {
+					// alert("aaa");
+					$(this).addClass("active");
+					$(this).siblings().removeClass("active");
+				});
+
+				$("#content ul li").click(function() {
+					// 获取a标签中的data-url的值
+					var url = $(this).children("a").attr("data-url");
+					// alert(url);
+					// 给iframe设置src
+					$("#main").attr("src", url);
+				})
+			})
+		</script>
+	</head>
+	<body>
+		<div class="container">
+			<!-- 导航的格式：标签页    -->
+			<ul class="nav nav-tabs">
+				<li role="presentation" class="active"><a href="#">首页</a></li>
+				<li role="presentation"><a href="#">菜单管理</a></li>
+				<li role="presentation"><a href="#">角色管理</a></li>
+			</ul>
+			<br />
+
+			<!-- 导航的格式：胶囊 -->
+			<ul class="nav nav-pills">
+				<li role="presentation" class="active"><a href="#">首页</a></li>
+				<li role="presentation"><a href="#">菜单管理</a></li>
+				<li role="presentation"><a href="#">角色管理</a></li>
+			</ul>
+			<br />
+
+			<div class="row" id="content">
+				<div class="col-md-3">
+					<ul class="nav nav-pills nav-stacked">
+						<li role="presentation" class="active">
+							<!-- 在a标签上自定义属性，存储菜单的链接 -->
+							<a href="#" data-url="0.入门.html">首页</a>
+						</li>
+						<li role="presentation">
+							<a href="#" data-url="3.表格.html">菜单管理</a>
+						</li>
+						<li role="presentation">
+							<a href="#" data-url="4.表单.html">角色管理</a>
+						</li>
+					</ul>
+				</div>
+				<div class="col-md-9">
+					<iframe id="main" src="0.入门.html" width="800px" height="700px"
+						style="border: 1px silver solid; padding: 5px;"></iframe>
+				</div>
+			</div>
+
+
+		</div>
+	</body>
+</html>
