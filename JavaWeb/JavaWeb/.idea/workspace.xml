@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ArtifactsWorkspaceSettings">
     <artifacts-to-build>
-      <artifact name="Servlet_02:war exploded" />
+      <artifact name="HomeWork:war exploded" />
     </artifacts-to-build>
   </component>
   <component name="AutoImportSettings">
@@ -15,6 +15,7 @@
       <change afterPath="$PROJECT_DIR$/Servlet_01/web/img/2.jpg" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/Servlet_01/web/img/3.jpg" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/Servlet_01/web/img/4.jpg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Servlet_01/Servlet_01.iml" beforeDir="false" afterPath="$PROJECT_DIR$/Servlet_01/Servlet_01.iml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Servlet_01/web/login.html" beforeDir="false" afterPath="$PROJECT_DIR$/Servlet_01/web/login.html" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -25,6 +26,8 @@
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
+        <option value="Interface" />
+        <option value="Jsp File" />
         <option value="Class" />
       </list>
     </option>
@@ -108,24 +111,28 @@
     <property name="aspect.path.notification.shown" value="true" />
     <property name="com.intellij.openapi.externalSystem.service.settings.ExternalSystemGroupConfigurable" value="ALL" />
     <property name="jdk.selected.JAVA_MODULE" value="1.8" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/Servlet_02/web/WEB-INF" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/HomeWork/web" />
     <property name="nodejs_interpreter_path.stuck_in_default_project" value="undefined stuck path" />
     <property name="nodejs_npm_path_reset_for_default_project" value="true" />
-    <property name="project.structure.last.edited" value="Libraries" />
+    <property name="project.structure.last.edited" value="Facets" />
     <property name="project.structure.proportion" value="0.15" />
     <property name="project.structure.side.proportion" value="0.2" />
-    <property name="settings.editor.selected.configurable" value="preferences.customizations" />
+    <property name="settings.editor.selected.configurable" value="preferences.lookFeel" />
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="E:\4031\student\22翁兴国\IdeaProject\JavaWeb\HomeWork\web" />
+      <recent name="E:\4031\student\22翁兴国\IdeaProject\JavaWeb\HomeWork\src\com\java\util" />
+      <recent name="E:\4031\student\22翁兴国\IdeaProject\JavaWeb\HomeWork\web\WEB-INF" />
+      <recent name="E:\4031\student\22翁兴国\IdeaProject\JavaWeb\HomeWork\web\WEB-INF\lib" />
       <recent name="E:\4031\student\22翁兴国\IdeaProject\JavaWeb\Servlet_02\web\WEB-INF" />
-      <recent name="E:\4031\student\22翁兴国\IdeaProject\JavaWeb\Servlet_01\web\img" />
-      <recent name="E:\4031\student\22翁兴国\IdeaProject\JavaWeb\Servlet_01\src\com\java\constants" />
-      <recent name="E:\4031\student\22翁兴国\IdeaProject\JavaWeb\Servlet_01\src\com\java\util" />
-      <recent name="E:\4031\student\22翁兴国\IdeaProject\JavaWeb\Servlet_01\web" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="E:\4031\student\22翁兴国\IdeaProject\JavaWeb\Servlet_01\web" />
+    </key>
+    <key name="CopyClassDialog.RECENTS_KEY">
+      <recent name="com.java.util" />
+      <recent name="com.java.constants" />
     </key>
   </component>
   <component name="RunManager">
@@ -173,14 +180,12 @@
       </method>
     </configuration>
     <configuration name="Tomcat" type="#com.intellij.j2ee.web.tomcat.TomcatRunConfigurationFactory" factoryName="Local" APPLICATION_SERVER_NAME="Tomcat 8.5.31" ALTERNATIVE_JRE_ENABLED="false">
-      <option name="OPEN_IN_BROWSER_URL" value="http://localhost:8080/Servlet_02_war_exploded/" />
       <option name="BROWSER_ID" value="a7bb68e0-33c0-4d6f-a81a-aac1fdb870c8" />
-      <option name="UPDATE_ON_FRAME_DEACTIVATION" value="true" />
-      <option name="UPDATE_CLASSES_ON_FRAME_DEACTIVATION" value="true" />
+      <option name="UPDATING_POLICY" value="restart-server" />
       <deployment>
-        <artifact name="Servlet_02:war exploded">
+        <artifact name="HomeWork:war exploded">
           <settings>
-            <option name="CONTEXT_PATH" value="/Servlet_02_war_exploded" />
+            <option name="CONTEXT_PATH" value="/" />
           </settings>
         </artifact>
       </deployment>
@@ -258,7 +263,7 @@
       <method v="2">
         <option name="Make" enabled="true" />
         <option name="BuildArtifacts" enabled="true">
-          <artifact name="Servlet_02:war exploded" />
+          <artifact name="HomeWork:war exploded" />
         </option>
       </method>
     </configuration>
@@ -367,7 +372,11 @@
       <workItem from="1616637058706" duration="26863000" />
       <workItem from="1616684043596" duration="2192000" />
       <workItem from="1616739125168" duration="674000" />
-      <workItem from="1616745546921" duration="3206000" />
+      <workItem from="1616745546921" duration="6667000" />
+      <workItem from="1616764424279" duration="397000" />
+      <workItem from="1616809598869" duration="4378000" />
+      <workItem from="1616903541065" duration="13153000" />
+      <workItem from="1616922023272" duration="11770000" />
     </task>
     <task id="LOCAL-00001">
       <created>1616596952087</created>
