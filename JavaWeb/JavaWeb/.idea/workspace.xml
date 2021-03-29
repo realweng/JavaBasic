@@ -9,15 +9,7 @@
     <option name="autoReloadType" value="ALL" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="01095646-445a-41dd-a4f1-30ee3749aa86" name="Default" comment="">
-      <change afterPath="$PROJECT_DIR$/Servlet_01/web/img" afterDir="true" />
-      <change afterPath="$PROJECT_DIR$/Servlet_01/web/img/1.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Servlet_01/web/img/2.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Servlet_01/web/img/3.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Servlet_01/web/img/4.jpg" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Servlet_01/Servlet_01.iml" beforeDir="false" afterPath="$PROJECT_DIR$/Servlet_01/Servlet_01.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Servlet_01/web/login.html" beforeDir="false" afterPath="$PROJECT_DIR$/Servlet_01/web/login.html" afterDir="false" />
-    </list>
+    <list default="true" id="01095646-445a-41dd-a4f1-30ee3749aa86" name="Default" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -27,8 +19,8 @@
     <option name="RECENT_TEMPLATES">
       <list>
         <option value="Interface" />
-        <option value="Jsp File" />
         <option value="Class" />
+        <option value="Jsp File" />
       </list>
     </option>
   </component>
@@ -114,7 +106,7 @@
     <property name="last_opened_file_path" value="$PROJECT_DIR$/HomeWork/web" />
     <property name="nodejs_interpreter_path.stuck_in_default_project" value="undefined stuck path" />
     <property name="nodejs_npm_path_reset_for_default_project" value="true" />
-    <property name="project.structure.last.edited" value="Facets" />
+    <property name="project.structure.last.edited" value="Libraries" />
     <property name="project.structure.proportion" value="0.15" />
     <property name="project.structure.side.proportion" value="0.2" />
     <property name="settings.editor.selected.configurable" value="preferences.lookFeel" />
@@ -152,13 +144,15 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration default="true" type="ArquillianJUnit" factoryName="" nameIsGenerated="true">
+    <configuration default="true" type="ArquillianTestNG" factoryName="" nameIsGenerated="true">
       <option name="arquillianRunConfiguration">
         <value>
           <option name="containerStateName" value="" />
         </value>
       </option>
-      <option name="TEST_OBJECT" value="class" />
+      <option name="TEST_OBJECT" value="CLASS" />
+      <properties />
+      <listeners />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
@@ -181,7 +175,8 @@
     </configuration>
     <configuration name="Tomcat" type="#com.intellij.j2ee.web.tomcat.TomcatRunConfigurationFactory" factoryName="Local" APPLICATION_SERVER_NAME="Tomcat 8.5.31" ALTERNATIVE_JRE_ENABLED="false">
       <option name="BROWSER_ID" value="a7bb68e0-33c0-4d6f-a81a-aac1fdb870c8" />
-      <option name="UPDATING_POLICY" value="restart-server" />
+      <option name="UPDATE_ON_FRAME_DEACTIVATION" value="true" />
+      <option name="UPDATE_CLASSES_ON_FRAME_DEACTIVATION" value="true" />
       <deployment>
         <artifact name="HomeWork:war exploded">
           <settings>
@@ -377,6 +372,9 @@
       <workItem from="1616809598869" duration="4378000" />
       <workItem from="1616903541065" duration="13153000" />
       <workItem from="1616922023272" duration="11770000" />
+      <workItem from="1616979560591" duration="3777000" />
+      <workItem from="1617018808070" duration="5055000" />
+      <workItem from="1617023926520" duration="3987000" />
     </task>
     <task id="LOCAL-00001">
       <created>1616596952087</created>
@@ -433,6 +431,17 @@
   </component>
   <component name="VcsManagerConfiguration">
     <option name="LAST_COMMIT_MESSAGE" value="" />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/HomeWork/web/showAllProduct.jsp</url>
+          <line>53</line>
+          <option name="timeStamp" value="2" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />

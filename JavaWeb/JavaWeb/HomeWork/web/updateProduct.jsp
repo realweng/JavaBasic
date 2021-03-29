@@ -19,10 +19,7 @@
 
     <form action="updateProduct" method="post" class="form-horizontal">
         <%
-            ProductService productService = new ProductServiceImpl();
-            String productIdStr = request.getParameter("productId");
-            Integer productId = ConvertUtils.StringConvertInteger(productIdStr);
-            Product pro = productService.findProdcutById(productId);
+            Product pro = (Product) request.getAttribute("product");
         %>
 
         <div class="row">

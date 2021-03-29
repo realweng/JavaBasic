@@ -1,40 +1,33 @@
-<%@ page import="java.util.List" %>
 <%@ page import="com.java.entity.Product" %>
+<%@ page import="java.util.List" %>
 <%@ page import="com.java.entity.User" %><%--
   Created by IntelliJ IDEA.
   User: Administrator
-  Date: 2021/3/27
-  Time: 16:09
+  Date: 2021/3/29
+  Time: 20:11
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
-    <title>显示商品信息</title>
+    <title>购物车展示页面</title>
     <link href="css/bootstrap.min.css" rel="stylesheet"/>
 </head>
 <body>
 <div class="container">
-
     <div class="row">
-        <div class="col-md-10 col-md-offset-1">
-            <h1 style="color: sandybrown;">
-                <%
-                    User userinfo = (User) session.getAttribute("user");
-                    out.write(userinfo.getUserName());
-                %>，<span style="font-size: 20px">欢迎你！！！</span>
-            </h1>
+        <div class="row">
+            <div class="col-md-8 col-md-offset-2">
+                <h1 style="color: sandybrown;">
+                    购物车列表
+                </h1>
+            </div>
         </div>
-    </div>
-    <br/>
-
-    <div class="row">
-        <div class="col-md-10 col-md-offset-1">
+        <div class="col-md-8 col-md-offset-2">
             <table class="table table-bordered table-striped table-hover">
                 <tr>
-                    <td colspan="7">
-                        <a href="saveProduct.jsp" class="btn btn-danger">添加商品</a>
-                        <a href="shopCart?productId=<%=0%>" class="btn btn-warning">查看购物车</a>
+                    <td colspan="6">
+                        <a href="showProduct" class="btn btn-danger">返回商品页</a>
                     </td>
                 </tr>
                 <tr>
@@ -44,13 +37,11 @@
                     <th>商品类型</th>
                     <th>库存数量</th>
                     <th>商品折扣</th>
-                    <th>操作</th>
                 </tr>
 
-                <%-- 从request中获取list集合,遍历集合 --%>
                 <%
-                    //获取list
-                    List<Product> list = (List<Product>) request.getAttribute("productList");
+                    //从购物车Servlet获取购物车集合
+                    List<Product> list = (List<Product>) request.getAttribute("shopCartList");
                     for (Product pro : list) {
                 %>
                 <tr>
@@ -71,11 +62,6 @@
                     </td>
                     <td>
                         <%=pro.getDiscount() %>
-                    </td>
-                    <td>
-                        <a href="initUpdate?productId=<%=pro.getProductId()%>" class="btn btn-primary">修改</a>
-                        <a href="deleteProduct?productId=<%=pro.getProductId()%>" class="btn btn-warning">删除</a>
-                        <a href="shopCart?productId=<%=pro.getProductId()%>" class="btn btn-default">添加购物车</a>
                     </td>
                 </tr>
                 <%

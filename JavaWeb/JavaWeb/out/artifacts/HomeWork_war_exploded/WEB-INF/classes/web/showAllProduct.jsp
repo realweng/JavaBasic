@@ -17,7 +17,7 @@
 <div class="container">
 
     <div class="row">
-        <div class="col-md-8 col-md-offset-2">
+        <div class="col-md-10 col-md-offset-1">
             <h1 style="color: sandybrown;">
                 <%
                     User userinfo = (User) session.getAttribute("user");
@@ -29,11 +29,12 @@
     <br/>
 
     <div class="row">
-        <div class="col-md-8 col-md-offset-2">
+        <div class="col-md-10 col-md-offset-1">
             <table class="table table-bordered table-striped table-hover">
                 <tr>
                     <td colspan="7">
                         <a href="saveProduct.jsp" class="btn btn-danger">添加商品</a>
+                        <a href="shopCart?productId=<%=0%>" class="btn btn-warning">查看购物车</a>
                     </td>
                 </tr>
                 <tr>
@@ -72,8 +73,9 @@
                         <%=pro.getDiscount() %>
                     </td>
                     <td>
-                        <a href="updateProduct.jsp?productId=<%=pro.getProductId()%>" class="btn btn-primary">修改</a>
-                        <a href="deleteProduct?productId=<%=pro.getProductId()%>" class="btn btn-default">删除</a>
+                        <a href="initUpdate?productId=<%=pro.getProductId()%>" class="btn btn-primary">修改</a>
+                        <a href="deleteProduct?productId=<%=pro.getProductId()%>" class="btn btn-warning">删除</a>
+                        <a href="shopCart?productId=<%=pro.getProductId()%>" class="btn btn-default">添加购物车</a>
                     </td>
                 </tr>
                 <%
