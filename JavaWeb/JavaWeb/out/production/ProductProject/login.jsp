@@ -13,7 +13,6 @@
     <link href="css/bootstrap.min.css" rel="stylesheet"/>
     <style>
         body {
-            background-color: pink;
             background-image: url("img/2.jpg");
         }
 

@@ -9,10 +9,37 @@
 <div class="container">
     <div class="row">
         <div class="col-md-8 col-md-offset-2">
+            <form action="product?type=show" method="post" class="form-horizontal" id="myFrm">
+                <table class="table table-bordered table-hover table-striped">
+                    <tr>
+                        <td class="control-label col-sm-2">
+                            商品名称：
+                        </td>
+                        <td class="col-sm-3">
+                            <input type="text" class="form-control" value="${productName}" name="productName">
+                        </td>
+                        <td class="control-label col-sm-2">
+                            商品类型：
+                        </td>
+                        <td class="col-sm-3">
+                            <select class="form-control" name="typeId">
+                                <option value="">-- 请选择 --</option>
+                                <c:forEach items="${productTypeList}" var="productType">
+                                    <option value="${productType.typeId}" ${productType.typeId == typeId?"selected":""}>${productType.typeName }</option>
+                                </c:forEach>
+                            </select>
+                        </td>
+                        <td class="col-sm-2">
+                            <button class="btn btn-primary">搜索</button>
+                        </td>
+                    </tr>
+                </table>
+            </form>
+
             <table class="table table-bordered table-striped table-hover">
                 <tr>
                     <td colspan="7">
-                        <a href="page/product/saveProduct.jsp" class="btn btn-danger">添加商品</a>
+                        <a href="/product?type=initSave" class="btn btn-danger">添加商品</a>
                     </td>
                 </tr>
                 <tr>
@@ -47,7 +74,7 @@
                                 ${product.discount}
                         </td>
                         <td>
-                            <a href="/product?productId=${product.productId}&type=init" class="btn btn-primary">修改</a>
+                            <a href="/product?productId=${product.productId}&type=initUpdate" class="btn btn-primary">修改</a>
                             <a href="/product?productId=${product.productId}&type=delete" class="btn btn-default">删除</a>
                         </td>
                     </tr>
@@ -56,5 +83,13 @@
         </div>
     </div>
 </div>
+<script type="text/javascript">
+    // 获取当前页面中body的高度
+    var bodyHeight = window.document.body.offsetHeight;
+    console.log(bodyHeight);
+    // 给父级中的iframe设置高度
+    var main = parent.document.getElementById("main");
+    main.setAttribute("height", bodyHeight);
+</script>
 </body>
 </html>

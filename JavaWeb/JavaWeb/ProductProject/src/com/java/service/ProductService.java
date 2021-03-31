@@ -18,7 +18,7 @@ public interface ProductService {
      *
      * @return
      */
-    List<ProductTypeEntity> findAllProduct();
+    List<ProductTypeEntity> findAllProduct(Product product);
 
     /**
      * 根据商品ID查询商品信息

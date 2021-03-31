@@ -172,8 +172,11 @@
                                 <li class="list-group-item">
                                     <a data-url="/product?type=show">商品列表</a>
                                 </li>
+<%--                                <li class="list-group-item">--%>
+<%--                                    <a data-url="/product?type=show">商品类型列表</a>--%>
+<%--                                </li>--%>
                                 <li class="list-group-item">
-                                    <a data-url="/page/product/saveProduct.jsp">添加商品</a>
+                                    <a data-url="/product?type=initSave">添加商品</a>
                                 </li>
                             </ul>
                         </div>

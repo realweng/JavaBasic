@@ -15,10 +15,10 @@ import java.util.List;
 public interface ProductDao {
     /**
      * 查询商品信息
-     *
+     * product 是要查询条件
      * @return
      */
-    List<ProductTypeEntity> findAllProduct();
+    List<ProductTypeEntity> findAllProduct(Product product);
 
     /**
      * 根据商品ID查询商品信息

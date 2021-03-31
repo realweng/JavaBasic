@@ -1,8 +1,11 @@
 package com.java.web;
 
 import com.java.entity.Product;
+import com.java.entity.ProductType;
 import com.java.service.ProductService;
+import com.java.service.ProductTypeService;
 import com.java.service.impl.ProductServiceImpl;
+import com.java.service.impl.ProductTypeServiceImpl;
 import com.java.util.ConvertUtils;
 import com.java.vo.ProductTypeEntity;
 
@@ -25,6 +28,7 @@ import java.util.List;
 public class ProductServlet extends HttpServlet {
     private ProductService productService;
     private Product product;
+    private ProductTypeService productTypeService;
 
     /**
      * 构造器 初始化数据
@@ -32,6 +36,7 @@ public class ProductServlet extends HttpServlet {
     public ProductServlet() {
         product = new Product();
         productService = new ProductServiceImpl();
+        productTypeService = new ProductTypeServiceImpl();
     }
 
     @Override
@@ -59,8 +64,11 @@ public class ProductServlet extends HttpServlet {
             case "update":
                 updateProduct(request, response);
                 break;
-            case "init":
+            case "initUpdate":
                 initUpdate(request, response);
+                break;
+            case "initSave":
+                initSave(request, response);
                 break;
             default:
                 //跳转到404
@@ -77,10 +85,18 @@ public class ProductServlet extends HttpServlet {
      * @throws IOException
      */
     public void showProduct(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        //获取搜索框的内容
+        String productName = request.getParameter("productName");
+        String typeIdStr = request.getParameter("typeId");
+        Integer typeId = ConvertUtils.StringConvertInteger(typeIdStr);
+        product.setProductName(productName);
+        product.setTypeId(typeId);
         // 在数据库中联表查询商品信息
-        List<ProductTypeEntity> productList = productService.findAllProduct();
+        List<ProductTypeEntity> productList = productService.findAllProduct(product);
         // 将商品存储在request对象中
         request.setAttribute("productList", productList);
+        List<ProductType> productTypeList = productTypeService.findAllProductType();
+        request.setAttribute("productTypeList",productTypeList);
         //跳转到查询页面
         request.getRequestDispatcher("page/product/showAllProduct.jsp").forward(request, response);
     }
@@ -94,8 +110,6 @@ public class ProductServlet extends HttpServlet {
      * @throws IOException
      */
     public void saveProduct(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        //设置编码格式
-        req.setCharacterEncoding("utf-8");
         //获取请求过来的页面中的商品信息
         String productName = req.getParameter("productName");
         String typeIdStr = req.getParameter("typeId");
@@ -120,11 +134,24 @@ public class ProductServlet extends HttpServlet {
         int i = productService.saveProduct(product);
         if (i > 0) {
             //添加成功，显示所有商品
-            showProduct(req,resp);
+            resp.sendRedirect("product?type=show");
         } else {
             //添加失败，重新跳转到添加页面
             req.getRequestDispatcher("page/product/saveProduct.jsp").forward(req, resp);
         }
+    }
+
+    /**
+     * 获取数据库中有的商品类型
+     * @param req
+     * @param resp
+     * @throws ServletException
+     * @throws IOException
+     */
+    public void initSave(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        List<ProductType> productTypeList = productTypeService.findAllProductType();
+        req.setAttribute("productTypeList", productTypeList);
+        req.getRequestDispatcher("/page/product/saveProduct.jsp").forward(req, resp);
     }
 
     /**
@@ -135,8 +162,7 @@ public class ProductServlet extends HttpServlet {
      * @throws IOException
      */
     public void deleteProduct(HttpServletRequest req,HttpServletResponse resp) throws ServletException, IOException{
-        //设置编码格式
-        req.setCharacterEncoding("utf-8");
+
         //获取要删除商品对应的编号
         String productIdStr = req.getParameter("productId");
         //数据类型转换
@@ -145,7 +171,7 @@ public class ProductServlet extends HttpServlet {
         int i = productService.deleteProduct(productId);
         if (i > 0) {
             //修改成功，重定向显示所有商品信息
-            showProduct(req,resp);
+            resp.sendRedirect("product?type=show");
         } else {
             //修改失败，跳转到初始修改的servlet
             req.getRequestDispatcher("page/product/showAllProduct.jsp").forward(req, resp);
@@ -159,11 +185,12 @@ public class ProductServlet extends HttpServlet {
         Integer id = ConvertUtils.StringConvertInteger(productIdStr);
 
         //通过id查询商品信息
-        ProductService productService = new ProductServiceImpl();
         Product product = productService.findProdcutById(id);
+        List<ProductType> productTypeList = productTypeService.findAllProductType();
 
         //将数据保持request对象
         req.setAttribute("product", product);
+        req.setAttribute("productTypeList", productTypeList);
         req.getRequestDispatcher("/page/product/updateProduct.jsp").forward(req, resp);
     }
 
@@ -175,8 +202,7 @@ public class ProductServlet extends HttpServlet {
      * @throws IOException
      */
     public void updateProduct(HttpServletRequest req,HttpServletResponse resp) throws ServletException, IOException{
-        //设置编码格式
-        req.setCharacterEncoding("utf-8");
+
         //获取请求页面的商品信息
         String productName = req.getParameter("productName");
         String typeIdStr = req.getParameter("typeId");
@@ -203,9 +229,8 @@ public class ProductServlet extends HttpServlet {
         //在数据库中执行修改
         int i = productService.updateProduct(product);
         if (i > 0) {
-            //修改成功
             //修改成功，重定向显示所有商品信息
-            showProduct(req,resp);
+            resp.sendRedirect("product?type=show");
         } else {
             //修改失败，跳转到初始修改的servlet
             req.getRequestDispatcher("/page/product/updateProduct.jsp?productId=" + productId);

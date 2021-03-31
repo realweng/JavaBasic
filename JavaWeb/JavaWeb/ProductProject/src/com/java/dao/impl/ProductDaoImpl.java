@@ -6,6 +6,7 @@ import com.java.entity.ProductType;
 import com.java.util.JDBCUtil;
 import com.java.vo.ProductTypeEntity;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -22,9 +23,17 @@ public class ProductDaoImpl implements ProductDao {
      * @return
      */
     @Override
-    public List<ProductTypeEntity> findAllProduct() {
-        String sql = "select p.*,pt.typeName as 'typeName' FROM product p,producttype pt where p.typeid=pt.typeid";
-        return JDBCUtil.query(sql, ProductTypeEntity.class);
+    public List<ProductTypeEntity> findAllProduct(Product product) {
+        StringBuffer sql = new StringBuffer("select p.*,pt.typeName as 'typeName' FROM product p,producttype pt where p.typeid=pt.typeid");
+        if (product != null) {
+            if (product.getProductName() != null && !"".equals(product.getProductName())) {//  商品名称
+                sql.append(" and productName like '%" + product.getProductName() + "%' ");
+            }
+            if (product.getTypeId() != null) {
+                sql.append(" and p.typeId = " + product.getTypeId());
+            }
+        }
+        return JDBCUtil.query(sql.toString(), ProductTypeEntity.class);
     }
 
     /**
