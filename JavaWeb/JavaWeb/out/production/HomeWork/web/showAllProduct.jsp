@@ -8,6 +8,8 @@
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%-- 导入JSTL标签库 --%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <html>
 <head>
     <title>显示商品信息</title>
@@ -48,39 +50,33 @@
                 </tr>
 
                 <%-- 从request中获取list集合,遍历集合 --%>
-                <%
-                    //获取list
-                    List<Product> list = (List<Product>) request.getAttribute("productList");
-                    for (Product pro : list) {
-                %>
-                <tr>
-                    <td>
-                        <%=pro.getProductId()%>
-                    </td>
-                    <td>
-                        <% out.write(pro.getProductName());%>
-                    </td>
-                    <td>
-                        <%=pro.getProductPrice()%>
-                    </td>
-                    <td>
-                        <%=pro.getTypeId() %>
-                    </td>
-                    <td>
-                        <%=pro.getStockNumber() %>
-                    </td>
-                    <td>
-                        <%=pro.getDiscount() %>
-                    </td>
-                    <td>
-                        <a href="initUpdate?productId=<%=pro.getProductId()%>" class="btn btn-primary">修改</a>
-                        <a href="deleteProduct?productId=<%=pro.getProductId()%>" class="btn btn-warning">删除</a>
-                        <a href="shopCart?productId=<%=pro.getProductId()%>" class="btn btn-default">添加购物车</a>
-                    </td>
-                </tr>
-                <%
-                    }
-                %>
+                <c:forEach items="${productList}" var="pro">
+                    <tr>
+                        <td>
+                                ${pro.productId}
+                        </td>
+                        <td>
+                                ${pro.productName}
+                        </td>
+                        <td>
+                                ${pro.productPrice}
+                        </td>
+                        <td>
+                                ${pro.typeId}
+                        </td>
+                        <td>
+                                ${pro.stockNumber}
+                        </td>
+                        <td>
+                                ${pro.discount}
+                        </td>
+                        <td>
+                            <a href="initUpdate?productId=${pro.productId}" class="btn btn-primary">修改</a>
+                            <a href="deleteProduct?productId=${pro.productId}" class="btn btn-warning">删除</a>
+                            <a href="shopCart?productId=${pro.productId}" class="btn btn-default">添加购物车</a>
+                        </td>
+                    </tr>
+                </c:forEach>
             </table>
         </div>
     </div>

@@ -8,6 +8,8 @@
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%-- 导入JSTL标签库 --%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <html>
 <head>
     <title>购物车展示页面</title>
@@ -39,34 +41,28 @@
                     <th>商品折扣</th>
                 </tr>
 
-                <%
-                    //从购物车Servlet获取购物车集合
-                    List<Product> list = (List<Product>) request.getAttribute("shopCartList");
-                    for (Product pro : list) {
-                %>
-                <tr>
-                    <td>
-                        <%=pro.getProductId()%>
-                    </td>
-                    <td>
-                        <% out.write(pro.getProductName());%>
-                    </td>
-                    <td>
-                        <%=pro.getProductPrice()%>
-                    </td>
-                    <td>
-                        <%=pro.getTypeId() %>
-                    </td>
-                    <td>
-                        <%=pro.getStockNumber() %>
-                    </td>
-                    <td>
-                        <%=pro.getDiscount() %>
-                    </td>
-                </tr>
-                <%
-                    }
-                %>
+                <c:forEach items="${shopCartList}" var="pro">
+                    <tr>
+                        <td>
+                                ${pro.productId}
+                        </td>
+                        <td>
+                                ${pro.productName}
+                        </td>
+                        <td>
+                                ${pro.productPrice}
+                        </td>
+                        <td>
+                                ${pro.typeId}
+                        </td>
+                        <td>
+                                ${pro.stockNumber}
+                        </td>
+                        <td>
+                                ${pro.discount}
+                        </td>
+                    </tr>
+                </c:forEach>
             </table>
         </div>
     </div>
