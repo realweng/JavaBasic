@@ -5,6 +5,7 @@ import org.apache.commons.dbutils.DbUtils;
 import org.apache.commons.dbutils.QueryRunner;
 import org.apache.commons.dbutils.handlers.BeanHandler;
 import org.apache.commons.dbutils.handlers.BeanListHandler;
+import org.apache.commons.dbutils.handlers.ScalarHandler;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -132,5 +133,24 @@ public class JDBCUtil {
             }
         }
         return t;
+    }
+
+    /**
+     * 统计总条数
+     * @param sql
+     * @param <T>
+     * @return
+     */
+    public static <T> Integer count(String sql){
+        Integer count = 0;
+        Connection connection = getConnection();
+        try {
+            count =  new QueryRunner().query(connection, sql, new ScalarHandler<Long>()).intValue();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }finally {
+            DbUtils.closeQuietly(connection);
+        }
+        return count;
     }
 }

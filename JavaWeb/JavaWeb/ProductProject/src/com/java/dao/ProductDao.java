@@ -1,6 +1,7 @@
 package com.java.dao;
 
 import com.java.entity.Product;
+import com.java.util.PageInfo;
 import com.java.vo.ProductTypeEntity;
 
 import java.util.List;
@@ -27,6 +28,21 @@ public interface ProductDao {
      * @return
      */
     Product findProdcutById(Integer productId);
+
+    /**
+     * 分页查询
+     * @param product
+     * @param pageInfo
+     * @return
+     */
+    List<ProductTypeEntity> findAllProductByPage(Product product, PageInfo pageInfo);
+
+    /**
+     * 查询商品数目
+     * @param product
+     * @return
+     */
+    Integer countProductNum(Product product);
 
     /**
      * 添加商品

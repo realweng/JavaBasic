@@ -7,10 +7,12 @@ import com.java.service.ProductTypeService;
 import com.java.service.impl.ProductServiceImpl;
 import com.java.service.impl.ProductTypeServiceImpl;
 import com.java.util.ConvertUtils;
+import com.java.util.PageInfo;
 import com.java.vo.ProductTypeEntity;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -29,6 +31,7 @@ public class ProductServlet extends HttpServlet {
     private ProductService productService;
     private Product product;
     private ProductTypeService productTypeService;
+    private PageInfo pageInfo;
 
     /**
      * 构造器 初始化数据
@@ -88,15 +91,26 @@ public class ProductServlet extends HttpServlet {
         //获取搜索框的内容
         String productName = request.getParameter("productName");
         String typeIdStr = request.getParameter("typeId");
+
+        // 获取分页数据
+        String nowPageStr = request.getParameter("nowPage");// 当前页
+        String pageNumStr = request.getParameter("pageNum");// 每页显示的数据量
+        System.out.println(pageNumStr);
+        Integer pageNum = pageNumStr == null || "".equals(pageNumStr) ? 3 : Integer.valueOf(pageNumStr);
         Integer typeId = ConvertUtils.StringConvertInteger(typeIdStr);
         product.setProductName(productName);
         product.setTypeId(typeId);
+
         // 在数据库中联表查询商品信息
-        List<ProductTypeEntity> productList = productService.findAllProduct(product);
-        // 将商品存储在request对象中
-        request.setAttribute("productList", productList);
+        PageInfo<ProductTypeEntity> pageData = productService.findAllProductByPage(product, nowPageStr, pageNumStr);
+        request.setAttribute("pageData", pageData);
         List<ProductType> productTypeList = productTypeService.findAllProductType();
+        // 将商品类型存储在request对象中
         request.setAttribute("productTypeList",productTypeList);
+        // 将查询条件发送到jsp
+        request.setAttribute("productName", productName);
+        request.setAttribute("typeId", typeId);
+        request.setAttribute("pageNum",pageNum);
         //跳转到查询页面
         request.getRequestDispatcher("page/product/showAllProduct.jsp").forward(request, response);
     }
