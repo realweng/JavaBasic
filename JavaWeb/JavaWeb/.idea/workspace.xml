@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ArtifactsWorkspaceSettings">
     <artifacts-to-build>
-      <artifact name="ProductProject:war exploded" />
+      <artifact name="Servlet_04:war exploded" />
     </artifacts-to-build>
   </component>
   <component name="AutoImportSettings">
@@ -146,19 +146,6 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration default="true" type="ArquillianTestNG" factoryName="" nameIsGenerated="true">
-      <option name="arquillianRunConfiguration">
-        <value>
-          <option name="containerStateName" value="" />
-        </value>
-      </option>
-      <option name="TEST_OBJECT" value="CLASS" />
-      <properties />
-      <listeners />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
     <configuration default="true" type="JUnit" factoryName="JUnit">
       <option name="TEST_OBJECT" value="class" />
       <option name="WORKING_DIRECTORY" value="%MODULE_WORKING_DIR%" />
@@ -180,7 +167,7 @@
       <option name="UPDATE_ON_FRAME_DEACTIVATION" value="true" />
       <option name="UPDATE_CLASSES_ON_FRAME_DEACTIVATION" value="true" />
       <deployment>
-        <artifact name="ProductProject:war exploded">
+        <artifact name="Servlet_04:war exploded">
           <settings>
             <option name="CONTEXT_PATH" value="/" />
           </settings>
@@ -260,7 +247,7 @@
       <method v="2">
         <option name="Make" enabled="true" />
         <option name="BuildArtifacts" enabled="true">
-          <artifact name="ProductProject:war exploded" />
+          <artifact name="Servlet_04:war exploded" />
         </option>
       </method>
     </configuration>
@@ -382,7 +369,8 @@
       <workItem from="1617089794639" duration="3877000" />
       <workItem from="1617103468280" duration="244000" />
       <workItem from="1617103725826" duration="39722000" />
-      <workItem from="1617246397386" duration="29348000" />
+      <workItem from="1617246397386" duration="35303000" />
+      <workItem from="1617368924590" duration="595000" />
     </task>
     <task id="LOCAL-00001">
       <created>1616596952087</created>
