@@ -1,7 +1,7 @@
 <%@ page import="com.java.entity.Product" %>
 <%@ page import="com.java.util.ConvertUtils" %>
 <%@ page import="com.java.service.ProductService" %>
-<%@ page import="com.java.service.impl.ProductServiceImpl" %><%--
+<%@ page import="ProductServiceImpl" %><%--
   Created by IntelliJ IDEA.
   User: Administrator
   Date: 2021/3/27

@@ -24,6 +24,11 @@
   <br/>
   <button>添加</button><br />
   <a href="ajax-post.jsp">ajax-post</a><br/>
-  <a href="ajax-get.jsp">ajax-get</a>
+  <a href="ajax-get.jsp">ajax-get</a><br/>
+  <a href="jquery-ajax.jsp">jquery-ajax</a><br/>
+  <a href="jquery-get.jsp">jquery-get</a><br/>
+  <a href="jquery-post.jsp">jquery-post</a><br/>
+  <a href="jquery-load.jsp">load</a><br/>
+  <a href="json.jsp">json</a><br/>
   </body>
 </html>

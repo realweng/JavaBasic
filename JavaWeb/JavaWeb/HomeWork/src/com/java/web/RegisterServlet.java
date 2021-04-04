@@ -2,7 +2,7 @@ package com.java.web;
 
 import com.java.entity.User;
 import com.java.service.UserService;
-import com.java.service.impl.UserServiceImpl;
+import com.java.service.UserServiceImpl;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;

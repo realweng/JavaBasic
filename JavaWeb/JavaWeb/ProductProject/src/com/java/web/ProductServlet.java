@@ -4,15 +4,14 @@ import com.java.entity.Product;
 import com.java.entity.ProductType;
 import com.java.service.ProductService;
 import com.java.service.ProductTypeService;
-import com.java.service.impl.ProductServiceImpl;
-import com.java.service.impl.ProductTypeServiceImpl;
+import com.java.service.ProductServiceImpl;
+import com.java.service.ProductTypeServiceImpl;
 import com.java.util.ConvertUtils;
 import com.java.util.PageInfo;
 import com.java.vo.ProductTypeEntity;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
-import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;

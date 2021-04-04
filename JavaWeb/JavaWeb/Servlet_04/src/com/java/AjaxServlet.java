@@ -30,7 +30,7 @@ public class AjaxServlet extends HttpServlet {
         // 获取商品名称
         String productName = request.getParameter("name");
         // 判断
-        String message = !"aaa".equals(productName) ? "可用" : "不可用";
+        String message = "aaa".equals(productName) ? "不可用" : "可用";
 
 //        System.out.println(1 / 0);
 

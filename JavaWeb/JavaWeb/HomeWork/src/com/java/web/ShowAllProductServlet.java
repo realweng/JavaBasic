@@ -2,7 +2,7 @@ package com.java.web;
 
 import com.java.entity.Product;
 import com.java.service.ProductService;
-import com.java.service.impl.ProductServiceImpl;
+import com.java.service.ProductServiceImpl;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
