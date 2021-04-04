@@ -16,7 +16,7 @@ import java.util.List;
  * @Version：1.0
  * @Date：2021/4/4-21:33
  * @Since:jdk1.8
- * @Description:TODO
+ * @Description:删除选中的商品
  */
 @WebServlet("/deleteOrderItem")
 public class OrderItemDeleteServlet extends HttpServlet {
