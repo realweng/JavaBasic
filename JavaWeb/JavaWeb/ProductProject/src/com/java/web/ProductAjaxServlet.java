@@ -1,5 +1,6 @@
 package com.java.web;
 
+import com.alibaba.fastjson.JSONObject;
 import com.java.entity.Product;
 import com.java.entity.ProductType;
 import com.java.service.ProductService;
@@ -45,7 +46,7 @@ public class ProductAjaxServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         req.setCharacterEncoding("utf-8");
-        resp.setContentType("text/plain;charset=utf-8");
+        resp.setContentType("text/html;charset=utf-8");
 
         String type = req.getParameter("type");
         switch (type) {
@@ -54,6 +55,15 @@ public class ProductAjaxServlet extends HttpServlet {
                 break;
             case "saveProduct":
                 saveProduct(req, resp);
+                break;
+            case "update":
+                updateProduct(req, resp);
+                break;
+            case "initUpdate":
+                initUpdate(req, resp);
+                break;
+            case "delete":
+                deleteProduct(req, resp);
                 break;
             default:
                 resp.sendRedirect("404.jsp");
@@ -117,9 +127,87 @@ public class ProductAjaxServlet extends HttpServlet {
         int flag = 0;
         flag = productService.saveProduct(product);
 
-        String message = flag > 0 ? "添加成功"+"_": "添加失败";
+        String message = flag > 0 ? "添加成功" : "添加失败";
 
         PrintWriter out = response.getWriter();
+        out.write(message);
+        out.flush();
+        out.close();
+    }
+
+    public void initUpdate(HttpServletRequest req,HttpServletResponse resp) throws ServletException, IOException{
+        String productIdStr = req.getParameter("productId");
+        Integer productId = ConvertUtils.StringConvertInteger(productIdStr);
+
+        product = productService.findProdcutById(productId);
+        String message = JSONObject.toJSONString(product);
+
+        PrintWriter out = resp.getWriter();
+        out.write(message);
+        out.flush();
+        out.close();
+    }
+
+    /**
+     * 更新商品信息
+     * @param req
+     * @param resp
+     * @throws ServletException
+     * @throws IOException
+     */
+    public void updateProduct(HttpServletRequest req,HttpServletResponse resp) throws ServletException, IOException{
+
+        //获取请求页面的商品信息
+        String productName = req.getParameter("productName1");
+        String typeIdStr = req.getParameter("typeId1");
+        String productPriceStr = req.getParameter("productPrice1");
+        String stockNumberStr = req.getParameter("productNum1");
+        String discountStr = req.getParameter("discount1");
+        String productIdStr = req.getParameter("productId");
+
+        //数据类型转换
+        Integer typeId = ConvertUtils.StringConvertInteger(typeIdStr);
+        Integer stockNumber = ConvertUtils.StringConvertInteger(stockNumberStr);
+        Float productPrice = ConvertUtils.StringConvertFloat(productPriceStr);
+        Float discount = ConvertUtils.StringConvertFloat(discountStr);
+        Integer productId = ConvertUtils.StringConvertInteger(productIdStr);
+
+        //将数据存入product对象
+        product.setProductName(productName);
+        product.setProductPrice(productPrice);
+        product.setDiscount(discount);
+        product.setStockNumber(stockNumber);
+        product.setTypeId(typeId);
+        product.setProductId(productId);
+
+        //在数据库中执行修改
+        int flag = 0;
+        flag = productService.updateProduct(product);
+        String message = flag > 0 ? "修改成功" : "修改失败";
+        PrintWriter out = resp.getWriter();
+        out.write(message);
+        out.flush();
+        out.close();
+    }
+
+    /**
+     * 删除商品
+     * @param req
+     * @param resp
+     * @throws ServletException
+     * @throws IOException
+     */
+    public void deleteProduct(HttpServletRequest req,HttpServletResponse resp) throws ServletException, IOException{
+
+        //获取要删除商品对应的编号
+        String productIdStr = req.getParameter("productId");
+        //数据类型转换
+        Integer productId = ConvertUtils.StringConvertInteger(productIdStr);
+        //执行删除操作
+        int flag = 0;
+        flag = productService.deleteProduct(productId);
+        String message = flag > 0 ? "删除成功" : "删除失败";
+        PrintWriter out = resp.getWriter();
         out.write(message);
         out.flush();
         out.close();

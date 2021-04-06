@@ -106,21 +106,21 @@
     <property name="aspect.path.notification.shown" value="true" />
     <property name="com.intellij.openapi.externalSystem.service.settings.ExternalSystemGroupConfigurable" value="ALL" />
     <property name="jdk.selected.JAVA_MODULE" value="1.8" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/ProductProject/web/page" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/ProductProject/web/WEB-INF/lib" />
     <property name="nodejs_interpreter_path.stuck_in_default_project" value="undefined stuck path" />
     <property name="nodejs_npm_path_reset_for_default_project" value="true" />
     <property name="project.structure.last.edited" value="Libraries" />
     <property name="project.structure.proportion" value="0.15" />
     <property name="project.structure.side.proportion" value="0.21626794" />
-    <property name="settings.editor.selected.configurable" value="preferences.lookFeel" />
+    <property name="settings.editor.selected.configurable" value="editor.preferences.fonts.default" />
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="E:\4031\student\22翁兴国\IdeaProject\JavaWeb\ProductProject\web\WEB-INF\lib" />
       <recent name="E:\4031\student\22翁兴国\IdeaProject\JavaWeb\ProductProject\web\page" />
       <recent name="E:\4031\student\22翁兴国\IdeaProject\JavaWeb\HomeWork01\web\js" />
       <recent name="E:\4031\student\22翁兴国\IdeaProject\JavaWeb\HomeWork01\web\WEB-INF" />
       <recent name="E:\4031\student\22翁兴国\IdeaProject\JavaWeb\HomeWork01\src\com\java\util" />
-      <recent name="E:\4031\student\22翁兴国\IdeaProject\JavaWeb\HomeWork01\src\com\java\constants" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="E:\4031\student\22翁兴国\IdeaProject\JavaWeb\Servlet_01\web" />
@@ -378,7 +378,9 @@
       <workItem from="1617529462797" duration="1089000" />
       <workItem from="1617535180417" duration="9834000" />
       <workItem from="1617587446805" duration="22084000" />
-      <workItem from="1617634104634" duration="1787000" />
+      <workItem from="1617634104634" duration="1916000" />
+      <workItem from="1617673266110" duration="5302000" />
+      <workItem from="1617710177603" duration="10436000" />
     </task>
     <task id="LOCAL-00001">
       <created>1616596952087</created>
@@ -435,6 +437,17 @@
   </component>
   <component name="VcsManagerConfiguration">
     <option name="LAST_COMMIT_MESSAGE" value="" />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/ProductProject/web/page/productAjax/showAllProduct.jsp</url>
+          <line>103</line>
+          <option name="timeStamp" value="8" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />

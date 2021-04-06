@@ -33,6 +33,7 @@
     <div class="row">
         <div class="col-md-8 col-md-offset-2">
             <h5 style="font-weight: 900">位置：商品列表</h5>
+            <input type="hidden" id="countPage">
             <form action="productAjax?type=showProduct" method="post" class="form-horizontal" id="myFrm">
                 <table class="table table-bordered table-hover table-striped">
                     <tr>
@@ -99,9 +100,8 @@
                                 ${product.discount}
                         </td>
                         <td>
-                            <a href="product?type=initUpdate&productId=${product.productId}"
-                               class="btn btn-primary">修改</a>
-                            <a href="product?type=delete&productId=${product.productId}" class="btn btn-default">删除</a>
+                            <a name="change" class="btn btn-primary" data-toggle="modal" data-target="#myModal1">修改</a>
+                            <a class="btn btn-default" name="delete">删除</a>
                         </td>
                     </tr>
                 </c:forEach>
@@ -161,7 +161,6 @@
                                     <div class="col-sm-3"></div>
                                 </div>
 
-
                                 <div class="form-group">
                                     <label class="control-label col-sm-4">商品库存：</label>
                                     <div class="col-sm-5">
@@ -187,6 +186,87 @@
                         <!-- 脚部 -->
                         <div class="modal-footer">
                             <button type="button" id="addProduct" class="btn btn-primary">添加</button>
+                            <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <div class="row">
+        <!-- 修改数据 -->
+        <div class="row">
+            <div class="modal fade" id="myModal1" tabindex="-1" role="dialog">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <!-- 头部 -->
+                        <div class="modal-header">
+                            <button class="close" data-dismiss="modal" aria-label="Close">x</button>
+                            <h2>修改商品</h2>
+                        </div>
+
+                        <!-- 主体 -->
+                        <div class="modal-body">
+                            <!-- 表单（录入商品信息） -->
+                            <form class="form-horizontal" id="updateFrm">
+                                <div class="form-group row">
+                                    <label class="control-label col-sm-4">商品名称：</label>
+                                    <div class="col-sm-5">
+                                        <input type="text" class="form-control" name="productName1" id="productName1"
+                                               placeholder="请输入商品名称..." required="required"/>
+                                    </div>
+                                    <div class="col-sm-3"></div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="control-label col-sm-4">商品价格：</label>
+                                    <div class="col-sm-5">
+                                        <input type="text" class="form-control" name="productPrice1" id="productPrice1"
+                                               placeholder="请输入商品价格..." required="required"/>
+                                    </div>
+                                    <div class="col-sm-3"></div>
+
+                                </div>
+                                <div class="form-group">
+                                    <label class="control-label col-sm-4">商品类型：</label>
+                                    <div class="col-sm-5">
+                                        <select class="form-control" name="typeId1" id="typeId1">
+                                            <option value="">-- 请选择 --</option>
+                                            <c:forEach items="${productTypeList}" var="productType">
+                                                <option value="${productType.typeId}" ${productType.typeId == typeId?"selected":""}>${productType.typeName }</option>
+                                            </c:forEach>
+                                        </select>
+                                    </div>
+                                    <div class="col-sm-3"></div>
+                                </div>
+
+
+                                <div class="form-group">
+                                    <label class="control-label col-sm-4">商品库存：</label>
+                                    <div class="col-sm-5">
+                                        <input type="text" class="form-control" name="productNum1" id="productNum1"
+                                               placeholder="请输入商品库存..." required="required"/>
+                                    </div>
+                                    <div class="col-sm-3"></div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label class="control-label col-sm-4">商品折扣：</label>
+                                    <div class="col-sm-5">
+                                        <input type="text" class="form-control" name="discount1" id="discount1"
+                                               placeholder="请输入商品折扣..." required="required"/>
+                                    </div>
+                                    <div class="col-sm-3"></div>
+                                </div>
+
+                            </form>
+                        </div>
+
+                        <!-- 脚部 -->
+                        <div class="modal-footer">
+                            <button type="button" id="updateProduct" class="btn btn-primary">修改</button>
                             <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
                         </div>
 

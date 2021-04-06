@@ -60,6 +60,7 @@ public class PageInfo<T> {
         //  结束页不足以加2
         if (this.endPage == this.countPage && this.endPage - this.startPage < 4) {
             this.startPage = this.endPage - 4;
+            this.startPage = this.startPage < 1 ? 1 : this.startPage;
         }
     }
 }
