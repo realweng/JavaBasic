@@ -32,7 +32,9 @@ public class PageInfo<T> {
         this.data = data;
     }
 
-    public PageInfo(Integer nowPage, Integer pageNum, Integer total) {
+    public PageInfo(String nowPageStr, String pageNumStr, Integer total) {
+        Integer nowPage = nowPageStr == null || "".equals(nowPageStr) ? 1 : Integer.valueOf(nowPageStr);
+        Integer pageNum = pageNumStr == null || "".equals(pageNumStr) ? 6 : Integer.valueOf(pageNumStr);
         // 当前页
         this.nowPage = nowPage < 1 ? 1 : nowPage;
         // 每页显示的数据量

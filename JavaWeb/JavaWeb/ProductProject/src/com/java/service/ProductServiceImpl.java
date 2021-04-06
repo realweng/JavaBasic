@@ -79,11 +79,9 @@ public class ProductServiceImpl implements ProductService {
     public PageInfo<ProductTypeEntity> findAllProductByPage(Product product, String nowPageStr, String pageNumStr) {
         //  通过查询条件统计总数量
         Integer count = productDao.countProductNum(product);
-        Integer nowPage = nowPageStr == null || "".equals(nowPageStr) ? 1 : Integer.valueOf(nowPageStr);
-        Integer pageNum = pageNumStr == null || "".equals(pageNumStr) ? 6 : Integer.valueOf(pageNumStr);
 
         //  将分页数据存储到PageInfo
-        PageInfo pageInfo = new PageInfo(nowPage, pageNum, count);
+        PageInfo pageInfo = new PageInfo(nowPageStr, pageNumStr, count);
 
         // 查询所有的商品信息
         List<ProductTypeEntity> productList = productDao.findAllProductByPage(product, pageInfo);

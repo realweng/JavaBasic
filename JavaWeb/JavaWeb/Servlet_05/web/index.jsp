@@ -29,6 +29,7 @@
                 // 获取省ID
                 var id = $(this).val();
                 $("#city").children("option:not(:first)").remove();
+                $("#district").children("option:not(:first)").remove();
                 if (id != "0") {
                     // 使用ajax发送请求到服务器
                     $.get("getArea", "type=getCity&id=" + id, function (data) {

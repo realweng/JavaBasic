@@ -14,6 +14,17 @@
             margin-top: 100px;
         }
     </style>
+    <script type="text/javascript" src="js/jquery-3.2.1.min.js"></script>
+    <script type="text/javascript">
+        $(function () {
+            //判断用户名是否已经被注册 ajax
+            $("#userName").blur(function () {
+                $.get("userCheck", "userName=" + $(this).val(), function (message) {
+                    $("#userSpan").html(message);
+                },"text");
+            });
+        });
+    </script>
 </head>
 <body>
 <div class="container">
@@ -22,9 +33,12 @@
             <div class="form-group col-md-4 col-md-offset-4">
                 <label class="control-label col-md-4"> 账号：</label>
                 <div class="col-md-8">
-                    <input type="text" class="form-control" name="userName" placeholder="请输入账号..."
+                    <input type="text" class="form-control" name="userName" id="userName" placeholder="请输入账号..."
                            required="required" maxlength="12"/>
                 </div>
+            </div>
+            <div class="col-md-4">
+                <span id="userSpan" style="color: red"></span><br/>
             </div>
         </div>
 
@@ -90,10 +104,10 @@
                 <label class="control-label col-md-4">地址：</label>
                 <div class="col-md-8">
                     <select class="form-control" name="address">
+                        <option value="山西省">山西省</option>
                         <option value="湖北省">湖北省</option>
                         <option value="四川省">四川省</option>
                         <option value="贵州省">贵州省</option>
-                        <option value="山西省">山西省</option>
                     </select>
                 </div>
             </div>

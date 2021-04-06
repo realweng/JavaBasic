@@ -172,6 +172,9 @@
                                 <li class="list-group-item">
                                     <a data-url="/product?type=show">商品列表</a>
                                 </li>
+                                <li class="list-group-item">
+                                    <a data-url="/productAjax?type=showProduct">商品列表(ajax)</a>
+                                </li>
 <%--                                <li class="list-group-item">--%>
 <%--                                    <a data-url="/product?type=show">商品类型列表</a>--%>
 <%--                                </li>--%>

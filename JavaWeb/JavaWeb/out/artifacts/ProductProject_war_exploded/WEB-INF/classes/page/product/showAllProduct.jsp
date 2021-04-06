@@ -117,20 +117,13 @@
                 // 获取当前页
                 var nowPage = $(this).attr("data-nowPage");
                 // 将当前页赋给隐藏域
-                var options = $("#pageNum option:selected");
-                $("#nowPage1").val(options.val());
-                $("#pageNum").val(options.val());
+                $("#nowPage").val(nowPage);
                 // 提交表单
                 $("#myFrm").submit();
             }
         });
     });
 
-    // $("#pageNum").change(function (){
-    //     var options = $("#pageNum option:selected");
-    //     $("#nowPage1").val(options.val());
-    //     $("#myFrm").submit();
-    // });
 
 </script>
 </body>

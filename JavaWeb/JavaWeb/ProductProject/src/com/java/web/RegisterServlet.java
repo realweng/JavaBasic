@@ -59,7 +59,7 @@ public class RegisterServlet extends HttpServlet {
         List<User> userList = userService.findUserByName(userName);
         int result = 0;//判断是否注册成功
         if (userList.size() > 0) {
-            pw.write("<h1>该用户名已经被注册！！！</h1>");
+            pw.write("该用户名已经被注册");
         } else {
             //将输入的值存入实体对象中
             user.setUserName(userName);
