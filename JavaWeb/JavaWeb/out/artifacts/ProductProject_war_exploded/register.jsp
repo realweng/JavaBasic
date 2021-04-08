@@ -19,7 +19,7 @@
         $(function () {
             //判断用户名是否已经被注册 ajax
             $("#userName").blur(function () {
-                $.get("userCheck", "userName=" + $(this).val(), function (message) {
+                $.get("userCheck.do", "userName=" + $(this).val(), function (message) {
                     $("#userSpan").html(message);
                 },"text");
             });
@@ -28,7 +28,7 @@
 </head>
 <body>
 <div class="container">
-    <form action="register" method="post" class="form-horizontal">
+    <form action="register.do" method="post" class="form-horizontal">
         <div class="row">
             <div class="form-group col-md-4 col-md-offset-4">
                 <label class="control-label col-md-4"> 账号：</label>

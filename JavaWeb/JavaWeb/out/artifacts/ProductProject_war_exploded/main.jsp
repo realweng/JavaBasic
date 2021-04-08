@@ -170,16 +170,16 @@
                             <%-- 二级菜单 --%>
                             <ul class="list-group">
                                 <li class="list-group-item">
-                                    <a data-url="/product?type=show">商品列表</a>
+                                    <a data-url="/product.do?type=show">商品列表</a>
                                 </li>
                                 <li class="list-group-item">
-                                    <a data-url="/productAjax?type=showProduct">商品列表(ajax)</a>
+                                    <a data-url="/productAjax.do?type=showProduct">商品列表(ajax)</a>
                                 </li>
 <%--                                <li class="list-group-item">--%>
 <%--                                    <a data-url="/product?type=show">商品类型列表</a>--%>
 <%--                                </li>--%>
                                 <li class="list-group-item">
-                                    <a data-url="/product?type=initSave">添加商品</a>
+                                    <a data-url="/product.do?type=initSave">添加商品</a>
                                 </li>
                             </ul>
                         </div>

@@ -20,7 +20,7 @@ import java.util.List;
  * @Since:jdk1.8
  * @Description:判断用户名是否已经被注册
  */
-@WebServlet("/userCheck")
+@WebServlet("/userCheck.do")
 public class UserCheckServlet extends HttpServlet {
     private UserService userService;
 

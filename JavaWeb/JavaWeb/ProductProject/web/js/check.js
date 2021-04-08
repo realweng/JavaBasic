@@ -7,7 +7,7 @@ $(function () {
         console.log(formData);
 
         //  使用.post请求服务器完成添加
-        $.post("productAjax", "type=saveProduct&" + formData, function (data) {
+        $.post("productAjax.do", "type=saveProduct&" + formData, function (data) {
             alert(data);
             if (data == "添加成功") {
                 // 隐藏模态框
@@ -23,7 +23,7 @@ $(function () {
         var $obj = $(this).parent().siblings();
         var productId = $($obj[0]).text();//获取选中商品编号
         // alert(productId.trim());
-        $.get("productAjax", "type=initUpdate&productId=" + productId.trim(), function (data) {
+        $.get("productAjax.do", "type=initUpdate&productId=" + productId.trim(), function (data) {
             // alert(data);
             data = jQuery.parseJSON(data);
             // alert(data);
@@ -37,7 +37,7 @@ $(function () {
                 var formData = $("#updateFrm").serialize();
                 console.log(formData);
                 //  使用.post请求服务器完成添加
-                $.post("productAjax", "type=update&" + formData + "&productId=" + productId.trim(), function (data) {
+                $.post("productAjax.do", "type=update&" + formData + "&productId=" + productId.trim(), function (data) {
                     alert(data);
                     if (data == "修改成功") {
                         // 隐藏模态框
@@ -56,7 +56,7 @@ $(function () {
         var productId = $($obj[0]).text();//获取选中商品编号
         var flag = confirm("是否确认删除？");
         if(flag){
-            $.get("productAjax", "type=delete&productId=" + productId.trim(), function (data) {
+            $.get("productAjax.do", "type=delete&productId=" + productId.trim(), function (data) {
                 alert(data);
             });
         }

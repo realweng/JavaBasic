@@ -22,7 +22,7 @@ import java.util.List;
  * @Since:jdk1.8
  * @Description:TODO
  */
-@WebServlet("/register")
+@WebServlet("/register.do")
 public class RegisterServlet extends HttpServlet {
     private UserService userService;//用户业务处理对象
     private User user;//用户对象

@@ -83,7 +83,7 @@
 <div class="container">
     <h5 style="font-weight: 900">位置：商品列表 --> 添加商品</h5>
     <br/>
-    <form id="myFrm" action="/product?type=save" method="post" class="form-horizontal">
+    <form id="myFrm" action="/product.do?type=save" method="post" class="form-horizontal">
         <div class="row">
             <div class="form-group">
                 <label class="control-label col-sm-3"> 商品名称：</label>

@@ -34,7 +34,7 @@
         <div class="col-md-8 col-md-offset-2">
             <h5 style="font-weight: 900">位置：商品列表</h5>
             <input type="hidden" id="countPage">
-            <form action="productAjax?type=showProduct" method="post" class="form-horizontal" id="myFrm">
+            <form action="productAjax.do?type=showProduct" method="post" class="form-horizontal" id="myFrm">
                 <table class="table table-bordered table-hover table-striped">
                     <tr>
                         <td class="control-label col-sm-2">

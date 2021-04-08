@@ -19,7 +19,7 @@ import java.util.List;
  * @Since:jdk1.8
  * @Description:用户登录Servlet
  */
-@WebServlet("/login")
+@WebServlet("/login.do")
 public class LoginServlet extends HttpServlet {
     private UserService userService;
     /**

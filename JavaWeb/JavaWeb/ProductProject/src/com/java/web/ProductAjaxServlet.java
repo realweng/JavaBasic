@@ -27,7 +27,7 @@ import java.util.List;
  * @Since:jdk1.8
  * @Description:TODO
  */
-@WebServlet("/productAjax")
+@WebServlet("/productAjax.do")
 public class ProductAjaxServlet extends HttpServlet {
     private ProductService productService;
     private ProductTypeService productTypeService;

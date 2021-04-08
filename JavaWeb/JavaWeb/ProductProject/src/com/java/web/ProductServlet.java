@@ -25,7 +25,7 @@ import java.util.List;
  * @Since:jdk1.8
  * @Description:商品servlet
  */
-@WebServlet("/product")
+@WebServlet("/product.do")
 public class ProductServlet extends HttpServlet {
     private ProductService productService;
     private Product product;
@@ -147,7 +147,7 @@ public class ProductServlet extends HttpServlet {
         int i = productService.saveProduct(product);
         if (i > 0) {
             //添加成功，显示所有商品
-            resp.sendRedirect("product?type=show");
+            resp.sendRedirect("product.do?type=show");
         } else {
             //添加失败，重新跳转到添加页面
             req.getRequestDispatcher("page/product/saveProduct.jsp").forward(req, resp);
@@ -184,7 +184,7 @@ public class ProductServlet extends HttpServlet {
         int i = productService.deleteProduct(productId);
         if (i > 0) {
             //修改成功，重定向显示所有商品信息
-            resp.sendRedirect("product?type=show");
+            resp.sendRedirect("product.do?type=show");
         } else {
             //修改失败，跳转到初始修改的servlet
             req.getRequestDispatcher("page/product/showAllProduct.jsp").forward(req, resp);
@@ -243,7 +243,7 @@ public class ProductServlet extends HttpServlet {
         int i = productService.updateProduct(product);
         if (i > 0) {
             //修改成功，重定向显示所有商品信息
-            resp.sendRedirect("product?type=show");
+            resp.sendRedirect("product.do?type=show");
         } else {
             //修改失败，跳转到初始修改的servlet
             req.getRequestDispatcher("/page/product/updateProduct.jsp?productId=" + productId);

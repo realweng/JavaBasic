@@ -10,7 +10,7 @@
 <div class="container">
     <div class="row">
         <div class="col-md-8 col-md-offset-2">
-            <form action="product?type=show" method="post" class="form-horizontal" id="myFrm">
+            <form action="product.do?type=show" method="post" class="form-horizontal" id="myFrm">
                 <table class="table table-bordered table-hover table-striped">
                     <tr>
                         <td class="control-label col-sm-2">
@@ -49,7 +49,7 @@
             <table class="table table-bordered table-striped table-hover">
                 <tr>
                     <td colspan="7">
-                        <a href="/product?type=initSave" class="btn btn-danger">添加商品</a>
+                        <a href="/product.do?type=initSave" class="btn btn-danger">添加商品</a>
                     </td>
                 </tr>
                 <tr>
@@ -84,9 +84,9 @@
                                 ${product.discount}
                         </td>
                         <td>
-                            <a href="/product?productId=${product.productId}&type=initUpdate"
+                            <a href="/product.do?productId=${product.productId}&type=initUpdate"
                                class="btn btn-primary">修改</a>
-                            <a href="/product?productId=${product.productId}&type=delete" class="btn btn-default">删除</a>
+                            <a href="/product.do?productId=${product.productId}&type=delete" class="btn btn-default">删除</a>
                         </td>
                     </tr>
                 </c:forEach>

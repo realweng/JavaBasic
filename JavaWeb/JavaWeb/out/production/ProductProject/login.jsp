@@ -39,7 +39,7 @@
 
                 action="login" 访问到servlet  ==>  修改servlet 的 url
             -->
-            <form class="form-horizontal" action="login" method="post">
+            <form class="form-horizontal" action="login.do" method="post">
 
                 <div class="form-group">
                     <label class="control-label col-md-3">账号：</label>
