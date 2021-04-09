@@ -36,6 +36,18 @@
       <filtered-out-file-type name="COMMIT_BY_MESSAGE" />
     </file-type-list>
   </component>
+  <component name="HighlightingSettingsPerFile">
+    <setting file="file://$PROJECT_DIR$/CustomerManage/src/com/java/service/impl/StudentServiceImpl.java" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/CustomerManage/src/com/java/dao/CustomerDao.java" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Servlet_05/src/com/javasm/entity/Area.java" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/CustomerManage/src/com/java/service/ClassInfoService.java" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/CustomerManage/src/com/java/service/CustomerService.java" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/CustomerManage/src/com/java/web/CustomerServlet.java" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/CustomerManage/src/com/java/dao/StudentDao.java" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/CustomerManage/src/com/java/util/JDBCUtil.java" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/CustomerManage/src/com/java/service/impl/ClassInfoServiceImpl.java" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/CustomerManage/src/com/java/service/impl/CustomerServiceImpl.java" root0="FORCE_HIGHLIGHTING" />
+  </component>
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
@@ -108,13 +120,13 @@
     <property name="aspect.path.notification.shown" value="true" />
     <property name="com.intellij.openapi.externalSystem.service.settings.ExternalSystemGroupConfigurable" value="ALL" />
     <property name="jdk.selected.JAVA_MODULE" value="1.8" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/CustomerManage/src/com/java/util" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/lib/lombok.jar" />
     <property name="nodejs_interpreter_path.stuck_in_default_project" value="undefined stuck path" />
     <property name="nodejs_npm_path_reset_for_default_project" value="true" />
     <property name="project.structure.last.edited" value="Libraries" />
     <property name="project.structure.proportion" value="0.15" />
     <property name="project.structure.side.proportion" value="0.21626794" />
-    <property name="settings.editor.selected.configurable" value="editor.preferences.fonts.default" />
+    <property name="settings.editor.selected.configurable" value="configurable.group.editor" />
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
@@ -403,7 +415,11 @@
       <workItem from="1617796255025" duration="191000" />
       <workItem from="1617796486892" duration="85000" />
       <workItem from="1617796667937" duration="33000" />
-      <workItem from="1617796747977" duration="7584000" />
+      <workItem from="1617796747977" duration="10116000" />
+      <workItem from="1617867435486" duration="1970000" />
+      <workItem from="1617869458679" duration="16000" />
+      <workItem from="1617869626293" duration="30000" />
+      <workItem from="1617872342537" duration="17641000" />
     </task>
     <task id="LOCAL-00001">
       <created>1616596952087</created>
