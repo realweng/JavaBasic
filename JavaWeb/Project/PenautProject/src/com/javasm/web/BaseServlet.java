@@ -14,39 +14,32 @@ import java.io.PrintWriter;
 import java.lang.reflect.Method;
 import java.lang.reflect.ParameterizedType;
 
-
 /**
  * @Author：wengxingguo
  * @Version：1.0
  * @Date：2021/4/10-19:45
  * @Since:jdk1.8
- * @Description:TODO 在BaseServlet中继承HttpServlet类，重写doGet、dopost方法，在服务方法中调用BaseServlet子类中的方法（业务处理的方法）
+ * @Description:TODO在BaseServlet中继承HttpServlet类，重写doGet、dopost方法，在服务方法中调用BaseServlet子类中的方法（业务处理的方法）
  * 其他的servlet类继承BaseServlet
  * 将request中的数据转为实体类对象
  */
 public class BaseServlet<T> extends HttpServlet {
-
     private Class<T> entityClazz;
 
+    /**
+     * BaseServlet实例化
+     */
     public BaseServlet() {
-//        System.out.println("aaa");
-        // this:自义定的serlvet对象
-        // this.getClass():自义定的serlvet对象的Class
-        // this.getClass().getGenericSuperclass()：获取父类的class（public class UserinfoServlet extends BaseServlet<Userinfo> ）
-        // ((ParameterizedType) this.getClass().getGenericSuperclass()).getActualTypeArguments()[0]：获取泛型的类型，实体类的类型
         entityClazz = (Class<T>) ((ParameterizedType) this.getClass().getGenericSuperclass()).getActualTypeArguments()[0];
-        System.out.println("BaseServlet实例化");
     }
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        System.out.println("aaaa");
         this.doGet(request, response);
     }
 
     @SneakyThrows
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         try {
-
             request.setCharacterEncoding("utf-8");
             response.setContentType("text/html;charset=utf-8");
 
@@ -62,7 +55,6 @@ public class BaseServlet<T> extends HttpServlet {
 
                 // 4.响应数据到浏览器之上
                 responseType(method, invoke, request, response);
-
             } else {// 资源不存在
                 request.getRequestDispatcher("404.jsp").forward(request, response);
             }

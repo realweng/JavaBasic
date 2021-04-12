@@ -31,7 +31,7 @@ public class JdbcUtil<T> {
 
     // 静态代码块 类加载的时候执行一次
     static {
-        InputStream inputStream = JdbcUtils.class.getClassLoader().getResourceAsStream("com/java/resource/druid.properties");
+        InputStream inputStream = JdbcUtils.class.getClassLoader().getResourceAsStream("com/javasm/resource/druid.properties");
         Properties properties = new Properties();
         try {
             properties.load(inputStream);
@@ -116,7 +116,7 @@ public class JdbcUtil<T> {
     }
 
     /**
-     * 数据库查询操作
+     * 数据库查询操作 返回多个结果
      *
      * @param sql    SQL语句
      * @param clazz
@@ -138,6 +138,24 @@ public class JdbcUtil<T> {
             }
         }
         return list;
+    }
+
+    /**
+     * 通用的查询单个结果
+     *
+     * @param sql  sql语句
+     * @param args 可变形参用于填充占位符
+     * @return 返回T, 泛型对象;返回null,查询失败
+     */
+    public static <T> T queryObject(String sql,Class<T> clazz, Object... args) {
+        Connection con = getConnection();
+        QueryRunner queryRunner = new QueryRunner();
+        try {
+            return queryRunner.query(con,sql, new BeanHandler<>(clazz), args);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return null;
     }
 
     /**
