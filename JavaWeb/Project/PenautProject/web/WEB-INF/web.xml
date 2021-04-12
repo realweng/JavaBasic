@@ -17,18 +17,18 @@
         <url-pattern>/druid/*</url-pattern>
     </servlet-mapping>
 
-    <!--   登录状态过滤器 -->
-    <filter>
-        <filter-name>loginFilter</filter-name>
-        <filter-class>com.javasm.filter.LoginFilter</filter-class>
-    </filter>
-    <filter-mapping>
-        <filter-name>loginFilter</filter-name>
-        <url-pattern>*.jsp</url-pattern>
-    </filter-mapping>
-    <filter-mapping>
-        <filter-name>loginFilter</filter-name>
-        <url-pattern>*.do</url-pattern>
-    </filter-mapping>
+<!--    &lt;!&ndash;   登录状态过滤器 &ndash;&gt;-->
+<!--    <filter>-->
+<!--        <filter-name>loginFilter</filter-name>-->
+<!--        <filter-class>com.javasm.filter.LoginFilter</filter-class>-->
+<!--    </filter>-->
+<!--    <filter-mapping>-->
+<!--        <filter-name>loginFilter</filter-name>-->
+<!--        <url-pattern>*.jsp</url-pattern>-->
+<!--    </filter-mapping>-->
+<!--    <filter-mapping>-->
+<!--        <filter-name>loginFilter</filter-name>-->
+<!--        <url-pattern>*.do</url-pattern>-->
+<!--    </filter-mapping>-->
 
 </web-app>

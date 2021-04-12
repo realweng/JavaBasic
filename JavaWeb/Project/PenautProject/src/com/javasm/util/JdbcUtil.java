@@ -154,6 +154,8 @@ public class JdbcUtil<T> {
             return queryRunner.query(con,sql, new BeanHandler<>(clazz), args);
         } catch (SQLException e) {
             e.printStackTrace();
+        }finally {
+            DbUtils.closeQuietly(con);
         }
         return null;
     }

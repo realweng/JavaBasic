@@ -1,7 +1,5 @@
 package com.javasm.web;
 
-import com.javasm.annotation.ResponseTypeAnnotation;
-import com.javasm.myenum.ResponseTypeEnum;
 import com.javasm.util.RequestDataConvert;
 import lombok.SneakyThrows;
 
@@ -26,11 +24,9 @@ import java.lang.reflect.ParameterizedType;
 public class BaseServlet<T> extends HttpServlet {
     private Class<T> entityClazz;
 
-    /**
-     * BaseServlet实例化
-     */
     public BaseServlet() {
         entityClazz = (Class<T>) ((ParameterizedType) this.getClass().getGenericSuperclass()).getActualTypeArguments()[0];
+        System.out.println("BaseServlet实例化");
     }
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -39,28 +35,23 @@ public class BaseServlet<T> extends HttpServlet {
 
     @SneakyThrows
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        try {
-            request.setCharacterEncoding("utf-8");
-            response.setContentType("text/html;charset=utf-8");
+        request.setCharacterEncoding("utf-8");
+        response.setContentType("text/html;charset=utf-8");
 
-            // 1.获取servlet类中的Method
-            Method method = getMethod(request);
+        // 1.获取servlet类中的Method
+        Method method = getMethod(request);
 
-            if (method != null) {
-                // 2.获取当前方法中的参数（实体类、request、response）
-                Object[] params = getMethodParam(method, request, response);
+        if (method != null) {
+            // 2.获取当前方法中的参数（实体类、request、response）
+            Object[] params = getMethodParam(method, request, response);
 
-                // 3.调用Method
-                Object invoke = method.invoke(this, params);
+            // 3.调用Method
+            Object invoke = method.invoke(this, params);
 
-                // 4.响应数据到浏览器之上
-                responseType(method, invoke, request, response);
-            } else {// 资源不存在
-                request.getRequestDispatcher("404.jsp").forward(request, response);
-            }
-        } catch (Exception e) {
-            // log4j：日志
-            e.printStackTrace();
+            // 4.响应数据到浏览器之上
+            responseType(invoke, request, response);
+
+        } else {// 资源不存在
             request.getRequestDispatcher("404.jsp").forward(request, response);
         }
 
@@ -128,50 +119,29 @@ public class BaseServlet<T> extends HttpServlet {
      * @param request
      * @param response
      */
-    public void responseType(Method method, Object resultObject, HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        // 1.获取method的注解
-        ResponseTypeAnnotation annotation = method.getAnnotation(ResponseTypeAnnotation.class);
-        // 2.通过注解来响应数据
-        if (annotation == null) {// 如果没有注解，通过返回值响应(响应方式有多种)
-            String message = resultObject != null ? resultObject.toString() : null;
-            // 通过resultMessage来对数据进行处理
-            if (message != null) {
-                // 解析message
-                String[] split = message.split(":");
-                if (split != null && split.length == 2) {
-                    // 响应的类型
-                    String responseType = split[0];
-                    //  响应的数据
-                    String responseMassage = split[1];
-                    if (responseType.equals("f")) {//  响应方式为转发
-                        request.getRequestDispatcher(responseMassage).forward(request, response);
-                    } else if (responseType.equals("s")) {//  响应方式为重定向
-                        response.sendRedirect(responseMassage);
-                    } else if (responseType.equals("a")) {//  ajax
-                        PrintWriter out = response.getWriter();
-                        out.write(responseMassage);
-                        out.flush();
-                        out.close();
-                    } else {
-                        request.getRequestDispatcher("404.jsp").forward(request, response);
-                    }
+    public void responseType(Object resultObject, HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        String message = resultObject != null ? resultObject.toString() : null;
+        // 通过resultMessage来对数据进行处理
+        if (message != null) {
+            // 解析message
+            String[] split = message.split(":");
+            if (split != null && split.length == 2) {
+                // 响应的类型
+                String responseType = split[0];
+                //  响应的数据
+                String responseMassage = split[1];
+                if (responseType.equals("f")) {//  响应方式为转发
+                    request.getRequestDispatcher(responseMassage).forward(request, response);
+                } else if (responseType.equals("s")) {//  响应方式为重定向
+                    response.sendRedirect(responseMassage);
+                } else if (responseType.equals("a")) {//  ajax
+                    PrintWriter out = response.getWriter();
+                    out.write(responseMassage);
+                    out.flush();
+                    out.close();
+                } else {
+                    request.getRequestDispatcher("404.jsp").forward(request, response);
                 }
-            }
-        } else {
-            String message = resultObject != null ? resultObject.toString() : null;
-            // 获取注解中的responseType的值
-            ResponseTypeEnum responseTypeEnum = annotation.responseType();
-            if (responseTypeEnum == ResponseTypeEnum.AJAX) {// ajax
-                PrintWriter out = response.getWriter();
-                out.write(message);
-                out.flush();
-                out.close();
-            } else if (responseTypeEnum == ResponseTypeEnum.REDIRECT) {// 重定向
-                response.sendRedirect(message);
-            } else if (responseTypeEnum == ResponseTypeEnum.TRAN) {// 请求转发
-                request.getRequestDispatcher(message).forward(request, response);
-            } else {
-                request.getRequestDispatcher("404.jsp").forward(request, response);
             }
         }
     }
