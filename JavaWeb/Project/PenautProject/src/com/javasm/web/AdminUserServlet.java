@@ -3,6 +3,7 @@ package com.javasm.web;
 import com.javasm.entity.AdminUser;
 import com.javasm.service.AdminUserService;
 import com.javasm.service.impl.AdminUserServiceImpl;
+import com.javasm.util.Md5Util;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -22,7 +23,6 @@ import java.io.IOException;
 public class AdminUserServlet extends BaseServlet<AdminUser> {
     private AdminUserService adminUserService;
     private AdminUser adminUser;
-
     /**
      * 构造方法，初始化
      */
@@ -42,7 +42,8 @@ public class AdminUserServlet extends BaseServlet<AdminUser> {
         // 获取页面数据
         String userName = request.getParameter("userName");
         String pwd = request.getParameter("pwd");
-
+        //将传入的数据加密与数据库中的加密密码做比对
+        pwd = Md5Util.encode(pwd);
         //  通过账号、密码查询用户信息
         //  findUserByName(userName)查询是否有这个用户，如果存在该用户再做用户名密码的判断
         adminUser = adminUserService.findUserByName(userName);
