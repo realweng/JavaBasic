@@ -1,0 +1,116 @@
+package com.javasm.util;
+
+import javax.servlet.http.HttpServletRequest;
+import java.lang.reflect.Field;
+import java.sql.Timestamp;
+import java.text.ParseException;
+import java.util.Date;
+
+/**
+ * @Author：wengxingguo
+ * @Version：1.0
+ * @Date：2021/4/10-19:40
+ * @Since:jdk1.8
+ * @Description:从客户端传递到服务器的数据封装为实体类
+ */
+public class RequestDataConvert {
+    /**
+     * 将request中的数据封装到entity类中（获取所有的属性）
+     *
+     * @param tClass
+     * @param request
+     * @param <T>
+     * @return
+     * @throws IllegalAccessException
+     * @throws InstantiationException
+     */
+    public static <T> T convertToEntityByField(Class<T> tClass, HttpServletRequest request) throws IllegalAccessException, InstantiationException {
+        // 实例化实体类对象(返回值)
+        T entity = tClass.newInstance();
+
+        // 1。获取实体类中的所有的属性
+        Field[] declaredFields = tClass.getDeclaredFields();
+
+        // 1.2遍历属性数组
+        for (Field declaredField : declaredFields) {
+            // 2。通过属性名在request对象中获取数据，如果当前的属性名获取到了数据，将数据保存entity实体类中
+            // 2.1获取属性名
+            String fieldName = declaredField.getName();
+            // 2.2 从reqeuest中获取数据
+            String[] parameter = request.getParameterValues(fieldName);
+            if (parameter != null) {
+                if (parameter.length > 1) {// 如果是复选框返回的数据就是数组
+                    String value = "";
+                    // 处理数据，数据格式为:value,value,value
+                    for (int i = 0; i < parameter.length; i++) {
+                        if (i == parameter.length - 1) {// 最后一个元素
+                            value += parameter[i];
+                        } else {
+                            value += parameter[i] + ",";
+                        }
+                    }
+                    declaredField.setAccessible(true);
+                    // 将数据保存到实体类中
+                    declaredField.set(entity, value);
+                } else {// 其他元素
+                    String value = parameter[0];// 获取数据
+                    // 通过declaredField的属性的数据类型给value进行格式转换
+                    if (declaredField.getType().getTypeName().equals("java.lang.Integer")) {
+                        Integer obj = ConvertUtils.StringConvertInteger(value);
+                        if (obj != null) {
+                            declaredField.setAccessible(true);
+                            // 将数据保存到实体类中
+                            declaredField.set(entity, obj);
+                        }
+                    } else if (declaredField.getType().getTypeName().equals("java.lang.Float")) {
+                        Float obj = ConvertUtils.StringConvertFloat(value);
+                        if (obj != null) {
+                            declaredField.setAccessible(true);
+                            // 将数据保存到实体类中
+                            declaredField.set(entity, obj);
+                        }
+                    } else if (declaredField.getType().getTypeName().equals("java.lang.Double")) {
+                        Double obj = ConvertUtils.StringConvertDouble(value);
+                        if (obj != null) {
+                            declaredField.setAccessible(true);
+                            // 将数据保存到实体类中
+                            declaredField.set(entity, obj);
+                        }
+                    } else if (declaredField.getType().getTypeName().equals("java.lang.Boolean")) {
+                        Boolean obj = ConvertUtils.StringConvertBoolean(value);
+                        if (obj != null) {
+                            declaredField.setAccessible(true);
+                            // 将数据保存到实体类中
+                            declaredField.set(entity, obj);
+                        }
+                    } else if (declaredField.getType().getTypeName().equals("java.util.Date")) {
+                        Date obj = null;
+                        try {
+                            obj = ConvertUtils.StringConvertDate(value);
+                            if (obj != null) {
+                                declaredField.setAccessible(true);
+                                // 将数据保存到实体类中
+                                declaredField.set(entity, obj);
+                            }
+                        } catch (ParseException e) {
+                            e.printStackTrace();
+                        }
+
+                    } else if (declaredField.getType().getTypeName().equals("java.sql.Timestamp")) {
+                        Timestamp obj = ConvertUtils.StringConvertTimestamp(value);
+                        if (obj != null) {
+                            declaredField.setAccessible(true);
+                            // 将数据保存到实体类中
+                            declaredField.set(entity, obj);
+                        }
+                    } else {// string类的属性
+                        declaredField.setAccessible(true);
+                        // 将数据保存到实体类中
+                        declaredField.set(entity, value);
+                    }
+                }
+            }
+        }
+        return entity;
+    }
+}
