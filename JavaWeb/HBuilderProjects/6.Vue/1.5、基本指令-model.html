@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+		<script src="js/vue.js" type="text/javascript" charset="utf-8"></script>
+	</head>
+	<body>
+		<div id="vue">
+			<input v-model="userName" />
+			显示userName："{userName}}" {{userName}}
+		</div>
+		<script type="text/javascript">
+			new Vue({
+				el: "#vue",
+				data: {
+					userName: "小白"
+				}
+			});
+		</script>
+	</body>
+</html>

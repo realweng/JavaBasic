@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+		<script src="js/vue.js" type="text/javascript" charset="utf-8"></script>
+		<style type="text/css">
+			#span {
+				color: red
+			}
+
+			.span1 {
+				color: salmon;
+			}
+		</style>
+	</head>
+	<body>
+		<div id="vue">
+			<!-- 数据以文本的方式加载到页面 -->
+			<!-- 方式1：{{data中name的值}} -->
+			<a>{{textMessage}}</a><br />
+			<!-- 方式1：v-text="data中name的值" -->
+			<a v-text="textMessage"></a>
+
+			<!-- 数据以HTML加载页面 -->
+			<!-- v-html="data中name的值" -->
+			<p v-html="textMessage"></p>
+
+			<!-- v-show:是否要显示标签，如果是true，当前的标签显示，如果是true，给当前标签设置样式 style="display: none;" -->
+			<span v-show="flag">是否显示span</span>
+
+			<!-- 给标签设置属性 -->
+			<!-- v-bind:属性类型="data中name的值" -->
+			<p v-bind:id="idName">{{textMessage}}</p>
+			<p v-bind:class="className">{{textMessage}}</p>
+
+		</div>
+		<script type="text/javascript">
+			new Vue({
+				el: "#vue",
+				data: {
+					textMessage: "<a href='#'>跳转</a>",
+					flag: false,
+					idName: "span",
+					className: "span1"
+				}
+			});
+		</script>
+	</body>
+</html>

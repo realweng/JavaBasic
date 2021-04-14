@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+		<script src="js/vue.min.js" type="text/javascript" charset="utf-8"></script>
+
+	</head>
+	<body>
+		<div id="vue">
+			<span v-if="sex == 1">男</span>
+			<span v-else-if="sex == 0">女</span>
+			<span v-else>数据不正确</span> <br />
+
+			<span v-if="sex == 1">男</span>
+			<span v-if="sex == 2">男</span>
+			<span v-else-if="sex == 0">女</span>
+			<span v-else>数据不正确</span><br />
+
+			<span v-if="score<=100 && score>= 90">A</span>
+			<span v-else-if="score >= 80">B</span>
+			<span v-else-if="score >= 70">C</span>
+			<span v-else-if="score >= 60">D</span>
+			<span v-else-if="score >= 0">0</span>
+			<span v-else>分数录入有误</span><br />
+
+		</div>
+		<script type="text/javascript">
+			new Vue({
+				el: "#vue",
+				data: {
+					sex: 45,
+					score: 77
+				}
+			});
+		</script>
+	</body>
+</html>

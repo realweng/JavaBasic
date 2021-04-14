@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+		<link rel="stylesheet" type="text/css" href="css/bootstrap.css" />
+		<script src="js/vue.js" type="text/javascript" charset="utf-8"></script>
+		<style type="text/css">
+			table {
+				border-collapse: collapse;
+				border: none;
+			}
+
+			td {
+				border: solid slategray 1px;
+			}
+
+			input {
+				border: sandybrown 1px solid;
+			}
+		</style>
+	</head>
+	<body>
+		<div id="vue">
+			<form>
+				<table width="300px">
+					<tr>
+						<td>姓名：</td>
+						<td>
+							<input name="userName" v-model="userInfo.userName" />
+						</td>
+					</tr>
+					<tr>
+						<td>密码：</td>
+						<td>
+							<input name="pwd" v-model="userInfo.pwd" />
+						</td>
+					</tr>
+					<tr>
+						<td>性别：</td>
+						<td>
+							<input type="radio" v-model="userInfo.sex" name="sex" value="0" />男
+							<input type="radio" v-model="userInfo.sex" name="sex" value="1" />女
+						</td>
+					</tr>
+					<tr>
+						<td></td>
+						<td>
+							<button type="button" @click="saveUserinfo">保存</button>
+							<myButton></myButton>
+						</td>
+					</tr>
+				</table>
+			</form>
+			<br />
+			<table class="table table-bordered table-striped" style="width: 400px;">
+				<tr>
+					<td>姓名</td>
+					<td>年龄</td>
+					<td>性别</td>
+					<td>操作</td>
+				</tr>
+				<tr v-for="(user,index) in userList">
+					<td>{{user.userName}}</td>
+					<td>{{user.pwd}}</td>
+					<td v-if="user.sex == 0">男</td>
+					<td v-if="user.sex == 1">女</td>
+					<td>
+						<button @click="updateUserinfo(index)">修改</button>
+						<button @click="deleteUserinfo(index)">删除</button>
+					</td>
+				</tr>
+			</table>
+
+		</div>
+		<script type="text/javascript">
+			new Vue({
+				el: "#vue",
+				data:function(){},
+				data: {
+					userList: [{ // 用户列表
+						userName: "小白",
+						pwd: "123456",
+						sex: 0
+					}, {
+						userName: "小红",
+						pwd: "123456",
+						sex: 1
+					}, {
+						userName: "小黑",
+						pwd: "123456",
+						sex: 0
+					}],
+					userInfo: { // 保存中的数据对应的userInfo
+						userName: "",
+						pwd: "",
+						sex: 0
+					}
+				},
+				methods: {
+					saveUserinfo: function() { // 保存数据到userList
+						// console.log(this.userInfo);
+						this.userList.push(this.userInfo);
+						// 通过ajax将数据发送servlet中，添加用户信息
+						// ...
+					},
+					updateUserinfo: function(index) {
+						console.log(index);
+						// this.userList[index] = this.userInfo;
+						this.userList.splice(index, 1, this.userInfo);
+						// 通过ajax将数据发送servlet中，修改用户信息
+						// ..
+					},
+					deleteUserinfo: function(index) {
+						this.userList.splice(index, 1);
+						// 通过ajax将数据发送servlet中，删除用户信息
+						// ..
+					}
+				}
+			});
+		</script>
+	</body>
+</html>

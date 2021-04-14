@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+		<script src="js/vue.js" type="text/javascript" charset="utf-8"></script>
+		<style type="text/css">
+			#span {
+				color: brown
+			}
+
+			.span1 {
+				color: salmon;
+			}
+
+			.font-span {
+				color: salmon;
+				font-size: 24px;
+				font-family: "楷体";
+			}
+
+			.red {
+				color: red;
+			}
+
+			.green {
+				color: green;
+			}
+
+			.small {
+				font-size: 20px;
+			}
+		</style>
+
+	</head>
+	<body>
+		<div id="vue">
+			<!-- bind绑定属性 -->
+			<!-- v-bind:属性类型="data中name的值" -->
+			<p v-bind:id="idName">{{textMessage}}</p>
+			<p v-bind:class="className">{{textMessage}}</p>
+
+			<!-- 设置样式表(列表的方式进行绑定) -->
+			<p v-bind:class="[className,className2]">
+				{{textMessage}}
+			</p>
+			<p v-bind:class="classArray">
+				{{textMessage}}
+			</p>
+
+			<!-- 设置样式表（是否需要加载样式）v-bind:class="{css样式表:data中boolean的数据}" -->
+			<p v-bind:class="{small:flag}">
+				{{textMessage}}
+			</p>
+			<p v-bind:class="{span1:flag}">
+				{{textMessage}}
+			</p>
+			<p v-bind:class="{small:flag, red:flag2, green:flag}">
+				{{textMessage}}
+			</p>
+
+			<!-- 设置样式表（通过对象设置） -->
+			<p v-bind:style="styleObject">
+				{{textMessage}}
+			</p>
+			<p v-bind:class="classObject">
+				{{textMessage}}
+			</p>
+
+			<!-- 缩写 -->
+			<p :class="classObject">
+				{{textMessage}}
+			</p>
+			<p :id="idName">
+				{{textMessage}}
+			</p>
+
+		</div>
+		<script type="text/javascript">
+			new Vue({
+				el: "#vue",
+				data: {
+					textMessage: "VUE+ElementUI",
+					idName: "span",
+					className: "span1",
+					className2: "font-span",
+					classArray: ["green", "small"],
+					flag: true,
+					flag2: false,
+					styleObject: {
+						color: "red",
+						border: "1px saddlebrown solid"
+					},
+					classObject: {
+						red: true,
+						small: false
+					}
+				}
+
+			});
+		</script>
+	</body>
+</html>

@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+		<script src="js/vue.js" type="text/javascript" charset="utf-8"></script>
+	</head>
+	<body>
+		<div id="vue">
+			<!-- 遍历数组 -->
+			<span v-for="item in array">
+				{{item}}
+			</span>
+			<br />
+			<span v-for="item in array2" :key="item.price">
+				{{item}} ==> {{item.price}} <br />
+			</span>
+			<br />
+			<span v-for="(item,index) in array2">
+				{{index}} ==> {{item}} ==> {{item.price}} <br />
+			</span>
+
+
+			<br />
+			<!-- 遍历对象（Map集合） -->
+			<span v-for="(value,key) in object">
+				{{key}} ==> {{value}} <br />
+			</span>
+			<br />
+
+			<table border="1px" width="200px" cellspacing="0">
+				<tr>
+					<td>姓名</td>
+					<td>密码</td>
+				</tr>
+				<tr v-for="user in userArray">
+					<td>{{user.userName}}</td>
+					<td>{{user.pwd}}</td>
+				</tr>
+			</table>
+		</div>
+		<script type="text/javascript">
+			var userList = [{
+				userName: "admin",
+				pwd: "123456"
+			}, {
+				userName: "xiaobai",
+				pwd: "456789"
+			}, {
+				userName: "小红",
+				pwd: "789102"
+			}];
+
+
+			new Vue({
+				el: "#vue",
+				data: {
+					array: ["K95", "AK47", "M41N"],
+					array2: [{
+							name: "K95",
+							price: 55
+						},
+						{
+							name: "AK47"
+						},
+						{
+							name: "M41N"
+						}
+					],
+					object: {
+						"name": "admin",
+						"age": "45"
+					},
+					userArray: userList
+				}
+			});
+		</script>
+	</body>
+</html>
