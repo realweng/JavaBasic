@@ -2,6 +2,10 @@ package com.javasm.dao.impl;
 
 import com.javasm.dao.ChannelTypeDao;
 import com.javasm.entity.ChannelType;
+import com.javasm.util.JdbcUtil;
+import com.javasm.vo.ChannelTypeEntity;
+
+import java.util.List;
 
 /**
  * @Author：wengxingguo
@@ -11,4 +15,14 @@ import com.javasm.entity.ChannelType;
  * @Description:渠道种类数据层接口实现类
  */
 public class ChannelTypeDaoImpl extends BaseDaoImpl<ChannelType> implements ChannelTypeDao {
+    /**
+     * 联表查询所有渠道种类实体
+     *
+     * @return
+     */
+    @Override
+    public List<ChannelTypeEntity> findAllTypeEntity() {
+        String sql = "SELECT a.*,b.typeName as 'parentName' from channelType a LEFT JOIN channelType b on a.parentId = b. id";
+        return JdbcUtil.query(sql,ChannelTypeEntity.class);
+    }
 }

@@ -17,6 +17,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 
 public class ChannelEntity extends Channel {
-    private String firstType; // 第一级
-    private String secondType;// 第二级
+    private String platformName; // 平台名称
+    private String typeName; // 渠道种类名称
+    private String parentName;// 渠道种类父类名称
 }

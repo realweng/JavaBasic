@@ -1,6 +1,9 @@
 package com.javasm.dao;
 
 import com.javasm.entity.ChannelType;
+import com.javasm.vo.ChannelTypeEntity;
+
+import java.util.List;
 
 /**
  * @Author：wengxingguo
@@ -10,4 +13,9 @@ import com.javasm.entity.ChannelType;
  * @Description:渠道种类数据层接口
  */
 public interface ChannelTypeDao extends BaseDao<ChannelType>{
+    /**
+     * 联表查询所有渠道种类实体
+     * @return
+     */
+    public List<ChannelTypeEntity> findAllTypeEntity();
 }
