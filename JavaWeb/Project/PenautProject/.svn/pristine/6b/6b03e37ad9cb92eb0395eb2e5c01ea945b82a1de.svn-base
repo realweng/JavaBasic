@@ -1,0 +1,22 @@
+package com.javasm.dao;
+
+import com.javasm.entity.Channel;
+import com.javasm.vo.ChannelEntity;
+import com.javasm.vo.ChannelTypeEntity;
+
+import java.util.List;
+
+/**
+ * @Author：wengxingguo
+ * @Version：1.0
+ * @Date：2021/4/15-20:13
+ * @Since:jdk1.8
+ * @Description:渠道数据层接口
+ */
+public interface ChannelDao extends BaseDao<Channel>{
+    /**
+     * 联表查询所有渠道实体
+     * @return
+     */
+    public List<ChannelEntity> findAllChannelEntity();
+}

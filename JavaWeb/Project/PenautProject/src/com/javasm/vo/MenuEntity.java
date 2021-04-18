@@ -1,0 +1,29 @@
+package com.javasm.vo;
+
+import com.javasm.entity.Menu;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
+import java.util.List;
+
+/**
+ * @Author：wengxingguo
+ * @Version：1.0
+ * @Date：2021/4/18-17:15
+ * @Since:jdk1.8
+ * @Description:TODO
+ */
+@Data
+@AllArgsConstructor
+@NoArgsConstructor
+
+public class MenuEntity {
+    private Integer mid; //菜单id
+    private String menuIcon; //菜单图标
+    private String menuName; //菜单名称
+    private String menuUrl; //菜单路径
+    private String parentId; //菜单父级id
+    private Integer state; //菜单状态 1表示正常
+    private List<MenuEntity> sonList; //子菜单
+}
