@@ -39,13 +39,13 @@
                 <img align="left" src="./img/logo_c.png"/>
             </a>
             <!-- 导航条右侧显示用户信息 修改密码 退出登录-->
-            <div align="right" id="userControl">
+            <div align="right" id="userContorl">
                 <el-dropdown :hide-on-click="false">
 						  <span style="color: white; width: 100px; font-size: medium;" class="el-dropdown-link">
 						    个人中心<i class="el-icon-arrow-down el-icon--right"></i>
 						  </span>
                     <el-dropdown-menu slot="dropdown">
-                        <el-dropdown-item @click.native="updatePwdDialog = true">修改密码</el-dropdown-item>
+                        <el-dropdown-item @click.native="dialogFormVisible = true">修改密码</el-dropdown-item>
 <%--                        <el-dropdown-item @click.native="visible = true">退出登录</el-dropdown-item>--%>
                         <%--  是否退出登录判断  --%>
                         <el-popover placement="top" width="160" v-model="visible">
@@ -94,7 +94,7 @@
                     <el-tab-pane v-for="tab in tabArray" :closable="tab.closable" :label="tab.tabName"
                                  :name="tab.tabName">
                         <span slot="label"><i :class="tab.icon"> {{tab.tabName}}</i></span>
-                        <iframe name="child" id="child" :src="tab.path" width="1800" height="960"
+                        <iframe name="child" id="child" :src="tab.path" width="1500" height="840"
                                 frameborder="0" scrolling="no"
                                 style="position:relative; top: 2.8px;left: 0px;"></iframe>
                         <!-- <div v-html="showHtml"></div> -->
@@ -106,7 +106,7 @@
     </el-container>
 
     <%-- 更改密码的对话框 --%>
-    <el-dialog title="更改密码" :visible.sync="updatePwdDialog">
+    <el-dialog title="更改密码" :visible.sync="dialogFormVisible">
         <el-form :model="form">
             <el-form-item label="用户名" :label-width="formLabelWidth">
                 <el-input v-model="form.name" autocomplete="off" :readonly="true"></el-input>
@@ -119,8 +119,8 @@
             </el-form-item>
         </el-form>
         <div slot="footer" class="dialog-footer">
-            <el-button @click="updatePwdDialog = false">取 消</el-button>
-            <el-button type="primary" @click="updatePwdDialog = false;updatePwd()">确 定</el-button>
+            <el-button @click="dialogFormVisible = false">取 消</el-button>
+            <el-button type="primary" @click="dialogFormVisible = false">确 定</el-button>
         </div>
     </el-dialog>
 
@@ -140,9 +140,8 @@
                 activeTab: "主页",
                 showHtml: "",
                 visible: false,
-                updatePwdDialog: false,
+                dialogFormVisible: false,
                 form: {
-                    type: 'updatePassword',
                     name: '${sessionScope.user.userName}',
                     pwd: '',
                     newPwd: ''
@@ -184,7 +183,6 @@
                     this.activeTab = menuName;
                 }
             },
-            // 删除选中的选项卡
             removeTab: function(targetName) {
                 var tabsArray = this.tabArray;
                 let activeName = this.activeTab;
@@ -203,31 +201,7 @@
             },
             // 退出登录
             logOut:function (){
-                location.href = '/adminUser.do?type=adminUserLogout';
-            },
-            // 修改用户密码
-            updatePwd:function (){
-                var vm = this;
-                if(this.form.pwd != null && this.form.newPwd != null){
-                    axios({
-                        method: "post",
-                        url: "/adminUser.do",
-                        params: this.form
-                    }).then(function (response) {
-                        var json = eval(response.data);
-                        console.log(json);
-                        if(json!='修改成功'){
-                            vm.$notify({
-                                title: '提示',
-                                message: json
-                            });
-                        }else{
-                            location.href = '/adminUser.do?type=adminUserLogout';
-                        }
-                    }).catch(function (error) {
-                        console.log(error);
-                    });
-                }
+                this.$router.push({path:'/adminUser.do?type=adminUserLogout'});
             }
         },
         mounted(){
@@ -241,7 +215,7 @@
             var menuListJson = eval(menuList);
             // console.log(menuListJson);
             this.menuList = menuListJson;
-            // console.log(this.updatePwdDialog);
+            // console.log(this.dialogFormVisible);
         }
     }
 

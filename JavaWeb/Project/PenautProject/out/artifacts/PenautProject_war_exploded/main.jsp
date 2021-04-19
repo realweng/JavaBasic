@@ -16,6 +16,7 @@
         <link rel="stylesheet" href="https://unpkg.com/element-ui/lib/theme-chalk/index.css">
         <link rel="stylesheet" type="text/css" href="css/main2.css" />
         <script src="js/vue.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="js/jquery.js" type="text/javascript"></script>
         <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
         <script src="https://cdn.bootcdn.net/ajax/libs/element-ui/2.15.1/index.min.js"></script>
         <style>
@@ -38,14 +39,24 @@
                 <img align="left" src="./img/logo_c.png"/>
             </a>
             <!-- 导航条右侧显示用户信息 修改密码 退出登录-->
-            <div align="right" id="userContorl">
+            <div align="right" id="userControl">
                 <el-dropdown :hide-on-click="false">
 						  <span style="color: white; width: 100px; font-size: medium;" class="el-dropdown-link">
 						    个人中心<i class="el-icon-arrow-down el-icon--right"></i>
 						  </span>
                     <el-dropdown-menu slot="dropdown">
-                        <el-dropdown-item>修改密码</el-dropdown-item>
-                        <el-dropdown-item>退出登录</el-dropdown-item>
+                        <el-dropdown-item @click.native="updatePwdDialog = true">修改密码</el-dropdown-item>
+<%--                        <el-dropdown-item @click.native="visible = true">退出登录</el-dropdown-item>--%>
+                        <%--  是否退出登录判断  --%>
+                        <el-popover placement="top" width="160" v-model="visible">
+                            <p>你确定退出登录吗？</p>
+                            <div style="text-align: right; margin: 0">
+                                <el-button size="mini" type="text" @click="visible = false">取消</el-button>
+                                <el-button type="primary" size="mini" @click="visible = false;logOut()">确定</el-button>
+                            </div>
+                            <el-dropdown-item slot="reference">退出登录</el-dropdown-item>
+                        </el-popover>
+
                     </el-dropdown-menu>
                 </el-dropdown>
             </div>
@@ -57,7 +68,7 @@
                 <el-menu default-active="1" class="el-menu-vertical-demo" background-color="whitesmoke"
                          text-color="#0074D9" active-text-color="#0034aa" >
                     <template v-for="menu in menuList">
-                        <el-submenu :index="menu.id" v-if="menu.sonList!=null">
+                        <el-submenu :index="menu.mid" v-if="menu.sonList!=null">
                             <template slot="title">
                                 <i style="color: #0074D9;" :class="menu.menuIcon"></i>
                                 <span>{{menu.menuName}}</span>
@@ -83,7 +94,7 @@
                     <el-tab-pane v-for="tab in tabArray" :closable="tab.closable" :label="tab.tabName"
                                  :name="tab.tabName">
                         <span slot="label"><i :class="tab.icon"> {{tab.tabName}}</i></span>
-                        <iframe name="child" id="child" :src="tab.path" width="1500" height="840"
+                        <iframe name="child" id="child" :src="tab.path" width="1800" height="960"
                                 frameborder="0" scrolling="no"
                                 style="position:relative; top: 2.8px;left: 0px;"></iframe>
                         <!-- <div v-html="showHtml"></div> -->
@@ -93,6 +104,26 @@
             </el-main>
         </el-container>
     </el-container>
+
+    <%-- 更改密码的对话框 --%>
+    <el-dialog title="更改密码" :visible.sync="updatePwdDialog">
+        <el-form :model="form">
+            <el-form-item label="用户名" :label-width="formLabelWidth">
+                <el-input v-model="form.name" autocomplete="off" :readonly="true"></el-input>
+            </el-form-item>
+            <el-form-item label="密码" :label-width="formLabelWidth">
+                <el-input type="password" v-model="form.pwd" autocomplete="off"></el-input>
+            </el-form-item>
+            <el-form-item label="新密码" :label-width="formLabelWidth">
+                <el-input type="password" v-model="form.newPwd" autocomplete="off"></el-input>
+            </el-form-item>
+        </el-form>
+        <div slot="footer" class="dialog-footer">
+            <el-button @click="updatePwdDialog = false">取 消</el-button>
+            <el-button type="primary" @click="updatePwdDialog = false;updatePwd()">确 定</el-button>
+        </div>
+    </el-dialog>
+
 </div>
 
 <script type="text/javascript">
@@ -107,7 +138,16 @@
                     closable: false
                 }],
                 activeTab: "主页",
-                showHtml: ""
+                showHtml: "",
+                visible: false,
+                updatePwdDialog: false,
+                form: {
+                    type: 'updatePassword',
+                    name: '${sessionScope.user.userName}',
+                    pwd: '',
+                    newPwd: ''
+                },
+                formLabelWidth: '80px'
             }
         },
         methods: {
@@ -144,6 +184,7 @@
                     this.activeTab = menuName;
                 }
             },
+            // 删除选中的选项卡
             removeTab: function(targetName) {
                 var tabsArray = this.tabArray;
                 let activeName = this.activeTab;
@@ -159,18 +200,48 @@
                 }
                 this.activeTab = activeName;
                 this.tabArray = tabsArray.filter(tab => tab.tabName !== targetName);
+            },
+            // 退出登录
+            logOut:function (){
+                location.href = '/adminUser.do?type=adminUserLogout';
+            },
+            // 修改用户密码
+            updatePwd:function (){
+                var vm = this;
+                if(this.form.pwd != null && this.form.newPwd != null){
+                    axios({
+                        method: "post",
+                        url: "/adminUser.do",
+                        params: this.form
+                    }).then(function (response) {
+                        var json = eval(response.data);
+                        console.log(json);
+                        if(json!='修改成功'){
+                            vm.$notify({
+                                title: '提示',
+                                message: json
+                            });
+                        }else{
+                            location.href = '/adminUser.do?type=adminUserLogout';
+                        }
+                    }).catch(function (error) {
+                        console.log(error);
+                    });
+                }
             }
-        },mounted(){
-                this.$message({
-                    showClose: true,
-                    message: '欢迎${sessionScope.user.userName}'+'，登录成功！',
-                    type: 'success'
-                });
-        // 查询用户登录的菜单,从session中去菜单信息
-                var menuList = '${sessionScope.menuList}';
-                var menuListJson = eval(menuList);
-                console.log(menuListJson);
-                this.menuList = menuListJson;
+        },
+        mounted(){
+            this.$message({
+                showClose: true,
+                message: '欢迎${sessionScope.user.userName}'+'，登录成功！',
+                type: 'success'
+            });
+            // 查询用户登录的菜单,从session中取菜单信息
+            var menuList = '${sessionScope.menuList}';
+            var menuListJson = eval(menuList);
+            // console.log(menuListJson);
+            this.menuList = menuListJson;
+            // console.log(this.updatePwdDialog);
         }
     }
 

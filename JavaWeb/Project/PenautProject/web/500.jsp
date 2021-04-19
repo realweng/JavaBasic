@@ -1,3 +1,10 @@
+<%--
+  Created by IntelliJ IDEA.
+  User: Administrator
+  Date: 2021/4/19
+  Time: 21:52
+  To change this template use File | Settings | File Templates.
+--%>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -7,7 +14,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
 
-    <title>404 Page not foud</title>
+    <title>500 Server error</title>
 
     <!-- Google font -->
     <link href="https://fonts.googleapis.com/css?family=Raleway:400,700" rel="stylesheet">
@@ -31,10 +38,10 @@
         <div class="notfound-error">
             <h1>:(</h1>
         </div>
-        <h1>404</h1>
-            <h2>Page not found</h2>
-            <p>The page you are looking for might have been removed had its name changed or is temporarily unavailable.</p>
-            <a href="main.jsp">home page</a>
+        <h1>500</h1>
+        <h2>An unknown error occurred on the server</h2>
+        <p>The server could not process your request and some unknown errors occurred.</p>
+        <a href="main.jsp">home page</a>
     </div>
 </div>
 

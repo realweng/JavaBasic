@@ -17,6 +17,16 @@
         <url-pattern>/druid/*</url-pattern>
     </servlet-mapping>
 
+    <error-page>
+        <error-code>404</error-code>
+        <location>/404.jsp</location>
+    </error-page>
+
+    <error-page>
+        <error-code>500</error-code>
+        <location>/500.jsp</location>
+    </error-page>
+
     <!--   登录状态过滤器 -->
 <!--    <filter>-->
 <!--        <filter-name>loginFilter</filter-name>-->
