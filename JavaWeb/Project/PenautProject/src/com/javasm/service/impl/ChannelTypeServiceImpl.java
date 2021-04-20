@@ -4,6 +4,7 @@ import com.javasm.dao.ChannelTypeDao;
 import com.javasm.dao.impl.ChannelTypeDaoImpl;
 import com.javasm.entity.ChannelType;
 import com.javasm.service.ChannelTypeService;
+import com.javasm.util.PageInfo;
 import com.javasm.vo.ChannelTypeEntity;
 
 import java.util.List;
@@ -70,7 +71,34 @@ public class ChannelTypeServiceImpl implements ChannelTypeService {
         return channelTypeDao.findAllTypeEntity();
     }
 
-//    public static void main(String[] args) {
-//        System.out.println(new ChannelTypeServiceImpl().findAllChannelTypeEntity());
-//    }
+    /**
+     * 通过分页查询所有数据
+     * @param nowPage
+     * @param pageNum
+     * @return
+     */
+    @Override
+    public PageInfo<ChannelTypeEntity> showTypeByPage(String nowPage, String pageNum) {
+        Integer count = channelTypeDao.count();
+        PageInfo<ChannelTypeEntity> pageInfo = new PageInfo<>(nowPage, pageNum, count);
+        List<ChannelTypeEntity> typeList = channelTypeDao.findAllTypeByPage(pageInfo);
+        for (ChannelTypeEntity channelTypeEntity : typeList) {
+            channelTypeEntity.getCreateTime();
+        }
+        pageInfo.setData(typeList);
+        return pageInfo;
+    }
+
+
+    /**
+     * 统计总数量
+     *
+     * @param channelTypeEntity
+     * @return
+     */
+    @Override
+    public Integer count(ChannelTypeEntity channelTypeEntity) {
+        return channelTypeDao.count();
+    }
+
 }

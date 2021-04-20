@@ -4,6 +4,7 @@ import com.javasm.dao.ChannelDao;
 import com.javasm.dao.impl.ChannelDaoImpl;
 import com.javasm.entity.Channel;
 import com.javasm.service.ChannelService;
+import com.javasm.util.PageInfo;
 import com.javasm.vo.ChannelEntity;
 
 import java.util.List;
@@ -67,6 +68,32 @@ public class ChannelServiceImpl implements ChannelService {
         Channel channel = new Channel();
         channel.setId(id);
         return channelDao.delete(channel);
+    }
+
+    /**
+     * 统计条数
+     *
+     * @return
+     */
+    @Override
+    public Integer count() {
+        return channelDao.count();
+    }
+
+    /**
+     * 分页查询
+     *
+     * @param channelEntity
+     * @param
+     * @return
+     */
+    @Override
+    public PageInfo<ChannelEntity> findChannelByPage(ChannelEntity channelEntity, String nowPage, String pageNum) {
+        Integer count = channelDao.count();
+        PageInfo<ChannelEntity> pageInfo = new PageInfo<>(nowPage, pageNum, count);
+        List<ChannelEntity> channelEntityList = channelDao.findAllByPage(channelEntity, pageInfo);
+        pageInfo.setData(channelEntityList);
+        return pageInfo;
     }
 
 //    public static void main(String[] args) {

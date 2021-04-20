@@ -1,16 +1,21 @@
 package com.javasm.web;
 
+import com.alibaba.fastjson.JSONObject;
+import com.alibaba.fastjson.serializer.SerializerFeature;
 import com.javasm.entity.ChannelType;
 import com.javasm.service.ChannelTypeService;
 import com.javasm.service.impl.ChannelTypeServiceImpl;
 import com.javasm.util.ConvertUtils;
+import com.javasm.util.PageInfo;
 import com.javasm.util.RequestDataConvert;
 import com.javasm.vo.ChannelTypeEntity;
 
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.text.ParseException;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -44,10 +49,12 @@ public class ChannelTypeServlet extends BaseServlet<ChannelTypeEntity> {
      */
     public String showChannelType(HttpServletRequest request, HttpServletResponse response) {
         String message = "";
-        List<ChannelTypeEntity> channelTypeEntityList = new ArrayList<>(10);
-        channelTypeEntityList = channelTypeService.findAllChannelTypeEntity();
-        request.setAttribute("channelTypeEntityList", channelTypeEntityList);
-        message = "f:showChannelType.jsp";
+        // 获取页面信息
+        String nowPage = request.getParameter("nowPage");
+        String pageNum = request.getParameter("pageNum");
+        PageInfo<ChannelTypeEntity> pageInfo = channelTypeService.showTypeByPage(nowPage, pageNum);
+        // 将对象转成json字符串 后面的2个参数是防止日期类型被格式化
+        message ="a:"+JSONObject.toJSONString(pageInfo, SerializerFeature.DisableCircularReferenceDetect, SerializerFeature.WriteDateUseDateFormat);
         return message;
     }
 
@@ -60,24 +67,32 @@ public class ChannelTypeServlet extends BaseServlet<ChannelTypeEntity> {
      */
     public String addChannelType(HttpServletRequest request, HttpServletResponse response) {
         String message = "";
+        // 获取数据
+        String typeName = request.getParameter("typeName");
+        String parentIdStr = request.getParameter("parentId");
+        String note = request.getParameter("note");
+        String stateStr = request.getParameter("state");
+        String createTimeStr = request.getParameter("createTime");
+
+        // 数据类型转换
+        Integer parentId = ConvertUtils.StringConvertInteger(parentIdStr);
+        Integer state = ConvertUtils.StringConvertInteger(stateStr);
+        Date createTime = new Date();
         try {
-            // 将请求的数据转化成实体类
-            channelType = RequestDataConvert.convertToEntityByField(ChannelType.class, request);
-            boolean flag = channelTypeService.addChannelType(channelType);
-            if (flag) {
-                request.setAttribute("message", "添加成功");
-                message = "s:showChannelType.jsp";
-            } else {
-                request.setAttribute("message", "添加失败");
-                message = "f:addChannelType.jsp";
-            }
-        } catch (IllegalAccessException e) {
-            request.setAttribute("message", "添加失败");
-            e.printStackTrace();
-        } catch (InstantiationException e) {
-            request.setAttribute("message", "添加失败");
+             createTime = ConvertUtils.StringConvertDate(createTimeStr);
+        } catch (ParseException e) {
             e.printStackTrace();
         }
+
+        // 将值放入对象
+        channelType.setTypeName(typeName);
+        channelType.setCreateTime(createTime);
+        channelType.setNote(note);
+        channelType.setState(state);
+        channelType.setParentId(parentId);
+
+        boolean flag = channelTypeService.addChannelType(channelType);
+        message = flag ? "a:{message:'添加成功'}":"a:{message:'添加失败'}";
         return message;
     }
 
@@ -90,39 +105,65 @@ public class ChannelTypeServlet extends BaseServlet<ChannelTypeEntity> {
      */
     public String deleteChannelType(HttpServletRequest request, HttpServletResponse response) {
         String message = "";
-        String channelTypeIdStr = request.getParameter("channelTypeId");
+        String channelTypeIdStr = request.getParameter("id");
         Integer channelTypeId = ConvertUtils.StringConvertInteger(channelTypeIdStr);
         boolean flag = channelTypeService.deleteChannelType(channelTypeId);
-        if (flag) {
-            request.setAttribute("message", "删除成功");
-            message = "s:showChannelType.jsp";
-        } else {
-            request.setAttribute("message", "删除失败");
-            message = "f:showChannelType.jsp";
-        }
+        message = flag ? "a:{message:'删除成功'}":"a:{message:'删除失败'}";
         return message;
     }
 
+    /**
+     * 修改数据
+     * @param request
+     * @param response
+     * @return
+     */
     public String updateChannelType(HttpServletRequest request, HttpServletResponse response) {
         String message = "";
+        // 获取数据
+        String idStr = request.getParameter("id");
+        String typeName = request.getParameter("typeName");
+        String parentIdStr = request.getParameter("parentId");
+        String note = request.getParameter("note");
+        String stateStr = request.getParameter("state");
+        String createTimeStr = request.getParameter("createTime");
+
+        // 数据类型转换
+        Integer parentId = ConvertUtils.StringConvertInteger(parentIdStr);
+        Integer state = ConvertUtils.StringConvertInteger(stateStr);
+        Integer id = ConvertUtils.StringConvertInteger(idStr);
+        Date createTime = new Date();
         try {
-            // 将请求过来的数据转换成实体类
-            channelType = RequestDataConvert.convertToEntityByField(ChannelType.class,request);
-            boolean flag = channelTypeService.updateChannelType(channelType);
-            if(flag){
-                request.setAttribute("message","修改成功");
-                message = "s:showChannelType.jsp";
-            }else {
-                request.setAttribute("message","修改失败");
-                message = "f:showChannelType.jsp";
-            }
-        } catch (IllegalAccessException e) {
-            request.setAttribute("message","修改失败");
-            e.printStackTrace();
-        } catch (InstantiationException e) {
-            request.setAttribute("message","修改失败");
+            createTime = ConvertUtils.StringConvertDate(createTimeStr);
+        } catch (ParseException e) {
             e.printStackTrace();
         }
+
+        // 将值放入对象
+        channelType.setId(id);
+        channelType.setTypeName(typeName);
+        channelType.setCreateTime(createTime);
+        channelType.setNote(note);
+        channelType.setState(state);
+        channelType.setParentId(parentId);
+
+        boolean flag = channelTypeService.updateChannelType(channelType);
+        message = flag ? "a:{message:'修改成功'}":"a:{message:'修改失败'}";
+        return message;
+    }
+
+    /**
+     * 查询所有数据（不分页）
+     * @param request
+     * @param response
+     * @return
+     */
+    public String findAllChannelType(HttpServletRequest request, HttpServletResponse response) {
+        String message = "";
+        // 获取页面信息
+        List<ChannelTypeEntity> list = new ArrayList<>(10);
+        list = channelTypeService.findAllChannelTypeEntity();
+        message ="a:"+JSONObject.toJSONString(list, SerializerFeature.DisableCircularReferenceDetect, SerializerFeature.WriteDateUseDateFormat);
         return message;
     }
 }

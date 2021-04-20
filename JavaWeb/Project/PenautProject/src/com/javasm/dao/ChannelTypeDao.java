@@ -1,6 +1,7 @@
 package com.javasm.dao;
 
 import com.javasm.entity.ChannelType;
+import com.javasm.util.PageInfo;
 import com.javasm.vo.ChannelTypeEntity;
 
 import java.util.List;
@@ -18,4 +19,6 @@ public interface ChannelTypeDao extends BaseDao<ChannelType>{
      * @return
      */
     public List<ChannelTypeEntity> findAllTypeEntity();
+
+    public List<ChannelTypeEntity> findAllTypeByPage(PageInfo<ChannelTypeEntity> pageInfo);
 }

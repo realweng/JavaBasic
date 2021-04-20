@@ -34,11 +34,11 @@ public class PageInfo<T> {
 
     public PageInfo(String nowPageStr, String pageNumStr, Integer total) {
         Integer nowPage = nowPageStr == null || "".equals(nowPageStr) ? 1 : Integer.valueOf(nowPageStr);
-        Integer pageNum = pageNumStr == null || "".equals(pageNumStr) ? 6 : Integer.valueOf(pageNumStr);
+        Integer pageNum = pageNumStr == null || "".equals(pageNumStr) ? 3 : Integer.valueOf(pageNumStr);
         // 当前页
         this.nowPage = nowPage < 1 ? 1 : nowPage;
         // 每页显示的数据量
-        this.pageNum = pageNum;
+        this.pageNum = pageNum < 3 ? 3 : pageNum;
         this.total = total;
         // 总页数
         this.countPage = this.total % this.pageNum == 0 ? this.total / this.pageNum : this.total / this.pageNum + 1;

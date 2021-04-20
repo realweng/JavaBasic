@@ -133,6 +133,17 @@ public class BaseDaoImpl<T> implements BaseDao<T> {
     }
 
     /**
+     * 统计所有
+     *
+     * @return
+     */
+    @Override
+    public Integer count() {
+        sql = "select count(1) from "+EntityClass.getSimpleName()+" where state=1";
+        return JdbcUtil.count(sql);
+    }
+
+    /**
      * sql拼接方法 形如 : insert into User(id,username,password,email,grade) values(?,?,?,?,?)
       * @param operator
      * @return

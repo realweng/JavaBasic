@@ -1,6 +1,7 @@
 package com.javasm.dao;
 
 import com.javasm.entity.Channel;
+import com.javasm.util.PageInfo;
 import com.javasm.vo.ChannelEntity;
 import com.javasm.vo.ChannelTypeEntity;
 
@@ -19,4 +20,11 @@ public interface ChannelDao extends BaseDao<Channel>{
      * @return
      */
     public List<ChannelEntity> findAllChannelEntity();
+
+    /**
+     * 通过分页查询
+     * @param pageInfo
+     * @return
+     */
+    public List<ChannelEntity> findAllByPage(ChannelEntity channelEntity,PageInfo<ChannelEntity> pageInfo);
 }

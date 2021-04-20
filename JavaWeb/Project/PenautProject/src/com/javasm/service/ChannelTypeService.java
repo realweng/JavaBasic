@@ -1,6 +1,7 @@
 package com.javasm.service;
 
 import com.javasm.entity.ChannelType;
+import com.javasm.util.PageInfo;
 import com.javasm.vo.ChannelTypeEntity;
 
 import java.util.List;
@@ -39,4 +40,21 @@ public interface ChannelTypeService {
      * @return
      */
     public List<ChannelTypeEntity> findAllChannelTypeEntity();
+
+    /**
+     * 分页
+     * @param nowPage
+     * @param pageNum
+     * @return
+     */
+    PageInfo<ChannelTypeEntity> showTypeByPage(String nowPage, String pageNum);
+
+
+    /**
+     * 统计总数量
+     *
+     * @param channelTypeEntity
+     * @return
+     */
+    Integer count(ChannelTypeEntity channelTypeEntity);
 }

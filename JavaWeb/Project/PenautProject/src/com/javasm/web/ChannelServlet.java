@@ -1,9 +1,12 @@
 package com.javasm.web;
 
+import com.alibaba.fastjson.JSONObject;
+import com.alibaba.fastjson.serializer.SerializerFeature;
 import com.javasm.entity.Channel;
 import com.javasm.service.ChannelService;
 import com.javasm.service.impl.ChannelServiceImpl;
 import com.javasm.util.ConvertUtils;
+import com.javasm.util.PageInfo;
 import com.javasm.util.RequestDataConvert;
 import com.javasm.vo.ChannelEntity;
 
@@ -24,6 +27,7 @@ import java.util.List;
 public class ChannelServlet extends BaseServlet<ChannelEntity> {
     private ChannelService channelService;
     private Channel channel;
+    private ChannelEntity channelEntity;
     /**
      * 构造方法 初始化
      */
@@ -31,6 +35,7 @@ public class ChannelServlet extends BaseServlet<ChannelEntity> {
         System.out.println("ChannelServlet初始化");
         channelService = new ChannelServiceImpl();
         channel = new Channel();
+        channelEntity = new ChannelEntity();
     }
 
     /**
@@ -44,6 +49,25 @@ public class ChannelServlet extends BaseServlet<ChannelEntity> {
         channelEntityList = channelService.findAllChannel();
         request.setAttribute("channelEntityList", channelEntityList);
         message = "f:showAllChannel.jsp";
+        return message;
+    }
+
+    /**
+     * 分页显示所有数据
+     * @return
+     */
+    public String findAllChannelByPage(HttpServletRequest request, HttpServletResponse response){
+        String message = "";
+        // 获取分页信息 查询条件：渠道种类 渠道号模糊查询
+        String nowPage = request.getParameter("nowPage");
+        String pageNum = request.getParameter("pageNum");
+        String typeIdStr = request.getParameter("typeId");
+        String channelNumber = request.getParameter("channelNumber");
+        Integer typeId = ConvertUtils.StringConvertInteger(typeIdStr);
+        channelEntity.setTypeId(typeId);
+        channelEntity.setChannelNumber(channelNumber);
+        PageInfo<ChannelEntity> pageInfo = channelService.findChannelByPage(channelEntity,nowPage,pageNum);
+        message ="a:"+ JSONObject.toJSONString(pageInfo, SerializerFeature.DisableCircularReferenceDetect, SerializerFeature.WriteDateUseDateFormat);
         return message;
     }
 

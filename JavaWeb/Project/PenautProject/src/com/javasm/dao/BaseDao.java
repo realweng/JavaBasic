@@ -42,4 +42,10 @@ public interface BaseDao<T> {
      * @return
      */
     List<T> findAll();
+
+    /**
+     * 统计所有
+     * @return
+     */
+    Integer count();
 }

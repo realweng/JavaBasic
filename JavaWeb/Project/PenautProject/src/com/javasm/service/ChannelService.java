@@ -1,6 +1,7 @@
 package com.javasm.service;
 
 import com.javasm.entity.Channel;
+import com.javasm.util.PageInfo;
 import com.javasm.vo.ChannelEntity;
 
 import java.util.List;
@@ -40,4 +41,18 @@ public interface ChannelService {
      * @return
      */
     public boolean deleteChannel(Integer id);
+
+    /**
+     * 统计条数
+     * @return
+     */
+    public Integer count();
+
+    /**
+     * 分页查询
+     * @param channelEntity
+     * @param
+     * @return
+     */
+    public PageInfo<ChannelEntity> findChannelByPage(ChannelEntity channelEntity ,String nowPage, String pageNum);
 }
