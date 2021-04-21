@@ -26,10 +26,11 @@ public class ChannelEntity {
     private String productName; // 产品名称
     private String showName; // 显示名称
     private String area; // 地区
-    private Integer platForm; // 渠道平台 0: all,1: ios,3: android
+    private Integer platform; // 渠道平台 0: all,1: ios,3: android
     private Date createTime; // 创建时间
     private Integer state; // 渠道状态 1正常 0下架 默认为1 删除时改为0
     private String platformName; // 平台名称
     private String typeName; // 渠道种类名称
+    private String note;//备注
     private String parentName;// 渠道种类父类名称
 }

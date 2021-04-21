@@ -13,28 +13,28 @@ import com.javasm.vo.ChannelEntity;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.text.ParseException;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 /**
  * @Author：wengxingguo
  * @Version：1.0
- * @Date：2021/4/15-21:30
+ * @Date：2021/4/21-15:09
  * @Since:jdk1.8
- * @Description:渠道servlet
+ * @Description:TODO
  */
 @WebServlet("/channel.do")
-public class ChannelServlet extends BaseServlet<ChannelEntity> {
+public class ChannelServlet extends BaseServlet<ChannelEntity>{
     private ChannelService channelService;
-    private Channel channel;
     private ChannelEntity channelEntity;
     /**
      * 构造方法 初始化
      */
-    public ChannelServlet(HttpServletRequest request, HttpServletResponse response) {
+    public ChannelServlet() {
         System.out.println("ChannelServlet初始化");
         channelService = new ChannelServiceImpl();
-        channel = new Channel();
         channelEntity = new ChannelEntity();
     }
 
@@ -77,25 +77,43 @@ public class ChannelServlet extends BaseServlet<ChannelEntity> {
      * @return
      */
     public String addChannel(HttpServletRequest request, HttpServletResponse response) {
+        Channel channel = new Channel();
         String message = "";
+        // 获取数据
+        String typeIdStr = request.getParameter("typeId");
+        String channelNumber = request.getParameter("channelNumber");
+        String productName = request.getParameter("productName");
+        String showName = request.getParameter("showName");
+        String platformStr = request.getParameter("platform");
+        String note = request.getParameter("note");
+        String area = request.getParameter("area");
+        String stateStr = request.getParameter("state");
+        String createTimeStr = request.getParameter("createTime");
+
+        // 数据类型转换
+        Integer typeId = ConvertUtils.StringConvertInteger(typeIdStr);
+        Integer platform = ConvertUtils.StringConvertInteger(platformStr);
+        Integer state = ConvertUtils.StringConvertInteger(stateStr);
+        Date createTime = new Date();
         try {
-            // 将请求数据转换成渠道实体类
-            channel = RequestDataConvert.convertToEntityByField(Channel.class,request);
-            boolean flag = channelService.addChannel(channel);
-            if(flag){
-                request.setAttribute("message","添加成功");
-                message = "s:showAllChannel.jsp";
-            }else {
-                request.setAttribute("message", "添加失败");
-                message = "f:addChannel.jsp";
-            }
-        } catch (IllegalAccessException e) {
-            request.setAttribute("message", "添加失败");
-            e.printStackTrace();
-        } catch (InstantiationException e) {
-            request.setAttribute("message", "添加失败");
+            createTime = ConvertUtils.StringConvertDate(createTimeStr);
+        } catch (ParseException e) {
             e.printStackTrace();
         }
+
+        // 将值放入对象
+        channel.setTypeId(typeId);
+        channel.setChannelNumber(channelNumber);
+        channel.setCreateTime(createTime);
+        channel.setState(state);
+        channel.setArea(area);
+        channel.setPlatform(platform);
+        channel.setShowName(showName);
+        channel.setProductName(productName);
+        channel.setNote(note);
+
+        boolean flag = channelService.addChannel(channel);
+        message = flag ? "a:{message:'添加成功'}":"a:{message:'添加失败'}";
         return message;
     }
 
@@ -106,16 +124,10 @@ public class ChannelServlet extends BaseServlet<ChannelEntity> {
      */
     public String deleteChannel(HttpServletRequest request, HttpServletResponse response) {
         String message = "";
-        String channelIdStr = request.getParameter("channelId");
+        String channelIdStr = request.getParameter("id");
         Integer channelId = ConvertUtils.StringConvertInteger(channelIdStr);
         boolean flag = channelService.deleteChannel(channelId);
-        if (flag) {
-            request.setAttribute("message", "删除成功");
-            message = "s:showChannel.jsp";
-        } else {
-            request.setAttribute("message", "删除失败");
-            message = "f:showChannel.jsp";
-        }
+        message = flag ? "a:{message:'删除成功'}":"a:{message:'删除失败'}";
         return message;
     }
 
@@ -125,25 +137,47 @@ public class ChannelServlet extends BaseServlet<ChannelEntity> {
      * @return
      */
     public String updateChannel(HttpServletRequest request, HttpServletResponse response) {
+        Channel channel = new Channel();
         String message = "";
+        // 获取数据
+        String typeIdStr = request.getParameter("typeId");
+        String channelNumber = request.getParameter("channelNumber");
+        String productName = request.getParameter("productName");
+        String showName = request.getParameter("showName");
+        String platformStr = request.getParameter("platform");
+        String note = request.getParameter("note");
+        String area = request.getParameter("area");
+        String stateStr = request.getParameter("state");
+        String createTimeStr = request.getParameter("createTime");
+        String channelPath = request.getParameter("channelPath");
+        String idStr = request.getParameter("id");
+
+        // 数据类型转换
+        Integer typeId = ConvertUtils.StringConvertInteger(typeIdStr);
+        Integer platform = ConvertUtils.StringConvertInteger(platformStr);
+        Integer state = ConvertUtils.StringConvertInteger(stateStr);
+        Date createTime = new Date();
         try {
-            // 将请求过来的数据转换成实体类
-            channel = RequestDataConvert.convertToEntityByField(Channel.class,request);
-            boolean flag = channelService.updateChannel(channel);
-            if(flag){
-                request.setAttribute("message","修改成功");
-                message = "s:showChannel.jsp";
-            }else {
-                request.setAttribute("message","修改失败");
-                message = "f:showChannel.jsp";
-            }
-        } catch (IllegalAccessException e) {
-            request.setAttribute("message","修改失败");
-            e.printStackTrace();
-        } catch (InstantiationException e) {
-            request.setAttribute("message","修改失败");
+            createTime = ConvertUtils.StringConvertDate(createTimeStr);
+        } catch (ParseException e) {
             e.printStackTrace();
         }
+        Integer id = ConvertUtils.StringConvertInteger(idStr);
+
+        // 将值放入对象
+        channel.setTypeId(typeId);
+        channel.setChannelNumber(channelNumber);
+        channel.setCreateTime(createTime);
+        channel.setState(state);
+        channel.setArea(area);
+        channel.setPlatform(platform);
+        channel.setShowName(showName);
+        channel.setProductName(productName);
+        channel.setNote(note);
+        channel.setChannelPath(channelPath);
+        channel.setId(id);
+        boolean flag = channelService.updateChannel(channel);
+        message = flag ? "a:{message:'地址添加成功'}":"a:{message:'地址添加失败'}"; ;
         return message;
     }
 }

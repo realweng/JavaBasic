@@ -25,7 +25,7 @@ public class ChannelDaoImpl extends BaseDaoImpl<Channel> implements ChannelDao {
     @Override
     public List<ChannelEntity> findAllChannelEntity() {
         String sql = "SELECT a.typeName,b.typeName as 'parentName',c.*,d.platformName from \n" +
-                "channelType a LEFT JOIN channelType b on a.parentId = b. id \n" +
+                "channelType a LEFT JOIN channelType b on a.parentId = b.id \n" +
                 "RIGHT JOIN channel c on c.typeId = a.id \n" +
                 "LEFT JOIN platform d on d.id = c.platform where c.state = 1";
         return JdbcUtil.query(sql, ChannelEntity.class);
@@ -41,18 +41,18 @@ public class ChannelDaoImpl extends BaseDaoImpl<Channel> implements ChannelDao {
     @Override
     public List<ChannelEntity> findAllByPage(ChannelEntity channelEntity, PageInfo<ChannelEntity> pageInfo) {
         StringBuffer sql = new StringBuffer("SELECT a.typeName,b.typeName as 'parentName',c.*,d.platformName from \n" +
-                "channelType a LEFT JOIN channelType b on a.parentId = b. id \n" +
+                "channelType a LEFT JOIN channelType b on a.parentId = b.id \n" +
                 "RIGHT JOIN channel c on c.typeId = a.id \n" +
                 "LEFT JOIN platform d on d.id = c.platform where c.state = 1 ");
         if (channelEntity != null) {
             if (channelEntity.getChannelNumber() != null) {
-                sql.append("and c.channelNumber like %" + channelEntity.getChannelNumber() + "% ");
+                sql.append("and c.channelNumber like '%" + channelEntity.getChannelNumber() + "%' ");
             }
             if (channelEntity.getTypeId() != null) {
                 sql.append("and c.typeId = "+channelEntity.getTypeId()+" ");
             }
         }
-        sql.append(" limit ?,?");
+        sql.append(" ORDER BY c.id limit ?,?");
         return JdbcUtil.query(sql.toString(),ChannelEntity.class,pageInfo.getStartIndex(),pageInfo.getPageNum());
     }
 

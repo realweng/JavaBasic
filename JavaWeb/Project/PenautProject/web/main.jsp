@@ -94,7 +94,7 @@
                     <el-tab-pane v-for="tab in tabArray" :closable="tab.closable" :label="tab.tabName"
                                  :name="tab.tabName">
                         <span slot="label"><i :class="tab.icon"> {{tab.tabName}}</i></span>
-                        <iframe name="child" id="child" :src="tab.path" width="1320" height="860"
+                        <iframe name="child" id="child" :src="tab.path" width="1420" height="860"
                                 frameborder="0" scrolling="no"
                                 style="position:relative; top: 2.8px;left: 0px;"></iframe>
                         <!-- <div v-html="showHtml"></div> -->

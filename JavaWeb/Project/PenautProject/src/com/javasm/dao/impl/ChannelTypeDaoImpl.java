@@ -4,6 +4,7 @@ import com.javasm.dao.ChannelTypeDao;
 import com.javasm.entity.ChannelType;
 import com.javasm.util.JdbcUtil;
 import com.javasm.util.PageInfo;
+import com.javasm.vo.ChannelEntity;
 import com.javasm.vo.ChannelTypeEntity;
 
 import java.util.List;
@@ -36,5 +37,16 @@ public class ChannelTypeDaoImpl extends BaseDaoImpl<ChannelType> implements Chan
     public List<ChannelTypeEntity> findAllTypeByPage(PageInfo<ChannelTypeEntity> pageInfo) {
         String sql = "SELECT a.*,b.typeName as 'parentName' from channelType a LEFT JOIN channelType b on a.parentId = b. id where a.state = 1 limit ?,?";
         return JdbcUtil.query(sql,ChannelTypeEntity.class,pageInfo.getStartIndex(),pageInfo.getPageNum());
+    }
+
+    /**
+     * 通过父级id找子渠道类型
+     * @param parentId
+     * @return
+     */
+    @Override
+    public List<ChannelTypeEntity> findChannelTypeByParentId(Integer parentId) {
+        String sql = "select * from channelType where parentId = ? and state = 1";
+        return JdbcUtil.query(sql, ChannelTypeEntity.class,parentId);
     }
 }

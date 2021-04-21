@@ -82,10 +82,6 @@
                                 </form>
                         </div>
                     </div>
-
-                    <div class="widget-foot">
-                        忘记密码了？ <a href="#">点这里</a>
-                    </div>
                 </div>
             </div>
         </div>

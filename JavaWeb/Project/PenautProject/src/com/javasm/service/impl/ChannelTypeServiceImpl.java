@@ -6,6 +6,7 @@ import com.javasm.entity.ChannelType;
 import com.javasm.service.ChannelTypeService;
 import com.javasm.util.PageInfo;
 import com.javasm.vo.ChannelTypeEntity;
+import com.javasm.vo.MenuEntity;
 
 import java.util.List;
 
@@ -17,7 +18,7 @@ import java.util.List;
  * @Description:渠道种类业务处理层接口实现类
  */
 public class ChannelTypeServiceImpl implements ChannelTypeService {
-    private ChannelTypeDao channelTypeDao ;
+    private ChannelTypeDao channelTypeDao;
 
     /**
      * 构造方法 初始化数据
@@ -62,17 +63,26 @@ public class ChannelTypeServiceImpl implements ChannelTypeService {
     }
 
     /**
-     * 联表查询所有渠道种类
+     * 联表查询所有渠道种类及其对应的子类
      *
      * @return
      */
     @Override
     public List<ChannelTypeEntity> findAllChannelTypeEntity() {
-        return channelTypeDao.findAllTypeEntity();
+        List<ChannelTypeEntity> list = channelTypeDao.findAllTypeEntity();
+        //再查询所有的子渠道类型
+        for (ChannelTypeEntity channelTypeEntity : list) {
+            List<ChannelTypeEntity> sonList = channelTypeDao.findChannelTypeByParentId(channelTypeEntity.getParentId());
+            if (sonList != null && sonList.size() > 0) {
+                channelTypeEntity.setSonList(sonList);
+            }
+        }
+        return list;
     }
 
     /**
      * 通过分页查询所有数据
+     *
      * @param nowPage
      * @param pageNum
      * @return
@@ -99,6 +109,17 @@ public class ChannelTypeServiceImpl implements ChannelTypeService {
     @Override
     public Integer count(ChannelTypeEntity channelTypeEntity) {
         return channelTypeDao.count();
+    }
+
+    /**
+     * 通过父级id找子渠道
+     *
+     * @param parentId
+     * @return
+     */
+    @Override
+    public List<ChannelTypeEntity> findChannelTypeByParentId(Integer parentId) {
+        return channelTypeDao.findChannelTypeByParentId(parentId);
     }
 
 }

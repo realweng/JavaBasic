@@ -57,4 +57,11 @@ public interface ChannelTypeService {
      * @return
      */
     Integer count(ChannelTypeEntity channelTypeEntity);
+
+    /**
+     * 通过父级id找子渠道
+     * @param parentId
+     * @return
+     */
+    public List<ChannelTypeEntity> findChannelTypeByParentId(Integer parentId) ;
 }

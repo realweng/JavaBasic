@@ -23,31 +23,44 @@
 </head>
 <body>
 <div id="channel" style="width: 1300px;">
-    <%--  添加分类  --%>
-    <el-button @click="addDialog = true" type="success" plain>添加渠道</el-button>
     <%--  条件查询的表单  --%>
     <el-form :inline="true" :model="showParams" class="demo-form-inline">
-
         <el-form-item label="渠道种类">
-            <el-cascader v-model="value" :options="options" :props="{ expandTrigger: 'hover' }" @change="handleChange">
-            </el-cascader>
+            <el-cascader
+                v-model="selectedTypeId"
+                :options="allTypeList"
+                expand-trigger="hover"
+                :props="cascaderProps"
+                clearable
+                change-on-select
+                @change="parentTypeChange"
+            ></el-cascader>
         </el-form-item>
         <el-form-item label="渠道号">
             <el-input v-model="showParams.channelNumber" placeholder="渠道号"></el-input>
         </el-form-item>
         <el-form-item>
-            <el-button type="primary" @click="">查询</el-button>
+            <el-button type="primary" @click="queryAll(showParams)">查询</el-button>
+            <el-button @click="addDialog = true" type="success" plain>添加渠道</el-button>
         </el-form-item>
     </el-form>
     <!-- 表格数据 -->
     <el-table :data="channelEntityList" style="width: 1290px" height="300px" stripe border>
-        <el-table-column prop="Name" label="分类名称">
+        <el-table-column prop="parentName" label="一级分类" width="120px">
         </el-table-column>
-        <el-table-column prop="parentName" label="父级">
+        <el-table-column prop="typeName" label="二级分类" width="120px">
+        </el-table-column>
+        <el-table-column prop="channelNumber" label="渠道号">
+        </el-table-column>
+        <el-table-column prop="channelPath" label="渠道下载地址">
+        </el-table-column>
+        <el-table-column prop="productName" label="产品名称">
+        </el-table-column>
+        <el-table-column prop="showName" label="显示名称">
         </el-table-column>
         <el-table-column prop="createTime" label="创建时间">
         </el-table-column>
-        <el-table-column label="操作" width="140">
+        <el-table-column label="操作" width="140px">
             <template slot-scope="scope">
                 <el-button @click="initUpdate(scope.$index)" type="text" size="small">添加下载地址</el-button>
                 <el-button type="text" size="small" @click="deleteConfirm = true">删除</el-button>
@@ -56,7 +69,7 @@
                     <span slot="footer" class="dialog-footer">
                         <el-button @click="deleteConfirm = false">取 消</el-button>
                         <el-button type="primary"
-                                   @click="deleteConfirm = false;deleteChannel(scope.$index)">确 定</el-button>
+                                   @click="deleteConfirm = false;initDelete(scope.$index)">确 定</el-button>
                     </span>
                 </el-dialog>
             </template>
@@ -78,21 +91,39 @@
     <%-- 添加渠道种类的对话框 --%>
     <el-dialog width="400px" title="添加渠道" :visible.sync="addDialog">
         <el-form :model="addParams" :rules="rules" ref="addParams">
-            <el-form-item label="分类名称" :label-width="formLabelWidth" prop="Name">
-                <el-input style="width: 220px" v-model="addParams.Name" autocomplete="off"></el-input>
+            <el-form-item label="渠道号" :label-width="formLabelWidth" prop="channelNumber">
+                <el-input style="width: 220px" v-model="addParams.channelNumber" autocomplete="off"></el-input>
             </el-form-item>
-            <el-form-item label="父级" :label-width="formLabelWidth" prop="parentId">
-                <el-select style="width: 220px" v-model="addParams.parentId" placeholder="请选择">
-                    <el-option key="0" label="无父级" value="0"></el-option>
-                    <%--          从数据库中查渠道种类          --%>
-                    <el-option v-for="item in channelEntityList" :key="item.id" :label="item.Name"
-                               :value="item.id">
-                    </el-option>
-                </el-select>
+            <el-form-item label="产品名称" :label-width="formLabelWidth" prop="productName">
+                <el-input style="width: 220px" v-model="addParams.productName" autocomplete="off"></el-input>
             </el-form-item>
-            <el-form-item label="创建时间" :label-width="formLabelWidth">
+            <el-form-item label="显示名称" :label-width="formLabelWidth" prop="showName">
+                    <el-input style="width: 220px" v-model="addParams.showName" autocomplete="off"></el-input>
+            </el-form-item>
+            <el-form-item label="地区" :label-width="formLabelWidth" prop="area">
+                <el-input style="width: 220px" v-model="addParams.area" autocomplete="off"></el-input>
+            </el-form-item>
+            <el-form-item label="发布时间" :label-width="formLabelWidth">
                 <el-date-picker v-model="addParams.createTime" type="datetime" placeholder="选择日期时间">
                 </el-date-picker>
+            </el-form-item>
+            <el-form-item label="平台" :label-width="formLabelWidth" prop="platform">
+                <el-select style="width: 220px" v-model="addParams.platform" placeholder="请选择">
+                    <el-option label="全部" value="0"></el-option>
+                    <el-option label="iOS" value="1"></el-option>
+                    <el-option label="安卓" value="2"></el-option>
+                </el-select>
+            </el-form-item>
+            <el-form-item label="渠道种类" :label-width="formLabelWidth">
+                <el-cascader style="width: 220px"
+                        v-model="addSelectedTypeId"
+                        :options="allTypeList"
+                        expand-trigger="hover"
+                        :props="cascaderProps"
+                        clearable
+                        change-on-select
+                        @change="addParentTypeChange"
+                ></el-cascader>
             </el-form-item>
             <el-form-item label="备注" :label-width="formLabelWidth">
                 <el-input style="width: 220px" v-model="addParams.note" autocomplete="off"></el-input>
@@ -104,28 +135,11 @@
         </div>
     </el-dialog>
 
-    <%-- 修改渠道种类的对话框 --%>
-    <el-dialog width="400px" title="修改渠道" :visible.sync="updateDialog">
+    <%-- 修改渠道下载地址的对话框 --%>
+    <el-dialog width="500px" title="添加下载地址" :visible.sync="updateDialog">
         <el-form :model="updateParams" :rules="rules" ref="updateParams">
-            <el-form-item label="分类名称" :label-width="formLabelWidth" prop="Name">
-                <el-input style="width: 220px" v-model="updateParams.Name" autocomplete="off"></el-input>
-            </el-form-item>
-            <el-form-item label="父级" :label-width="formLabelWidth" prop="parentId">
-                <el-select style="width: 220px" v-model="updateParams.parentId" placeholder="请选择">
-                    <el-option label="无父级" value="0"></el-option>
-                    <%--          从数据库中查渠道种类          --%>
-                    <el-option v-for="item in channelEntityList" :key="item.id" :label="item.Name"
-                               :value="item.id">
-                    </el-option>
-                </el-select>
-            </el-form-item>
-            <el-form-item label="创建时间" :label-width="formLabelWidth">
-                <el-date-picker readonly="true" v-model="updateParams.createTime" type="datetime"
-                                placeholder="选择日期时间">
-                </el-date-picker>
-            </el-form-item>
-            <el-form-item label="备注" :label-width="formLabelWidth">
-                <el-input style="width: 220px" v-model="updateParams.note" autocomplete="off"></el-input>
+            <el-form-item label="地址" :label-width="formLabelWidth" prop="channelPath">
+                <el-input style="width: 220px" v-model="updateParams.channelPath" autocomplete="off"></el-input>
             </el-form-item>
         </el-form>
         <div slot="footer" class="dialog-footer">
@@ -140,48 +154,82 @@
         data() {
             return {
                 rules: { // 输入规则
-                    Name: [
+                    channelNumber:[
                         {
                             required: true,
-                            message: '请输入渠道名称'
+                            message: '请输入渠道号'
                         }
-                    ],
-                    parentId: [
+                    ],//渠道号
+                    productName: [
                         {
                             required: true,
-                            message: '请选择父级渠道'
+                            message: '请输入产品名称'
+                        }
+                    ],  //产品名称
+                    showName:[
+                        {
+                            required: true,
+                            message: '请输入显示名称'
+                        }
+                    ], //显示名称
+                    platform:[
+                        {
+                            required: true,
+                            message: '请选择平台'
+                        }
+                    ], //平台
+                    channelPath:[
+                        {
+                            required: true,
+                            message: '请输入下载地址'
                         }
                     ]
                 },
+                cascaderProps:{// 级联选择器的参数
+                    value:'id',
+                    label:'typeName',
+                    children:'sonList'
+                },
                 formLabelWidth: "120px", //对话框宽度
+                selectedTypeId:[], // 查询级联选择的值
+                addSelectedTypeId:[], // 新增级联选择的值
                 addDialog: false,// 添加操作弹出的对话框
                 updateDialog: false,// 添加操作弹出的对话框
                 deleteConfirm: false, // 确认是否执行删除操作
                 channelEntityList: [], //渠道种类列表
-                allTypeList:[], //所有渠道的列表
+                allTypeList: [], //所有渠道类型的列表
                 showParams: { // 查询要用到的参数
-                    type: "showChannel",
-                    typeId:"",
-                    channelNumber:"",
+                    type: "findAllChannelByPage", // 操作类型
+                    typeId: "", // 选中的种类类型
+                    channelNumber: "", // form表单中填写的渠道号（模糊查询）
                     nowPage: "1",//当前页
                     pageNum: "3",// 每页显示几条数据
                 },
-                findAllParams:{
+                findAllParams: {
                     type: "findAllChannelType",
                 },
                 addParams: {
                     type: "addChannel",// 请求类型
-                    Name: "",  //渠道种类名称
-                    parentId: '',  //父级id
+                    typeId :"",
+                    channelNumber:"",//渠道号
+                    productName: "",  //产品名称
+                    showName:"", //显示名称
+                    platform:"", //平台
+                    area: '',  //地区
                     note: "",// 备注
                     state: 1,// 状态
                     createTime: "" //创建时间
                 },
                 updateParams: {
                     type: "updateChannel",// 请求类型
-                    id: "",// 类型id
-                    Name: "",  //渠道种类名称
-                    parentId: '',  //父级id
+                    id:"",//更改数据对应的
+                    channelPath:"", //下载地址
+                    typeId :"",
+                    channelNumber:"",//渠道号
+                    productName: "",  //产品名称
+                    showName:"", //显示名称
+                    platform:"", //平台
+                    area: '',  //地区
                     note: "",// 备注
                     state: 1,// 状态
                     createTime: "" //创建时间
@@ -209,7 +257,29 @@
                 this.showParams.nowPage = val;
                 this.queryAll(this.showParams);
             },
-            findAllTypes(params){ // 查询所有数据（不分页的）
+            parentTypeChange(){// 级联选择器选中的值
+                if(this.selectedTypeId.length>1){
+                    this.selectedTypeId = this.selectedTypeId[this.selectedTypeId.length-1];
+                }
+                var str = JSON.stringify(this.selectedTypeId);
+                if(str.length>1){
+                    str = str.slice(1,2);
+                }
+                this.showParams.typeId = str;
+                // console.log(str)
+            },
+            addParentTypeChange(){// 级联选择器选中的值
+                if(this.addSelectedTypeId.length>1){
+                    this.addSelectedTypeId = this.addSelectedTypeId[this.addSelectedTypeId.length-1];
+                }
+                var str = JSON.stringify(this.addSelectedTypeId);
+                if(str.length>1){
+                    str = str.slice(1,2);
+                }
+                this.addParams.typeId = str;
+                // console.log(str)
+            },
+            findAllTypes(params) { // 查询所有数据（不分页的）
                 var vm = this;
                 axios({
                     method: "get",
@@ -225,6 +295,7 @@
                 });
             },
             queryAll(params) { //查询所有的渠道种类
+                console.log(params);
                 var vm = this;
                 axios({
                     method: "get",
@@ -278,15 +349,29 @@
                 var channel = this.channelEntityList[index];
                 this.updateParams = {
                     type: "updateChannel",// 请求类型
-                    id: channel.id, //类型的id
-                    Name: channel.Name,  //渠道种类名称
-                    parentId: channel.parentId,  //父级id
+                    id : channel.id,
+                    channelPath : channel.channelPath,
+                    typeId :channel.typeId,
+                    channelNumber:channel.channelNumber,//渠道号
+                    productName: channel.productName,  //产品名称
+                    showName:channel.showName, //显示名称
+                    platform:channel.platform, //平台
+                    area: channel.area,  //地区
                     note: channel.note,// 备注
                     state: 1,// 状态
                     createTime: channel.createTime //创建时间
                 };
                 // 打开修改对话框
                 this.updateDialog = true;
+            },
+            initDelete(index){
+                var channel = this.channelEntityList[index];
+                this.deleteParams = {
+                    type:"deleteChannel",
+                    id:channel.id
+                };
+                console.log(this.deleteParams.id)
+                this.deleteChannel(this.deleteParams);
             },
             updateChannel(params) { //修改数据 提交数据到服务器
                 var vm = this;
@@ -297,7 +382,7 @@
                 }).then(function (response) {
                     console.log(response.data);
                     var json = eval(response.data);
-                    if (json != '修改成功') {
+                    if (json != '地址添加成功') {
                         vm.$notify.error({
                             title: '提示',
                             message: json
@@ -317,14 +402,12 @@
                     console.log(error);
                 });
             },
-            deleteChannel(index) { // 删除选中的一条数据
+            deleteChannel(params) { // 删除选中的一条数据
                 var vm = this;
-                var channel = this.channelEntityList[index];
-                this.deleteParams.id = channel.id;
                 axios({
                     method: "post",
                     url: "/channel.do",
-                    params: vm.deleteParams
+                    params: params
                 }).then(function (response) {
                     console.log(response.data);
                     var json = eval(response.data);

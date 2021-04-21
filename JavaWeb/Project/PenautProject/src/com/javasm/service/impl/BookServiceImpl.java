@@ -1,0 +1,67 @@
+package com.javasm.service.impl;
+
+import com.javasm.dao.BookDao;
+import com.javasm.dao.impl.BookDaoImpl;
+import com.javasm.entity.Books;
+import com.javasm.entity.Bookvo;
+import com.javasm.service.BookService;
+import com.javasm.util.PageInfo;
+
+import java.util.List;
+
+/**
+ * @Author：Yp
+ * @Version：1.0
+ * @Date：2021/4/12-22:42
+ * @Since:jdk1.8
+ * @Description:TODO
+ */
+public class BookServiceImpl implements BookService {
+    BookDao bookDao = new BookDaoImpl();
+    @Override
+    public boolean add(Bookvo bookvo) {
+
+        return bookDao.addBook(bookvo);
+    }
+
+    @Override
+    public boolean delete(Books books) {
+        return bookDao.delete(books);
+    }
+
+    @Override
+    public boolean update(Books books) {
+        return bookDao.update(books);
+    }
+
+    @Override
+    public Books select(Books books) {
+        return bookDao.select(books);
+    }
+
+
+
+
+    @Override
+    public List<Bookvo> showFirstType() {
+        return bookDao.showFirstType();
+    }
+
+    @Override
+    public List<Bookvo> findSecondTypeByFirstTypeId(Bookvo bookvo) {
+        return bookDao.findSecondTypeByFirstTypeId(bookvo);
+    }
+
+    @Override
+    public PageInfo<Bookvo> findAllBookByPage(Bookvo bookvo, String nowPageStr, String pageNumStr) {
+        //  通过查询条件统计总数量
+        Integer count = bookDao.countBookNumber(bookvo);
+        //  将分页数据存储到PageInfo
+        PageInfo pageInfo = new PageInfo(nowPageStr, pageNumStr, count);
+        // 查询所有的商品信息
+        List<Bookvo> bookvoList = bookDao.findAllByPage(bookvo, pageInfo);
+        pageInfo.setData(bookvoList);
+        return pageInfo;
+    }
+
+}
