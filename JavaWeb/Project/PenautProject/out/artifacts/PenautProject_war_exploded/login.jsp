@@ -75,7 +75,7 @@
                                         <label class="control-label col-md-3"></label>
                                         <div class="col-md-6">
                                             <button class="btn btn-primary">登录</button>
-                                            <a href="#" class="btn btn-danger">注册</a>
+                                            <button type="reset" class="btn btn-warning">重置</button>
                                         </div>
                                         <div class="col-md-3"></div>
                                     </div>

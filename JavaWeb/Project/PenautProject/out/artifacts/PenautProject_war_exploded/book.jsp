@@ -116,7 +116,7 @@
                                         </el-table-column>
                                         <el-table-column prop="isCompletion" label="更新状态" width="180">
                                         </el-table-column>
-                                        <el-table-column prop="update" label="操作" fixed="right">
+                                        <el-table-column prop="update" label="操作" fixed="left" width="180">
                                             <template slot-scope="scope">
                                                 <el-button @click="handleClick(scope.row)" size="small" type="info">修改</el-button>
                                                 <el-button @click="remove(scope.row)" size="small" type="danger">删除</el-button>
@@ -193,13 +193,6 @@
                                     </el-form-item>
                                     <el-form-item label="作者名" :label-width="formLabelWidth">
                                         <el-input v-model="bookInfo.authorName" autocomplete="off"></el-input>
-                                    </el-form-item>
-                                    <el-form-item label="属性" :label-width="formLabelWidth">
-                                        <el-select v-model="bookInfo.attribution" >
-                                            <el-option label="男频" value="1"></el-option>
-                                            <el-option label="女频" value="2"></el-option>
-                                            <el-option label="出版" value="3"></el-option>
-                                        </el-select>
                                     </el-form-item>
                                     <el-form-item label="一级分类" :label-width="formLabelWidth">
                                         <el-select  v-model="selectParams.firstTypeId" @change="theSecondType">
@@ -405,13 +398,16 @@
                 this.bookInfo = {
                     type: "updateBook",// servlet中调用方法
                     bid:row.bid,
+                    bookId:row.bookId,
                     bookName: row.bookName,
                     authorName: row.authorName,
-                    attribution: row.attribution,
-                    firstTypeId: row.firstTypeId,
                     secondTypeId:row.secondTypeId,
                     description: row.description,
-                    isCompletion: row.isCompletion
+                    coverUrl: row.coverUrl,
+                    isCompletion: row.isCompletion,
+                    state: row.state,
+                    lastupChapter: row.lastupChapter,
+                    wordCount: row.wordCount
                 };
                 console.log(this.updateGame);
                 vm.updateDialog = true;// 显示模态框

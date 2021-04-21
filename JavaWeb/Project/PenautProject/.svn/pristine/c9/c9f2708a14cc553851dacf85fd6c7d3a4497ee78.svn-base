@@ -1,0 +1,249 @@
+package com.javasm.dao.impl;
+
+import com.javasm.constant.PenautConstant;
+import com.javasm.dao.BaseDao;
+import com.javasm.util.JdbcUtil;
+
+import java.lang.reflect.Field;
+import java.lang.reflect.ParameterizedType;
+import java.util.ArrayList;
+import java.util.List;
+
+/**
+ * @Author：wengxingguo
+ * @Version：1.0
+ * @Date：2021/4/10-21:17
+ * @Since:jdk1.8
+ * @Description:通用的DAO抽象接口实现类
+ */
+public class BaseDaoImpl<T> implements BaseDao<T> {
+
+    private Class<T> EntityClass;   // 获取实体类
+    Field fields[];                 // 获取实体类中的所有变量
+    private Object argType[];       // sql参数(填？的值)
+    String sql;                     // sql语句
+
+    /**
+     * 构造方法 初始化
+     * 这里如果传递的是User.那么就是class com.javasm.entity.User
+     * */
+    @SuppressWarnings("unchecked")
+    public BaseDaoImpl() {
+        ParameterizedType type = (ParameterizedType) getClass().getGenericSuperclass();
+        EntityClass = (Class<T>) type.getActualTypeArguments()[0];
+        // 通过反射获取实体类中的所有变量
+        fields = EntityClass.getDeclaredFields();
+    }
+
+    /**
+     * 增
+     * @param t
+     */
+    @Override
+    public boolean add(T t)  {
+        // 判断sql是否执行成功
+        boolean flag = false;
+        try {
+            // 通过查询的操作类型获取拼接的sql
+            sql = getSql(PenautConstant.SQL_INSERT);
+            // 获取参数
+            argType = setArgs(t,PenautConstant.SQL_INSERT);
+        } catch (IllegalAccessException e) {
+            e.printStackTrace();
+        }
+        flag = JdbcUtil.update(sql,argType) > 0;
+        return flag;
+    }
+
+    /**
+     * 通过id删
+     *
+     * @param t
+     */
+    @Override
+    public boolean delete(T t){
+        // 判断sql是否执行成功
+        boolean flag = false;
+        try {
+            sql = getSql(PenautConstant.SQL_DELETE);
+//            System.out.println("sql删除测试："+sql);
+            argType = setArgs(t,PenautConstant.SQL_DELETE);
+        } catch (IllegalAccessException e) {
+            e.printStackTrace();
+        }
+        flag = JdbcUtil.update(sql,argType) > 0;
+        return flag;
+    }
+
+    /**
+     * 改
+     *
+     * @param t
+     */
+    @Override
+    public boolean update(T t) {
+        // 判断sql是否执行成功
+        boolean flag = false;
+        try {
+            sql = getSql(PenautConstant.SQL_UPDATE);
+//            System.out.println("sql更改测试："+sql);
+            argType = setArgs(t,PenautConstant.SQL_UPDATE);
+        } catch (IllegalAccessException e) {
+            e.printStackTrace();
+        }
+        flag = JdbcUtil.update(sql,argType) > 0;
+        return flag;
+    }
+
+    /**
+     * 通过id查
+     *
+     * @param t
+     * @return
+     */
+    @Override
+    public T select(T t) {
+        try {
+            sql = getSql(PenautConstant.SQL_SELECT);
+//            System.out.println("sql查询测试："+sql);
+            argType = setArgs(t,PenautConstant.SQL_SELECT);
+        } catch (IllegalAccessException e) {
+            e.printStackTrace();
+        }
+        t = JdbcUtil.getResultById(sql,EntityClass,(Integer) argType[0]);
+//        System.out.println("查询结果:"+t.toString());
+        return t;
+    }
+
+    /**
+     * 查询所有
+     *
+     * @return
+     */
+    @Override
+    public List<T> findAll() {
+        List<T> list = new ArrayList<>(10);
+        StringBuffer sql1 = new StringBuffer();
+        sql = sql1.append("select * from " + EntityClass.getSimpleName()).toString();
+        list = JdbcUtil.query(sql,EntityClass);
+//        for (T t : list) {
+//            System.out.println(t.toString());
+//        }
+        return list;
+    }
+
+    /**
+     * 统计所有
+     *
+     * @return
+     */
+    @Override
+    public Integer count() {
+        sql = "select count(1) from "+EntityClass.getSimpleName()+" where state=1";
+        return JdbcUtil.count(sql);
+    }
+
+    /**
+     * sql拼接方法 形如 : insert into User(id,username,password,email,grade) values(?,?,?,?,?)
+      * @param operator
+     * @return
+     * @throws IllegalAccessException
+     */
+    private String getSql(String operator) throws IllegalAccessException {
+
+        StringBuffer sql = new StringBuffer();
+        // 通过反射获取实体类中的所有变量
+        fields = EntityClass.getDeclaredFields();
+
+        // 插入操作
+        if (operator.equals(PenautConstant.SQL_INSERT)) {
+            sql.append("insert into " + EntityClass.getSimpleName());
+            sql.append("(");
+            for (int i = 0; fields != null && i < fields.length; i++) {
+                fields[i].setAccessible(true);    //这句话必须要有,否则会抛出异常.
+                String column = fields[i].getName();
+                sql.append(column).append(",");
+            }
+            sql = sql.deleteCharAt(sql.length() - 1);
+            sql.append(") values (");
+            for (int i = 0; fields != null && i < fields.length; i++) {
+                sql.append("?,");
+            }
+            sql.deleteCharAt(sql.length() - 1);
+            sql.append(")");
+        } else if (operator.equals(PenautConstant.SQL_UPDATE)) {
+            sql.append("update " + EntityClass.getSimpleName() + " set ");
+            for (int i = 0; fields != null && i < fields.length; i++) {
+                fields[i].setAccessible(true);
+                String column = fields[i].getName();
+                if (column.equals(fields[0].getName())) {
+                    continue;
+                }
+                sql.append(column).append("=").append("?,");
+            }
+            sql.deleteCharAt(sql.length() - 1);
+            sql.append(" where ").append(fields[0].getName()).append(" = ?");
+        } else if (operator.equals(PenautConstant.SQL_DELETE)) {
+            // 假删 改对应实体的状态
+            sql.append("update " + EntityClass.getSimpleName() + " set state = 0 where ");
+            sql.append(fields[0].getName()).append(" = ?");
+            // 真删
+//            sql.append("delete from " + EntityClass.getSimpleName()
+//                    + " where ").append(fields[0].getName()).append(" =?");
+        } else if (operator.equals(PenautConstant.SQL_SELECT)) {
+            sql.append("select * from " + EntityClass.getSimpleName()
+                    + " where ").append(fields[0].getName()).append(" =?");
+        }
+        return sql.toString();
+    }
+
+    /**
+     * 获取查询参数
+     * @param entity
+     * @param operator
+     * @return
+     * @throws IllegalArgumentException
+     * @throws IllegalAccessException
+     */
+    private Object[] setArgs(T entity, String operator)
+            throws IllegalArgumentException, IllegalAccessException {
+
+        fields = EntityClass.getDeclaredFields();
+        if (operator.equals(PenautConstant.SQL_INSERT)) {
+
+            Object obj[] = new Object[fields.length];
+            for (int i = 0; obj != null && i < fields.length; i++) {
+                fields[i].setAccessible(true);
+                obj[i] = fields[i].get(entity);
+            }
+            return obj;
+
+        } else if (operator.equals(PenautConstant.SQL_UPDATE)) {
+
+            Object Tempobj[] = new Object[fields.length];
+            for (int i = 0; Tempobj != null && i < fields.length; i++) {
+                fields[i].setAccessible(true);
+                Tempobj[i] = fields[i].get(entity);
+            }
+
+            Object obj[] = new Object[fields.length];
+            System.arraycopy(Tempobj, 1, obj, 0, Tempobj.length - 1);
+            obj[obj.length - 1] = Tempobj[0];
+            return obj;
+
+        } else if (operator.equals(PenautConstant.SQL_DELETE)) {
+
+            Object obj[] = new Object[1];
+            fields[0].setAccessible(true);
+            obj[0] = fields[0].get(entity);
+            return obj;
+        } else if (operator.equals(PenautConstant.SQL_SELECT)) {
+
+            Object obj[] = new Object[1];
+            fields[0].setAccessible(true);
+            obj[0] = fields[0].get(entity);
+            return obj;
+        }
+        return null;
+    }
+}

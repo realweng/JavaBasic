@@ -63,13 +63,13 @@
         <el-table-column label="操作" width="140px">
             <template slot-scope="scope">
                 <el-button @click="initUpdate(scope.$index)" type="text" size="small">添加下载地址</el-button>
-                <el-button type="text" size="small" @click="deleteConfirm = true">删除</el-button>
+                <el-button type="text" size="small" @click="deleteConfirm = true;deleteIndex=scope.$index">删除</el-button>
                 <el-dialog title="提示" :visible.sync="deleteConfirm" width="30%" center>
                     <span>你确定删除该条数据吗？</span>
                     <span slot="footer" class="dialog-footer">
                         <el-button @click="deleteConfirm = false">取 消</el-button>
                         <el-button type="primary"
-                                   @click="deleteConfirm = false;initDelete(scope.$index)">确 定</el-button>
+                                   @click="deleteConfirm = false;initDelete()">确 定</el-button>
                     </span>
                 </el-dialog>
             </template>
@@ -190,9 +190,10 @@
                     label:'typeName',
                     children:'sonList'
                 },
+                deleteIndex:0,
                 formLabelWidth: "120px", //对话框宽度
-                selectedTypeId:[], // 查询级联选择的值
-                addSelectedTypeId:[], // 新增级联选择的值
+                selectedTypeId:'', // 查询级联选择的值
+                addSelectedTypeId:'', // 新增级联选择的值
                 addDialog: false,// 添加操作弹出的对话框
                 updateDialog: false,// 添加操作弹出的对话框
                 deleteConfirm: false, // 确认是否执行删除操作
@@ -262,8 +263,11 @@
                     this.selectedTypeId = this.selectedTypeId[this.selectedTypeId.length-1];
                 }
                 var str = JSON.stringify(this.selectedTypeId);
-                if(str.length>1){
-                    str = str.slice(1,2);
+                if(str=='[]'){
+                    str = '';
+                }
+                if(str.length > 2){
+                    str = str[1];
                 }
                 this.showParams.typeId = str;
                 // console.log(str)
@@ -273,8 +277,11 @@
                     this.addSelectedTypeId = this.addSelectedTypeId[this.addSelectedTypeId.length-1];
                 }
                 var str = JSON.stringify(this.addSelectedTypeId);
-                if(str.length>1){
-                    str = str.slice(1,2);
+                if(str=='[]'){
+                    str = '';
+                }
+                if(str.length > 2){
+                    str = str[1];
                 }
                 this.addParams.typeId = str;
                 // console.log(str)
@@ -364,7 +371,8 @@
                 // 打开修改对话框
                 this.updateDialog = true;
             },
-            initDelete(index){
+            initDelete(){
+                var index = this.deleteIndex;
                 var channel = this.channelEntityList[index];
                 this.deleteParams = {
                     type:"deleteChannel",

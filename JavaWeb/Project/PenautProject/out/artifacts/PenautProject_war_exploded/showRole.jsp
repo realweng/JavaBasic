@@ -1,0 +1,404 @@
+<%--
+  Created by IntelliJ IDEA.
+  User: Administrator
+  Date: 2021/4/14
+  Time: 21:43
+  To change this template use File | Settings | File Templates.
+--%>
+<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<!DOC html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>角色管理</title>
+    <head>
+        <meta charset="utf-8">
+        <link rel="stylesheet" href="https://unpkg.com/element-ui/lib/theme-chalk/index.css">
+        <link rel="stylesheet" type="text/css" href="css/main2.css"/>
+        <script src="js/vue.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="js/jquery.js" type="text/javascript"></script>
+        <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+        <script src="https://cdn.bootcdn.net/ajax/libs/element-ui/2.15.1/index.min.js"></script>
+    </head>
+</head>
+<body>
+<div id="User" style="width: 1300px;">
+    <el-button @click="addDialog = true" type="success" plain>添加账号</el-button>
+    <div><br/></div>
+    <!-- 表格数据 -->
+    <el-table :data="userEntityList" style="width: 1290px" height="300px" stripe border>
+        <el-table-column prop="id" label="序号" width="120px">
+        </el-table-column>
+        <el-table-column prop="userName" label="账号" width="120px">
+        </el-table-column>
+        <el-table-column prop="roleName" label="角色">
+        </el-table-column>
+        <el-table-column prop="createDate" label="创建时间">
+        </el-table-column>
+        <el-table-column prop="lastLoginTime" label="最后登录日期">
+        </el-table-column>
+        <el-table-column prop="state" label="状态">
+            <template scope="scope">
+                <div v-if="scope.row.state == 1" style="color: green;text-align: center">有效</div>
+                <div v-else style="color: red;text-align: center">无效</div>
+            </template>
+        </el-table-column>
+        <el-table-column label="操作" width="140px">
+            <template slot-scope="scope">
+                <el-button v-if="userEntityList[scope.$index].state==1" @click="initUpdate(scope.$index)" type="text"
+                           size="small">修改
+                </el-button>
+                <el-button v-if="userEntityList[scope.$index].role !=1 && userEntityList[scope.$index].state==1"
+                           type="text" size="small" @click="deleteConfirm=true;deleteIndex=scope.$index">删除
+                </el-button>
+                <el-dialog title="提示" :visible.sync="deleteConfirm" width="30%" center>
+                    <span>你确定删除该用户吗？</span>
+                    <span slot="footer" class="dialog-footer">
+                        <el-button @click="deleteConfirm = false">取 消</el-button>
+                        <el-button type="primary"
+                                   @click="deleteConfirm = false;initDelete()">确 定</el-button>
+                    </span>
+                </el-dialog>
+            </template>
+        </el-table-column>
+    </el-table>
+    <!-- 分页信息 -->
+    <div align="right">
+        <!--
+        layout：sizes->每页显示几条数据  prev->上一页  pager->页码  next->下一页  jumper->跳转到某一页
+     -->
+        <el-pagination background @prev-click="currentChange" @next-click="currentChange"
+                       @current-change="currentChange" @size-change="sizeChange"
+                       layout="sizes, prev, pager, next, jumper"
+                       :page-sizes="[3, 6, 9]" :total="pageInfo.total" :page-size="pageInfo.pageSize"
+                       :current-page="pageInfo.page">
+        </el-pagination>
+    </div>
+
+    <%-- 添加用户权限的对话框 --%>
+    <el-dialog width="600px" title="添加用户" :visible.sync="addDialog">
+        <%--powerAdmin: {},// 需要授权的用户对象
+                adminMenuList: [],// 需要授权用户的所有权限（哪些tree节点需要默认选中）
+                menuList: [],// 所有的权限信息--%>
+        <el-form :model="addParams" :rules="rules" ref="addParams">
+            <el-form-item label="用户名" :label-width="formLabelWidth" prop="UserNumber">
+                <el-input style="width: 300px" v-model="addParams.UserNumber" autocomplete="off"></el-input>
+            </el-form-item>
+            <el-form-item label="密码" :label-width="formLabelWidth" prop="UserNumber">
+                <el-input type="password" style="width: 300px" v-model="addParams.UserNumber" autocomplete="off"></el-input>
+            </el-form-item>
+            <el-form-item label="角色类型" :label-width="formLabelWidth" prop="platform">
+                <el-select style="width: 300px" v-model="addParams.platform" placeholder="请选择">
+                    <el-option label="全部" value="0"></el-option>
+                    <el-option label="iOS" value="1"></el-option>
+                    <el-option label="安卓" value="2"></el-option>
+                </el-select>
+            </el-form-item>
+
+            <el-form-item label="账号状态" :label-width="formLabelWidth" prop="platform">
+                <el-select style="width: 300px" v-model="addParams.platform" placeholder="请选择">
+                    <el-option label="有效" value="1"></el-option>
+                    <el-option label="无效" value="0"></el-option>
+                </el-select>
+            </el-form-item>
+
+            <el-tree
+                    :data="menuList"
+                    show-checkbox
+                    node-key="id"
+                    ref="tree"
+                    :default-checked-keys="adminMenuList">
+            </el-tree>
+
+        </el-form>
+        <div slot="footer" class="dialog-footer">
+            <el-button @click="addDialog = false">取 消</el-button>
+            <el-button type="primary" @click="addUser(addParams)">确 定</el-button>
+        </div>
+    </el-dialog>
+
+    <%-- 修改渠道下载地址的对话框 --%>
+    <el-dialog width="500px" title="修改权限" :visible.sync="updateDialog">
+        <el-form :model="updateParams" :rules="rules" ref="updateParams">
+            <el-form-item label="地址" :label-width="formLabelWidth" prop="UserPath">
+                <el-input style="width: 220px" v-model="updateParams.UserPath" autocomplete="off"></el-input>
+            </el-form-item>
+        </el-form>
+        <div slot="footer" class="dialog-footer">
+            <el-button @click="updateDialog = false">取 消</el-button>
+            <el-button type="primary" @click="updateUser(updateParams)">确 定</el-button>
+        </div>
+    </el-dialog>
+</div>
+
+<script type="text/javascript">
+    var User = {
+        data() {
+            return {
+                rules: { // 输入规则
+                    UserNumber: [
+                        {
+                            required: true,
+                            message: '请输入渠道号'
+                        }
+                    ],//渠道号
+                    productName: [
+                        {
+                            required: true,
+                            message: '请输入产品名称'
+                        }
+                    ],  //产品名称
+                    showName: [
+                        {
+                            required: true,
+                            message: '请输入显示名称'
+                        }
+                    ], //显示名称
+                    platform: [
+                        {
+                            required: true,
+                            message: '请选择平台'
+                        }
+                    ], //平台
+                    UserPath: [
+                        {
+                            required: true,
+                            message: '请输入下载地址'
+                        }
+                    ]
+                },
+                cascaderProps: {// 级联选择器的参数
+                    value: 'id',
+                    label: 'typeName',
+                    children: 'sonList'
+                },
+                menuList: [],
+                adminMenuList: [],
+                formLabelWidth: "120px", //对话框宽度
+                addDialog: false,// 添加操作弹出的对话框
+                updateDialog: false,// 添加操作弹出的对话框
+                deleteConfirm: false, // 确认是否执行删除操作
+                userEntityList: [], //渠道种类列表
+                allTypeList: [], //所有渠道类型的列表
+                showParams: { // 查询要用到的参数
+                    type: "findAllAdminUser", // 操作类型
+                    nowPage: "1",//当前页
+                    pageNum: "3",// 每页显示几条数据
+                },
+                findAllParams: {
+                    type: "findAllAdminUser",
+                },
+                addParams: {
+                    type: "addUser",// 请求类型
+                    typeId: "",
+                    UserNumber: "",//渠道号
+                    productName: "",  //产品名称
+                    showName: "", //显示名称
+                    platform: "", //平台
+                    area: '',  //地区
+                    note: "",// 备注
+                    state: 1,// 状态
+                    createTime: "" //创建时间
+                },
+                updateParams: {
+                    type: "updateUser",// 请求类型
+                    id: "",//更改数据对应的
+                    UserPath: "", //下载地址
+                    typeId: "",
+                    UserNumber: "",//渠道号
+                    productName: "",  //产品名称
+                    showName: "", //显示名称
+                    platform: "", //平台
+                    area: '',  //地区
+                    note: "",// 备注
+                    state: 1,// 状态
+                    createTime: "" //创建时间
+                },
+                deleteParams: {
+                    type: "deleteAdminUser", //请求类型
+                    id: ""
+                },
+                pageInfo: {// 分页信息
+                    total: 0, // 总条数
+                    pageSize: 3, // 每页显示几条数据
+                    page: 1 // 当前页
+                },
+                deleteIndex: 0
+            }
+
+        },
+        methods: {
+            sizeChange(value) {// 修改每页显示的数据量时触发
+                // console.log(value);
+                this.showParams.pageNum = value;
+                this.queryAll(this.showParams);
+            },
+            currentChange(val) {// 当前页改变时触发
+                // console.log(val);
+                this.showParams.nowPage = val;
+                this.queryAll(this.showParams);
+            },
+            findAllTypes(params) { // 查询所有数据（不分页的）
+                var vm = this;
+                axios({
+                    method: "get",
+                    url: "/channelType.do",
+                    params: params
+                }).then(function (response) {
+                    // console.log(response.data);
+                    var json = eval(response.data);
+                    // 将serlvet中查询到的UserType数据赋值:UserTypeEntityList、pageInfo
+                    vm.allTypeList = json;
+                }).catch(function (error) {
+                    console.log(error);
+                });
+            },
+            queryAll(params) { //查询所有
+                console.log(params);
+                var vm = this;
+                axios({
+                    method: "get",
+                    url: "/adminUser.do",
+                    params: params
+                }).then(function (response) {
+                    // console.log("----数据---"+response.data);
+                    var json = eval(response.data);
+                    // 将serlvet中查询到的User数据赋值:userEntityList、pageInfo
+                    vm.userEntityList = json.data;
+                    vm.pageInfo = {
+                        total: json.total, //总条数
+                        pageSize: json.pageNum,// 每页显示几条数据
+                        page: json.nowPage // 当前页
+                    };
+                }).catch(function (error) {
+                    console.log(error);
+                });
+            },
+            addUser(params) { // 增加渠道种类
+                var vm = this;
+                console.log(params)
+                axios({
+                    method: "post",
+                    url: "/adminUser.do",
+                    params: params
+                }).then(function (response) {
+                    console.log(response.data);
+                    var json = eval(response.data);
+                    if (json != '添加成功') {
+                        vm.$notify.error({
+                            title: '提示',
+                            message: json
+                        });
+                    } else {
+                        // 关闭对话框
+                        vm.addDialog = false;
+                        vm.$notify({
+                            title: '成功',
+                            message: json,
+                            type: 'success'
+                        });
+                        // 查询所有，刷新数据
+                        vm.queryAll(vm.showParams);
+                    }
+                }).catch(function (error) {
+                    console.log(error);
+                });
+            },
+            initUpdate(index) { // 初始化修改(确定选中的是哪一条数据)
+                var User = this.userEntityList[index];
+                this.updateParams = {
+                    type: "updateUser",// 请求类型
+                    id: User.id,
+                    UserPath: User.UserPath,
+                    typeId: User.typeId,
+                    UserNumber: User.UserNumber,//渠道号
+                    productName: User.productName,  //产品名称
+                    showName: User.showName, //显示名称
+                    platform: User.platform, //平台
+                    area: User.area,  //地区
+                    note: User.note,// 备注
+                    state: 1,// 状态
+                    createTime: User.createTime //创建时间
+                };
+                // 打开修改对话框
+                this.updateDialog = true;
+            },
+            initDelete() {
+                // console.log(this.deleteIndex);
+                var index = this.deleteIndex;
+                var User = this.userEntityList[index];
+                this.deleteParams = {
+                    type: "deleteAdminUser",
+                    id: User.id
+                };
+                console.log(this.deleteParams.id)
+                this.deleteUser(this.deleteParams);
+            },
+            updateUser(params) { //修改数据 提交数据到服务器
+                var vm = this;
+                axios({
+                    method: "post",
+                    url: "/adminUser.do",
+                    params: params
+                }).then(function (response) {
+                    console.log(response.data);
+                    var json = eval(response.data);
+                    if (json != '地址添加成功') {
+                        vm.$notify.error({
+                            title: '提示',
+                            message: json
+                        });
+                    } else {
+                        // 关闭对话框
+                        vm.updateDialog = false;
+                        vm.$notify({
+                            title: '成功',
+                            message: json,
+                            type: 'success'
+                        });
+                        // 查询所有，刷新数据
+                        vm.queryAll(vm.showParams);
+                    }
+                }).catch(function (error) {
+                    console.log(error);
+                });
+            },
+            deleteUser(params) { // 删除选中的一条数据
+                var vm = this;
+                axios({
+                    method: "post",
+                    url: "/adminUser.do",
+                    params: params
+                }).then(function (response) {
+                    console.log(response.data);
+                    var json = eval(response.data);
+                    if (json != '删除成功') {
+                        vm.$notify.error({
+                            title: '提示',
+                            message: json
+                        });
+                    } else {
+                        vm.$notify({
+                            title: '成功',
+                            message: json,
+                            type: 'success'
+                        });
+                        // 查询所有，刷新数据
+                        vm.queryAll(vm.showParams);
+                    }
+                }).catch(function (error) {
+                    console.log(error);
+                });
+            }
+        },
+        mounted: function () {
+            // 查询列表中的数据
+            this.queryAll(this.showParams);
+        }
+    };
+
+    var vueUser = Vue.extend(User);
+    new vueUser().$mount("#User");
+</script>
+</body>
+</html>

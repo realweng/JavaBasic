@@ -37,12 +37,12 @@
         <el-table-column label="操作" width="140">
             <template slot-scope="scope">
                 <el-button @click="initUpdateType(scope.$index)" type="text" size="small">修改</el-button>
-                <el-button type="text" size="small" @click="deleteConfirm = true">删除</el-button>
+                <el-button type="text" size="small" @click="deleteConfirm = true;deleteIndex=scope.$index">删除</el-button>
                 <el-dialog title="提示" :visible.sync="deleteConfirm" width="30%" center>
                     <span>你确定删除该条数据吗？</span>
                     <span slot="footer" class="dialog-footer">
                         <el-button @click="deleteConfirm = false">取 消</el-button>
-                        <el-button type="primary" @click="deleteConfirm = false;deleteChannelType(scope.$index)">确 定</el-button>
+                        <el-button type="primary" @click="deleteConfirm = false;deleteChannelType()">确 定</el-button>
                     </span>
                 </el-dialog>
             </template>
@@ -100,7 +100,7 @@
                 <el-select style="width: 220px" v-model="updateTypeParams.parentId" placeholder="请选择">
                     <el-option label="无父级" value="0"></el-option>
                     <%--          从数据库中查渠道种类          --%>
-                    <el-option v-for="item in channelTypeEntityList" :key="item.id" :label="item.typeName"
+                    <el-option v-for="item in allTypeList" :key="item.id" :label="item.typeName"
                                :value="item.id">
                     </el-option>
                 </el-select>
@@ -139,6 +139,7 @@
                         }
                     ]
                 },
+                deleteIndex:0,
                 formLabelWidth: "120px", //对话框宽度
                 addTypeDialog: false,// 添加操作弹出的对话框
                 updateTypeDialog: false,// 添加操作弹出的对话框
@@ -301,8 +302,9 @@
                     console.log(error);
                 });
             },
-            deleteChannelType(index) { // 删除选中的一条数据
+            deleteChannelType() { // 删除选中的一条数据
                 var vm = this;
+                var index = this.deleteIndex;
                 var channelType = this.channelTypeEntityList[index];
                 this.deleteTypeParams.id = channelType.id;
                 axios({
