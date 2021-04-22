@@ -1,0 +1,78 @@
+package com.javasm.service.impl;
+
+import com.javasm.dao.AdminUserDao;
+import com.javasm.dao.impl.AdminUserDaoImpl;
+import com.javasm.entity.AdminUser;
+import com.javasm.service.AdminUserService;
+import com.javasm.util.PageInfo;
+import com.javasm.vo.AdminUserEntity;
+import com.javasm.vo.ChannelTypeEntity;
+
+import java.util.List;
+
+/**
+ * @Author：wengxingguo
+ * @Version：1.0
+ * @Date：2021/4/12-19:59
+ * @Since:jdk1.8
+ * @Description:后台管理业务处理接口
+ */
+public class AdminUserServiceImpl implements AdminUserService {
+    private AdminUserDao adminUserDao = new AdminUserDaoImpl();
+    /**
+     * 通过用户名查找用户是否存在
+     * @param name
+     * @return
+     */
+    @Override
+    public AdminUser findUserByName(String name) {
+        return adminUserDao.findUserByName(name);
+    }
+
+    /**
+     * 后台管理用户改密码
+     *
+     * @param adminUser
+     */
+    @Override
+    public boolean updatePassWord(AdminUser adminUser) {
+        return adminUserDao.update(adminUser);
+    }
+
+    /**
+     * 查找所有管理员账号及角色信息
+     * @return
+     */
+    @Override
+    public PageInfo<AdminUserEntity> findAllAdminUser(String nowPage, String pageNum) {
+        Integer count = adminUserDao.countAll();
+        PageInfo<AdminUserEntity> pageInfo = new PageInfo<>(nowPage, pageNum, count);
+        List<AdminUserEntity> list = adminUserDao.findAllAdminUser(pageInfo);
+        pageInfo.setData(list);
+        return pageInfo;
+    }
+
+    /**
+     * 通过id 删除用户
+     *
+     * @param id
+     * @return
+     */
+    @Override
+    public boolean deleteUserById(Integer id) {
+        AdminUser adminUser = new AdminUser();
+        adminUser.setId(id);
+        return adminUserDao.delete(adminUser);
+    }
+
+    /**
+     * 添加管理员用户
+     *
+     * @param adminUser
+     */
+    @Override
+    public boolean addUser(AdminUser adminUser) {
+        return adminUserDao.add(adminUser);
+    }
+
+}

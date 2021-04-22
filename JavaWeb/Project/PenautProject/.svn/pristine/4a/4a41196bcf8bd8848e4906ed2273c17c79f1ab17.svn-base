@@ -1,0 +1,78 @@
+package com.javasm.dao;
+
+import com.javasm.entity.Menu;
+import com.javasm.util.PageInfo;
+import com.javasm.vo.MenuEntity;
+import com.javasm.vo.TreeMenu;
+
+import java.util.List;
+
+/**
+ * @Author：wengxingguo
+ * @Version：1.0
+ * @Date：2021/4/18-17:22
+ * @Since:jdk1.8
+ * @Description:目录数据层接口
+ */
+public interface MenuDao extends BaseDao<Menu>{
+    /**
+     * 通过角色id找对应的菜单
+     * @param roleId
+     * @return
+     */
+    public List<MenuEntity> findMenuByRoleId(Integer roleId);
+
+    /**
+     * 通过父级id找子目录
+     * @param parentId
+     * @return
+     */
+    public List<MenuEntity> findMenuByParentId(Integer parentId);
+
+    /**
+     * 分页查询所有的菜单
+     * @param pageInfo
+     * @return
+     */
+    public List<MenuEntity> findAllMenuEntityByPage(PageInfo<MenuEntity> pageInfo);
+
+    /**
+     * 统计所有的行 包括状态为1的
+     * @return
+     */
+    public Integer countAll();
+
+    /**
+     * 查询所有的菜单信息
+     * @return
+     */
+    public List<MenuEntity> findAllMenuEntity();
+
+    /**
+     * 查找所有的父级
+     */
+    public List<Menu> findAllParent();
+
+    /**
+     * 统计改菜单之下还有多少个子级
+     *
+     * @param parentId
+     * @return
+     */
+    Integer countSonMenuNumber(Integer parentId);
+
+    /**
+     * 根据parentId查询子菜单（TreeMenu）
+     *
+     * @param parentId
+     * @return
+     */
+    List<TreeMenu> findSonMenu(Integer parentId);
+
+    /**
+     * 查询一级菜单（TreeMenu）
+     *
+     * @return
+     */
+    List<TreeMenu> findParentMenu();
+}

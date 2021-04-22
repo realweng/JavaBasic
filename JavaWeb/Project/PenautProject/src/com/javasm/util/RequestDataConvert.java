@@ -62,14 +62,7 @@ public class RequestDataConvert {
                             // 将数据保存到实体类中
                             declaredField.set(entity, obj);
                         }
-                    } else if (declaredField.getType().getTypeName().equals("java.lang.Long")) {
-                        Long obj = ConvertUtils.StringConvertLong(value);
-                        if (obj != null) {
-                            declaredField.setAccessible(true);
-                            // 将数据保存到实体类中
-                            declaredField.set(entity, obj);
-                        }
-                    }else if (declaredField.getType().getTypeName().equals("java.lang.Float")) {
+                    } else if (declaredField.getType().getTypeName().equals("java.lang.Float")) {
                         Float obj = ConvertUtils.StringConvertFloat(value);
                         if (obj != null) {
                             declaredField.setAccessible(true);

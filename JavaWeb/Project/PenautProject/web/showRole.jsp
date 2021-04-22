@@ -20,6 +20,24 @@
         <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
         <script src="https://cdn.bootcdn.net/ajax/libs/element-ui/2.15.1/index.min.js"></script>
     </head>
+    <style>
+        .el-dialog{
+            display: flex;
+            flex-direction: column;
+            margin:0 !important;
+            position:absolute;
+            top:50%;
+            left:50%;
+            transform:translate(-50%,-50%);
+            /*height:600px;*/
+            max-height:calc(100% - 30px);
+            max-width:calc(100% - 30px);
+        }
+        .el-dialog .el-dialog__body{
+            flex:1;
+            overflow: auto;
+        }
+    </style>
 </head>
 <body>
 <div id="User" style="width: 1300px;">
@@ -45,8 +63,8 @@
         </el-table-column>
         <el-table-column label="操作" width="140px">
             <template slot-scope="scope">
-                <el-button v-if="userEntityList[scope.$index].state==1" @click="initUpdate(scope.$index)" type="text"
-                           size="small">修改
+                <el-button v-if="userEntityList[scope.$index].state==1" @click="initUpdate(scope.row.id)" type="text"
+                           size="small">权限管理
                 </el-button>
                 <el-button v-if="userEntityList[scope.$index].role !=1 && userEntityList[scope.$index].state==1"
                            type="text" size="small" @click="deleteConfirm=true;deleteIndex=scope.$index">删除
@@ -81,35 +99,27 @@
                 adminMenuList: [],// 需要授权用户的所有权限（哪些tree节点需要默认选中）
                 menuList: [],// 所有的权限信息--%>
         <el-form :model="addParams" :rules="rules" ref="addParams">
-            <el-form-item label="用户名" :label-width="formLabelWidth" prop="UserNumber">
-                <el-input style="width: 300px" v-model="addParams.UserNumber" autocomplete="off"></el-input>
+            <el-form-item label="用户名" :label-width="formLabelWidth" prop="userName">
+                <el-input style="width: 300px" v-model="addParams.userName" autocomplete="off"></el-input>
             </el-form-item>
-            <el-form-item label="密码" :label-width="formLabelWidth" prop="UserNumber">
-                <el-input type="password" style="width: 300px" v-model="addParams.UserNumber" autocomplete="off"></el-input>
+            <el-form-item label="密码" :label-width="formLabelWidth" prop="pwd">
+                <el-input type="password" style="width: 300px" v-model="addParams.pwd" autocomplete="off"></el-input>
             </el-form-item>
-            <el-form-item label="角色类型" :label-width="formLabelWidth" prop="platform">
-                <el-select style="width: 300px" v-model="addParams.platform" placeholder="请选择">
-                    <el-option label="全部" value="0"></el-option>
-                    <el-option label="iOS" value="1"></el-option>
-                    <el-option label="安卓" value="2"></el-option>
+            <el-form-item label="角色类型" :label-width="formLabelWidth" prop="role">
+                <%--       当slelct发生变化通过ajax去查询对应角色的权限 选中默认的tree        --%>
+                <el-select style="width: 300px" v-model="addParams.role" placeholder="请选择">
+                    <el-option v-for="item in allRoleList" :key="item.rid" :label="item.roleName"
+                               :value="item.rid">
+                    </el-option>
                 </el-select>
             </el-form-item>
 
             <el-form-item label="账号状态" :label-width="formLabelWidth" prop="platform">
-                <el-select style="width: 300px" v-model="addParams.platform" placeholder="请选择">
+                <el-select style="width: 300px" v-model="addParams.state" placeholder="请选择">
                     <el-option label="有效" value="1"></el-option>
                     <el-option label="无效" value="0"></el-option>
                 </el-select>
             </el-form-item>
-
-            <el-tree
-                    :data="menuList"
-                    show-checkbox
-                    node-key="id"
-                    ref="tree"
-                    :default-checked-keys="adminMenuList">
-            </el-tree>
-
         </el-form>
         <div slot="footer" class="dialog-footer">
             <el-button @click="addDialog = false">取 消</el-button>
@@ -118,15 +128,27 @@
     </el-dialog>
 
     <%-- 修改渠道下载地址的对话框 --%>
-    <el-dialog width="500px" title="修改权限" :visible.sync="updateDialog">
-        <el-form :model="updateParams" :rules="rules" ref="updateParams">
-            <el-form-item label="地址" :label-width="formLabelWidth" prop="UserPath">
-                <el-input style="width: 220px" v-model="updateParams.UserPath" autocomplete="off"></el-input>
-            </el-form-item>
+    <el-dialog style="width: 1000px;" title="授权管理" :visible.sync="powerDialog">
+        <el-form align="center">
+            <%--powerAdmin: {},// 需要授权的用户对象
+                adminMenuList: [],// 需要授权用户的所有权限（哪些tree节点需要默认选中）
+                menuList: [],// 所有的权限信息--%>
+<%--            <el-form-item type="hidden" label="用户名" :label-width="formLabelWidth">--%>
+<%--                <el-input v-model="powerAdmin.username" type="hidden" autocomplete="off" disabled></el-input>--%>
+<%--                <el-input v-model="powerAdmin.id" type="hidden" autocomplete="off"></el-input>--%>
+<%--                <el-input v-model="powerAdmin.role" type="hidden" autocomplete="off"></el-input>--%>
+<%--            </el-form-item>--%>
+            <el-tree
+                    :data="menuList"
+                    show-checkbox
+                    node-key="id"
+                    ref="tree"
+                    :default-checked-keys="adminMenuList">
+            </el-tree>
         </el-form>
         <div slot="footer" class="dialog-footer">
-            <el-button @click="updateDialog = false">取 消</el-button>
-            <el-button type="primary" @click="updateUser(updateParams)">确 定</el-button>
+            <el-button @click="powerDialog = false">取 消</el-button>
+            <el-button type="primary" @click="powerAdminRole">确 定</el-button>
         </div>
     </el-dialog>
 </div>
@@ -136,69 +158,60 @@
         data() {
             return {
                 rules: { // 输入规则
-                    UserNumber: [
+                    userName: [
                         {
                             required: true,
-                            message: '请输入渠道号'
+                            message: '请输入用户名'
                         }
-                    ],//渠道号
-                    productName: [
+                    ],//用户名
+                    pwd: [
                         {
                             required: true,
-                            message: '请输入产品名称'
+                            message: '请输入密码'
                         }
-                    ],  //产品名称
-                    showName: [
-                        {
-                            required: true,
-                            message: '请输入显示名称'
-                        }
-                    ], //显示名称
-                    platform: [
-                        {
-                            required: true,
-                            message: '请选择平台'
-                        }
-                    ], //平台
-                    UserPath: [
-                        {
-                            required: true,
-                            message: '请输入下载地址'
-                        }
-                    ]
+                    ]//密码
                 },
                 cascaderProps: {// 级联选择器的参数
                     value: 'id',
                     label: 'typeName',
                     children: 'sonList'
                 },
-                menuList: [],
-                adminMenuList: [],
+                adminList: [],// 用户角色列表
+                powerAdmin: {username: "", id: "", role: ""},// 需要授权的用户对象
+                adminMenuList: [],// 需要授权用户的所有权限（哪些tree节点需要默认选中）
+                menuList: [],// 所有的权限信息
+                initPowerParams: {
+                    type: "initAccredit",
+                    id: ""
+                },// 授权之前需要提交到服务器的参数
+                powerParams: {
+                    type: "accreditRole",
+                    id: "",
+                    role: "",
+                    adminMenuList: ""
+                },// 授权需要提交到服务器的参数
+                allRoleList: [],// 所有的角色
                 formLabelWidth: "120px", //对话框宽度
                 addDialog: false,// 添加操作弹出的对话框
-                updateDialog: false,// 添加操作弹出的对话框
+                powerDialog: false,// 添加操作弹出的对话框
                 deleteConfirm: false, // 确认是否执行删除操作
                 userEntityList: [], //渠道种类列表
                 allTypeList: [], //所有渠道类型的列表
+
                 showParams: { // 查询要用到的参数
                     type: "findAllAdminUser", // 操作类型
                     nowPage: "1",//当前页
                     pageNum: "3",// 每页显示几条数据
                 },
-                findAllParams: {
-                    type: "findAllAdminUser",
+                findAllRoleParams: {
+                    type: "findAllRole",
                 },
                 addParams: {
-                    type: "addUser",// 请求类型
-                    typeId: "",
-                    UserNumber: "",//渠道号
-                    productName: "",  //产品名称
-                    showName: "", //显示名称
-                    platform: "", //平台
-                    area: '',  //地区
-                    note: "",// 备注
+                    type: "addAdminUser",// 请求类型
+                    userName: "",
+                    pwd: "",//渠道号
+                    role: "",  //产品名称
                     state: 1,// 状态
-                    createTime: "" //创建时间
                 },
                 updateParams: {
                     type: "updateUser",// 请求类型
@@ -238,17 +251,17 @@
                 this.showParams.nowPage = val;
                 this.queryAll(this.showParams);
             },
-            findAllTypes(params) { // 查询所有数据（不分页的）
+            findAllRole(params) { // 查询所有数据（不分页的）
                 var vm = this;
                 axios({
                     method: "get",
-                    url: "/channelType.do",
+                    url: "/adminUser.do",
                     params: params
                 }).then(function (response) {
-                    // console.log(response.data);
+                    console.log(response.data);
                     var json = eval(response.data);
                     // 将serlvet中查询到的UserType数据赋值:UserTypeEntityList、pageInfo
-                    vm.allTypeList = json;
+                    vm.allRoleList = json;
                 }).catch(function (error) {
                     console.log(error);
                 });
@@ -304,24 +317,55 @@
                     console.log(error);
                 });
             },
-            initUpdate(index) { // 初始化修改(确定选中的是哪一条数据)
-                var User = this.userEntityList[index];
-                this.updateParams = {
-                    type: "updateUser",// 请求类型
-                    id: User.id,
-                    UserPath: User.UserPath,
-                    typeId: User.typeId,
-                    UserNumber: User.UserNumber,//渠道号
-                    productName: User.productName,  //产品名称
-                    showName: User.showName, //显示名称
-                    platform: User.platform, //平台
-                    area: User.area,  //地区
-                    note: User.note,// 备注
-                    state: 1,// 状态
-                    createTime: User.createTime //创建时间
-                };
-                // 打开修改对话框
-                this.updateDialog = true;
+            initUpdate(id) { // 初始化修改(获取选中的用户的权限)
+                this.initPowerParams.id = id;
+                var vm = this;
+                axios({
+                    method: "get",
+                    url: "/adminUser.do",
+                    params: vm.initPowerParams
+                }).then(function (response) {
+                    console.log(response.data);
+                    var json = eval(response.data);
+                    //给需要授权的实体对象赋值
+                    vm.powerAdmin = json.admin;// 需要授权的用户对象
+                    console.log("用户数据："+vm.powerAdmin);
+                    vm.adminMenuList = json.userMenu;// 当前用户的所有权限
+                    vm.menuList = json.menuList;// 所有权限
+                }).catch(function (error) {
+                    console.log(error);
+                });
+                this.powerDialog = true;
+            }, powerAdminRole() {
+                // 获取所有选中的菜单项(key值-->menuId)
+                var res = this.$refs.tree.getCheckedKeys().concat(this.$refs.tree.getHalfCheckedKeys());
+                this.powerParams.adminMenuList = res.toString();
+                this.powerParams.id = this.powerAdmin.id;
+                this.powerParams.role = this.powerAdmin.role;
+                console.log(this.powerParams);
+                var vm = this;
+                axios({
+                    method: "post",
+                    url: "/adminUser.do",
+                    params: vm.powerParams
+                }).then(function (response) {
+                    console.log(response.data);
+                    vm.powerDialog = response.data == "true" ? true : false;
+                    if(eval(response.data)!="权限更改成功"){
+                        vm.$notify.error({
+                            title: '提示',
+                            message: eval(response.data)
+                        });
+                    }else {
+                        vm.$notify({
+                            title: '成功',
+                            message: eval(response.data),
+                            type: 'success'
+                        });
+                    }
+                }).catch(function (error) {
+                    console.log(error);
+                });
             },
             initDelete() {
                 // console.log(this.deleteIndex);
@@ -394,6 +438,7 @@
         mounted: function () {
             // 查询列表中的数据
             this.queryAll(this.showParams);
+            this.findAllRole(this.findAllRoleParams);
         }
     };
 

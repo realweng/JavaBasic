@@ -35,9 +35,7 @@
     <link rel="stylesheet" href="style/bootstrap-datetimepicker.min.css">
     <!-- CLEditor -->
     <link rel="stylesheet" href="style/jquery.cleditor.css">
-    <!-- Uniform -->
-    <%--<link rel="stylesheet" href="style/uniform.default.css">--%>
-    <!-- Bootstrap toggle -->
+
     <link rel="stylesheet" href="style/bootstrap-switch.css">
     <!-- Main stylesheet -->
     <link href="style/style.css" rel="stylesheet">
@@ -63,11 +61,11 @@
 <body>
 
 
-                        <div class="widget" id="bookTable">
+                        <div  id="bookTable">
 
-                            <div class="widget-head">
+                            <div >
                                 <div class="row">
-                                    <div class="col-xs-2">
+                                    <div class="col-xs-2 col-lg-offset-1">
                                         <input type="text" class="form-control" placeholder="书籍ID"  v-model="selectParams.bookId">
                                     </div>
                                     <div class="col-xs-2">
@@ -96,7 +94,7 @@
                                 </div>
                             </div>
 
-                            <div class="widget-content">
+                            <div >
 
                                 <div >
                                     <el-table :data="tableData" height="500" border style="width: 100%">
@@ -115,8 +113,9 @@
                                         <el-table-column prop="secondTypeName" label="二级分类名称" width="180">
                                         </el-table-column>
                                         <el-table-column prop="isCompletion" label="更新状态" width="180">
+                                            <template slot-scope="scope">{{scope.row.isCompletion==1?"连载":"完结"}}</template>
                                         </el-table-column>
-                                        <el-table-column prop="update" label="操作" fixed="left" width="180">
+                                        <el-table-column prop="update" label="操作" fixed="right" width="180">
                                             <template slot-scope="scope">
                                                 <el-button @click="handleClick(scope.row)" size="small" type="info">修改</el-button>
                                                 <el-button @click="remove(scope.row)" size="small" type="danger">删除</el-button>
@@ -139,80 +138,70 @@
                             </div>
 
                             <el-dialog  title="添加新书" :visible.sync="addDialog">
-                                <el-form :model="bookInfo">
-                                    <%--gid,g_name,title,downloadCount,size,g_status,tid,platform,Rectype--%>
-                                    <el-form-item label="书名" :label-width="formLabelWidth">
-                                        <el-input v-model="bookInfo.bookName" autocomplete="off"></el-input>
+                                <el-form :model="abookInfo" :rules="rules" ref="addform" class="demo-ruleForm">
+                                    <el-form-item label="书名" :label-width="formLabelWidth" prop="bookName">
+                                        <el-input v-model="abookInfo.bookName" autocomplete="off"></el-input>
                                     </el-form-item>
-                                    <el-form-item label="作者名" :label-width="formLabelWidth">
-                                        <el-input v-model="bookInfo.authorName" autocomplete="off"></el-input>
+                                    <el-form-item label="作者名" :label-width="formLabelWidth" prop="authorName">
+                                        <el-input v-model="abookInfo.authorName" autocomplete="off"></el-input>
                                     </el-form-item>
-                                    <el-form-item label="属性" :label-width="formLabelWidth">
-                                        <el-select v-model="bookInfo.attribution" >
+                                    <el-form-item label="属性" :label-width="formLabelWidth" prop="attribution">
+                                        <el-select v-model="abookInfo.attribution" >
                                             <el-option label="男频" value="1"></el-option>
                                             <el-option label="女频" value="2"></el-option>
                                             <el-option label="出版" value="3"></el-option>
                                         </el-select>
                                     </el-form-item>
-                                    <el-form-item label="一级分类" :label-width="formLabelWidth">
-                                        <el-select  v-model="selectParams.firstTypeId" @change="theSecondType">
+                                    <el-form-item label="一级分类" :label-width="formLabelWidth" prop="firstTypeId">
+                                        <el-select  v-model="abookInfo.firstTypeId" @change="theSecondType_add">
                                             <el-option v-for="fT in fTs" :key="fT.index" :value="fT.firstTypeId" :label="fT.firstTypeName"></el-option>
                                         </el-select>
                                     </el-form-item>
-                                    <el-form-item label="二级分类" :label-width="formLabelWidth">
-                                        <el-select v-model="selectParams.secondTypeId" >
+                                    <el-form-item label="二级分类" :label-width="formLabelWidth" prop="secondTypeId">
+                                        <el-select v-model="abookInfo.secondTypeId" >
                                             <el-option v-for="sT in sTs" :key="sT.index" :value="sT.secondTypeId" :label="sT.secondTypeName"></el-option>
                                         </el-select>
                                     </el-form-item>
-                                    <el-form-item label="描述" :label-width="formLabelWidth">
-                                        <el-input
-                                                type="textarea"
-                                                :rows="2"
-                                                placeholder="请输入书籍描述"
-                                                v-model="bookInfo.description">
-                                        </el-input>
+                                    <el-form-item label="描述" :label-width="formLabelWidth" prop="description">
+                                        <el-input type="textarea" :rows="2" placeholder="请输入书籍描述" v-model="abookInfo.description"></el-input>
                                     </el-form-item>
-                                    <el-form-item label="状态" :label-width="formLabelWidth">
-                                        <el-select v-model="bookInfo.isCompletion" >
+                                    <el-form-item label="状态" :label-width="formLabelWidth" prop="isCompletion">
+                                        <el-select v-model="abookInfo.isCompletion" >
                                             <el-option label="连载" value="1"></el-option>
                                             <el-option label="完结" value="0"></el-option>
                                         </el-select>
                                     </el-form-item>
                                 </el-form>
                                 <div slot="footer" class="dialog-footer">
+                                    <el-button type="primary" @click="submitForm('addform')">确 定</el-button>
                                     <el-button @click="addDialog = false">取 消</el-button>
-                                    <el-button type="primary" @click="addBook">确 定</el-button>
+                                    <el-button @click="resetForm('addform')">重置</el-button>
                                 </div>
                             </el-dialog>
 
                             <el-dialog  title="修改图书信息" :visible.sync="updateDialog">
-                                <el-form :model="bookInfo">
-                                    <%--gid,g_name,title,downloadCount,size,g_status,tid,platform,Rectype--%>
-                                    <el-form-item label="书名" :label-width="formLabelWidth">
+                                <el-form :model="bookInfo" :rules="rules" ref="updataform" class="demo-ruleForm">
+                                    <el-form-item label="书名" :label-width="formLabelWidth" prop="bookName">
                                         <el-input v-model="bookInfo.bookName" autocomplete="off"></el-input>
                                     </el-form-item>
-                                    <el-form-item label="作者名" :label-width="formLabelWidth">
+                                    <el-form-item label="作者名" :label-width="formLabelWidth" prop="authorName">
                                         <el-input v-model="bookInfo.authorName" autocomplete="off"></el-input>
                                     </el-form-item>
-                                    <el-form-item label="一级分类" :label-width="formLabelWidth">
-                                        <el-select  v-model="selectParams.firstTypeId" @change="theSecondType">
+                                    <el-form-item label="一级分类" :label-width="formLabelWidth" prop="firstTypeId">
+                                        <el-select  v-model="bookInfo.firstTypeId" @change="theSecondType_up">
                                             <el-option v-for="fT in fTs" :key="fT.index" :value="fT.firstTypeId" :label="fT.firstTypeName"></el-option>
                                         </el-select>
                                     </el-form-item>
-                                    <el-form-item label="二级分类" :label-width="formLabelWidth">
-                                        <el-select v-model="selectParams.secondTypeId" >
+                                    <el-form-item label="二级分类" :label-width="formLabelWidth" prop="secondTypeId">
+                                        <el-select v-model="bookInfo.secondTypeId" >
                                             <el-option v-for="sT in sTs" :key="sT.index" :value="sT.secondTypeId" :label="sT.secondTypeName"></el-option>
                                         </el-select>
+                                        <span>Selected: {{ bookInfo.secondTypeId }}</span>
                                     </el-form-item>
-                                    <el-form-item label="描述" :label-width="formLabelWidth">
-                                        <el-input
-                                                type="textarea"
-                                                :rows="2"
-                                                placeholder="请输入书籍描述"
-                                                v-model="bookInfo.description">
-                                        </el-input>
+                                    <el-form-item label="描述" :label-width="formLabelWidth" prop="description">
+                                        <el-input type="textarea" :rows="2" placeholder="请输入书籍描述" v-model="bookInfo.description"></el-input>
                                     </el-form-item>
-                                    <el-form-item label="状态" :label-width="formLabelWidth">
+                                    <el-form-item label="状态" :label-width="formLabelWidth" prop="isCompletion">
                                         <el-select v-model="bookInfo.isCompletion" >
                                             <el-option label="连载" value="1"></el-option>
                                             <el-option label="完结" value="0"></el-option>
@@ -220,10 +209,12 @@
                                     </el-form-item>
                                 </el-form>
                                 <div slot="footer" class="dialog-footer">
+                                    <el-button type="primary" @click="submitForm('updataform')">确 定</el-button>
                                     <el-button @click="updateDialog = false">取 消</el-button>
-                                    <el-button type="primary" @click="updataBook">确 定</el-button>
+                                    <el-button @click="resetForm('updataform')">重置</el-button>
                                 </div>
                             </el-dialog>
+
                         </div>
 
 
@@ -285,17 +276,64 @@
                 },
                 addDialog: false,
                 updateDialog:false,
-                bookInfo: {// 添加游戏时，需要提交到服务器的数据
+                abookInfo: {// 新增图书时，需要提交到服务器的数据
                     type: "addBook",// servlet中调用方法
+                    bid:"",
+                    bookId:"",
                     bookName: "",
                     authorName: "",
                     attribution: "",
                     firstTypeId: "",
                     secondTypeId:"",
                     description: "",
-                    isCompletion: ""
+                    coverUrl: "",
+                    isCompletion: "",
+                    state: "",
+                    lastupChapter: "",
+                    wordCount: ""
                 },
-                formLabelWidth: '120px'
+                bookInfo: {// 添加图书时，需要提交到服务器的数据
+                    type: "updateBook",// servlet中调用方法
+                    bid:"",
+                    bookId:"",
+                    bookName: "",
+                    authorName: "",
+                    attribution: "",
+                    firstTypeId: "",
+                    secondTypeId:"",
+                    description: "",
+                    coverUrl: "",
+                    isCompletion: "",
+                    state: "",
+                    lastupChapter: "",
+                    wordCount: ""
+                },
+                formLabelWidth: '120px',
+                rules: {
+                    bookName: [
+                        { required: true, message: '请输入小说名称', trigger: 'blur' },
+                        { min: 2,  message: '长度在最少 2 个字符', trigger: 'blur' }
+                    ],
+                    authorName: [
+                        { required: true, message: '请输入作者名称', trigger: 'blur' },
+                        { min: 2,  message: '长度在最少 2 个字符', trigger: 'blur' }
+                    ],
+                    attribution: [
+                        {  required: true, message: '请选择属性', trigger: 'change' }
+                    ],
+                    firstTypeId: [
+                        { required: true, message: '请选择一级分类', trigger: 'change' }
+                    ],
+                    secondTypeId: [
+                        {  required: true, message: '请选择二级分类', trigger: 'change' }
+                    ],
+                    description: [
+                        { required: true, message: '描述不能为空', trigger: 'blur' }
+                    ],
+                    isCompletion: [
+                        { required: true, message: '请选择连载状态', trigger: 'change' }
+                    ]
+                }
 
 
             }
@@ -342,11 +380,57 @@
                     }
                 })
                     .then(function (response) {
-                        // response.data.forEach(function (value, index) {
-                        //     vm.sTs.push({ "secondTypeId": value.secondTypeId,"secondTypeName": value.secondTypeName});
-                        //     // console.log(value);
-                        // })
+
                         vm.sTs=response.data;
+                        vm.selectParams.secondTypeId="";
+                    })
+                    .catch(function (error) {
+                        console.log(error);
+                    });
+            },
+            theSecondType_up0(){
+                axios.get("/bookServlet.do", {
+                    params: {
+                        type:"findSecondTypeByFirstTypeId",
+                        firstTypeId:this.bookInfo.firstTypeId
+                    }
+                })
+                    .then(function (response) {
+
+                        vm.sTs=response.data;
+                        // vm.bookInfo.secondTypeId="";
+                    })
+                    .catch(function (error) {
+                        console.log(error);
+                    });
+            },
+            theSecondType_up(){
+                axios.get("/bookServlet.do", {
+                    params: {
+                        type:"findSecondTypeByFirstTypeId",
+                        firstTypeId:this.bookInfo.firstTypeId
+                    }
+                })
+                    .then(function (response) {
+
+                        vm.sTs=response.data;
+                        vm.bookInfo.secondTypeId="";
+                    })
+                    .catch(function (error) {
+                        console.log(error);
+                    });
+            },
+            theSecondType_add(){
+                axios.get("/bookServlet.do", {
+                    params: {
+                        type:"findSecondTypeByFirstTypeId",
+                        firstTypeId:this.abookInfo.firstTypeId
+                    }
+                })
+                    .then(function (response) {
+
+                        vm.sTs=response.data;
+                        vm.abookInfo.secondTypeId="";
                     })
                     .catch(function (error) {
                         console.log(error);
@@ -370,15 +454,12 @@
                     });
             },
             addBook() {
-                this.bookInfo.firstTypeId=this.selectParams.firstTypeId;
-                this.bookInfo.secondTypeId=this.selectParams.secondTypeId;
-                this.bookInfo.type = "addBook";
-                console.log(vm.bookInfo);
+                console.log(vm.abookInfo);
                 // 将数据提交到服务器
                 axios({
                     method: "post",
                     url: "/bookServlet.do",
-                    params:vm.bookInfo
+                    params:vm.abookInfo
                 }).then(function (response) {
                     // var json = eval(response.data);
                     console.log(response.data);
@@ -391,31 +472,49 @@
                     console.log(error);
                 });
             },
+            submitForm(formName) {
+                this.$refs[formName].validate((valid)=>{
+                    if (valid) {
+                        // alert('submit!');
+                        if(formName=='addform'){
+                            this.addBook();
+                        }
+                        if (formName=='updataform'){
+                            this.updataBook();
+                        }
+
+                    }else{
+                        console.log('error submit!!');
+                return false;
+            }
+            });
+            },
+            resetForm(formName){
+                this.$refs[formName].resetFields();
+                this.$refs[formName].resetFields();
+            },
             handleClick(row) {
                 console.log(row);
-                this.selectParams.firstTypeId = row.firstTypeId;
-                this.selectParams.secondTypeId = row.secondTypeId;
-                this.bookInfo = {
-                    type: "updateBook",// servlet中调用方法
-                    bid:row.bid,
-                    bookId:row.bookId,
-                    bookName: row.bookName,
-                    authorName: row.authorName,
-                    secondTypeId:row.secondTypeId,
-                    description: row.description,
-                    coverUrl: row.coverUrl,
-                    isCompletion: row.isCompletion,
-                    state: row.state,
-                    lastupChapter: row.lastupChapter,
-                    wordCount: row.wordCount
-                };
-                console.log(this.updateGame);
-                vm.updateDialog = true;// 显示模态框
+
+                this.bookInfo.type= "updateBook";
+                this.bookInfo.bid= row.bid;
+                this.bookInfo.bookId= row.bookId;
+                this.bookInfo.bookName= row.bookName;
+                this.bookInfo.authorName= row.authorName;
+                this.bookInfo.attribution= row.attribution;
+                this.bookInfo.firstTypeId= row.firstTypeId;
+                this.bookInfo.secondTypeId= row.secondTypeId;
+                this.bookInfo.description= row.description;
+                this.bookInfo.coverUrl= row.coverUrl;
+                this.bookInfo.isCompletion= row.isCompletion;
+                this.bookInfo.state= row.state;
+                this.bookInfo.lastupChapter= row.lastupChapter;
+                this.bookInfo.wordCount= row.wordCount;
+                this.theSecondType_up0();
+                this.updateDialog = true;// 显示模态框
+
             },
             updataBook(){
-                this.bookInfo.firstTypeId=this.selectParams.firstTypeId;
-                this.bookInfo.secondTypeId=this.selectParams.secondTypeId;
-
                 axios({
                     method: "post",
                     url: "/bookServlet.do",
@@ -425,7 +524,7 @@
                     console.log(response.data);
                     if (response.data=="修改成功") {
                         vm.updateDialog = false;// 关闭模态框
-                        // 查询游戏列表
+                        // 查询图书列表
                         vm.bookShow(vm.selectParams);
                     }
                 }).catch(function (error) {
@@ -447,8 +546,9 @@
                 }).catch(function (error) {
                     console.log(error);
                 });
-            },
-        }
+            }
+        },
+
     });
 
     // $(function () {

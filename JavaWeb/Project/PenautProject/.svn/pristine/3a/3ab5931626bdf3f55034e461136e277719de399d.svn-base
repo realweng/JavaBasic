@@ -1,0 +1,125 @@
+package com.javasm.dao.impl;
+
+import com.javasm.dao.MenuDao;
+import com.javasm.entity.Menu;
+import com.javasm.util.JdbcUtil;
+import com.javasm.util.PageInfo;
+import com.javasm.vo.MenuEntity;
+import com.javasm.vo.TreeMenu;
+
+import java.util.List;
+
+/**
+ * @Author：wengxingguo
+ * @Version：1.0
+ * @Date：2021/4/18-17:25
+ * @Since:jdk1.8
+ * @Description:目录数据层接口实现类
+ */
+public class MenuDaoImpl extends BaseDaoImpl<Menu> implements MenuDao {
+
+    /**
+     * 通过角色id找对应的菜单
+     *
+     * @param roleId
+     * @return
+     */
+    @Override
+    public List<MenuEntity> findMenuByRoleId(Integer roleId) {
+        String sql = "select m.*,r.rolename from menu m,roleandmenu mr,role r WHERE m.mid = mr.menuid and" +
+                " r.rid = mr.rid and mr.rid = ? and m.state = 1 and r.state = 1 and m.parentid = 0";
+        return JdbcUtil.query(sql, MenuEntity.class, roleId);
+    }
+
+    /**
+     * 通过父级id找子目录
+     *
+     * @param parentId
+     * @return
+     */
+    @Override
+    public List<MenuEntity> findMenuByParentId(Integer parentId) {
+        String sql = "SELECT * from menu where parentId = ? and state = 1";
+        return JdbcUtil.query(sql, MenuEntity.class, parentId);
+    }
+
+    /**
+     * 分页查询所有的菜单
+     *
+     * @param pageInfo
+     * @return
+     */
+    @Override
+    public List<MenuEntity> findAllMenuEntityByPage(PageInfo<MenuEntity> pageInfo) {
+        String sql = "SELECT a.*,b.menuName as 'parentName' from menu a LEFT JOIN menu b on a.parentid = b.mid limit ?,?;";
+        return JdbcUtil.query(sql, MenuEntity.class, pageInfo.getStartIndex(), pageInfo.getPageNum());
+    }
+
+    /**
+     * 统计所有的行 包括状态为1的
+     *
+     * @return
+     */
+    @Override
+    public Integer countAll() {
+        String sql = "SELECT count(1) from menu";
+        return JdbcUtil.count(sql);
+    }
+
+    /**
+     * 查询所有的菜单信息
+     *
+     * @return
+     */
+    @Override
+    public List<MenuEntity> findAllMenuEntity() {
+        String sql = "SELECT a.*,b.menuName as 'parentName' from menu a LEFT JOIN menu b on a.parentid = b.mid where a.state = 1";
+        return JdbcUtil.query(sql,MenuEntity.class);
+    }
+
+    /**
+     * 查找所有的父级
+     */
+    @Override
+    public List<Menu> findAllParent() {
+        String sql = "select * from menu where parentId = 0 and state = 1";
+        return JdbcUtil.query(sql,Menu.class);
+    }
+
+    /**
+     * 统计改菜单之下还有多少个子级
+     *
+     * @param parentId
+     * @return
+     */
+    @Override
+    public Integer countSonMenuNumber(Integer parentId) {
+        String sql = "select count(1) from menu m where parentId = " + parentId + " and state = 1";
+        return JdbcUtil.count(sql);
+    }
+
+    /**
+     * 根据parentId查询子菜单（TreeMenu）
+     *
+     * @param parentId
+     * @return
+     */
+    @Override
+    public List<TreeMenu> findSonMenu(Integer parentId) {
+        StringBuffer sql = new StringBuffer("select mid as id,menuName label from menu where state = 1 and parentId = ? ");
+        return JdbcUtil.query(sql.toString(), TreeMenu.class, parentId);
+    }
+
+    /**
+     * 查询一级菜单（TreeMenu）
+     *
+     * @return
+     */
+    @Override
+    public List<TreeMenu> findParentMenu() {
+        StringBuffer sql = new StringBuffer("select mid as id,menuName label from menu where state = 1 and parentId=0 ");
+        return JdbcUtil.query(sql.toString(), TreeMenu.class);
+    }
+
+
+}

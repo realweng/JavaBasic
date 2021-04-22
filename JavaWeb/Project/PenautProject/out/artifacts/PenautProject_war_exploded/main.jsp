@@ -106,15 +106,15 @@
     </el-container>
 
     <%-- 更改密码的对话框 --%>
-    <el-dialog title="更改密码" :visible.sync="updatePwdDialog">
-        <el-form :model="form">
-            <el-form-item label="用户名" :label-width="formLabelWidth">
+    <el-dialog title="更改密码" :visible.sync="updatePwdDialog" >
+        <el-form :model="form" :rules="rules" ref="form">
+            <el-form-item label="用户名" :label-width="formLabelWidth" prop="name">
                 <el-input v-model="form.name" autocomplete="off" :readonly="true"></el-input>
             </el-form-item>
-            <el-form-item label="密码" :label-width="formLabelWidth">
+            <el-form-item label="密码" :label-width="formLabelWidth" prop="pwd">
                 <el-input type="password" v-model="form.pwd" autocomplete="off"></el-input>
             </el-form-item>
-            <el-form-item label="新密码" :label-width="formLabelWidth">
+            <el-form-item label="新密码" :label-width="formLabelWidth" prop="newPwd">
                 <el-input type="password" v-model="form.newPwd" autocomplete="off"></el-input>
             </el-form-item>
         </el-form>
@@ -130,6 +130,26 @@
     var mainData = {
         data() {
             return {
+                rules: { // 输入规则
+                    name: [
+                        {
+                            required: true,
+                            message: '请输入用户名'
+                        }
+                    ],//用户名
+                    pwd: [
+                        {
+                            required: true,
+                            message: '请输入密码'
+                        }
+                    ],//密码
+                    newPwd: [
+                        {
+                            required: true,
+                            message: '请输入新密码'
+                        }
+                    ]
+                },
                 menuList: '',
                 tabArray: [{
                     tabName: "主页",
@@ -217,7 +237,7 @@
                         var json = eval(response.data);
                         // console.log(json);
                         if(json!='修改成功'){
-                            vm.$notify({
+                            vm.$notify.error({
                                 title: '提示',
                                 message: json
                             });

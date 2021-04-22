@@ -1,0 +1,216 @@
+package com.javasm.web;
+
+import com.alibaba.fastjson.JSONObject;
+import com.alibaba.fastjson.serializer.SerializerFeature;
+import com.javasm.entity.AdminUser;
+import com.javasm.entity.Role;
+import com.javasm.service.AdminUserService;
+import com.javasm.service.MenuService;
+import com.javasm.service.RoleService;
+import com.javasm.service.impl.AdminUserServiceImpl;
+import com.javasm.service.impl.MenuServiceImpl;
+import com.javasm.service.impl.RoleServiceImpl;
+import com.javasm.util.ConvertUtils;
+import com.javasm.util.Md5Util;
+import com.javasm.util.PageInfo;
+import com.javasm.vo.AdminUserEntity;
+import com.javasm.vo.MenuEntity;
+
+import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.util.Date;
+import java.util.List;
+
+/**
+ * @Author：wengxingguo
+ * @Version：1.0
+ * @Date：2021/4/12-20:17
+ * @Since:jdk1.8
+ * @Description:后台管理用户servlet
+ */
+
+@WebServlet("/adminUser.do")
+public class AdminUserServlet extends BaseServlet<AdminUser> {
+    private AdminUserService adminUserService;
+    private MenuService menuService;
+    private AdminUser adminUser;
+    private RoleService roleService;
+
+    /**
+     * 构造方法，初始化
+     */
+    public AdminUserServlet() {
+        System.out.println("AdminServlet实例化");
+        adminUserService = new AdminUserServiceImpl();
+        adminUser = new AdminUser();
+        menuService = new MenuServiceImpl();
+        roleService = new RoleServiceImpl();
+    }
+
+    /**
+     * 后台管理用户登录
+     *
+     * @return
+     */
+    public String adminUserLogin(HttpServletRequest request, HttpServletResponse response) {
+        String message = "";
+        // 获取页面数据
+        String userName = request.getParameter("userName");
+        String pwd = request.getParameter("pwd");
+        //将传入的数据加密与数据库中的加密密码做比对
+        pwd = Md5Util.encode(pwd);
+        //  通过账号、密码查询用户信息
+        //  findUserByName(userName)查询是否有这个用户，如果存在该用户再做用户名密码的判断
+        adminUser = adminUserService.findUserByName(userName);
+        if (adminUser != null && adminUser.getState() == 1) {
+            if (adminUser.getUserName().equals(userName) && adminUser.getPwd().equals(pwd)) {
+                // 登录成功之后，对象需要保存到session中
+                request.getSession().setAttribute("user", adminUser);
+                // 更改最近登录时间
+                adminUser.setLastLoginTime(new Date());
+                adminUserService.updatePassWord(adminUser);
+                // 登录成功之后，显示主页
+                message = "s:main.jsp";
+
+                //获取菜单信息
+                List<MenuEntity> menuList = menuService.showMenuByUserRoleId(adminUser.getRole());
+                String json = JSONObject.toJSONString(menuList);
+                // 将用户的菜单存到session作用域
+                request.getSession().setAttribute("menuList", json);
+            } else {
+                request.setAttribute("message", "登录失败，账号密码输入有误");
+                message = "f:login.jsp";
+            }
+        } else {
+            request.setAttribute("message", "不存在该账户！");
+            message = "f:login.jsp";
+        }
+        return message;
+    }
+
+    /**
+     * 退出登录 清空session
+     *
+     * @param request
+     * @param response
+     * @return
+     */
+    public String adminUserLogout(HttpServletRequest request, HttpServletResponse response) {
+        String message = "";
+        // 清空session
+        request.getSession().removeAttribute("user");
+        message = "f:login.jsp";
+        return message;
+    }
+
+    /**
+     * 修改密码
+     *
+     * @param request
+     * @param response
+     * @return
+     */
+    public String updatePassword(HttpServletRequest request, HttpServletResponse response) {
+        String message = "";
+        String userName = request.getParameter("name");
+        String pwd = request.getParameter("pwd");
+        String newPwd = request.getParameter("newPwd");
+
+        //将传入的数据加密与数据库中的加密密码做比对
+        pwd = Md5Util.encode(pwd);
+
+        // 先查询用户是否存在
+        adminUser = adminUserService.findUserByName(userName);
+        if (adminUser != null && adminUser.getState() == 1) {
+            if (adminUser.getUserName().equals(userName) && adminUser.getPwd().equals(pwd)) {
+                // 设置新密码
+                adminUser.setPwd(Md5Util.encode(newPwd));
+                // 在数据库中改密码
+                boolean flag = adminUserService.updatePassWord(adminUser);
+                if (flag) {
+                    // 将更改后的用户信息存到session
+                    request.getSession().setAttribute("user", adminUser);
+                    message = "a:{message:'修改成功'}";
+                } else {
+                    message = "a:{message:'修改失败'}";
+                }
+            } else {
+                message = "a:{message:'更改失败，旧密码输入错误'}";
+            }
+        } else {
+            message = "a:{message:'用户不存在'}";
+        }
+        return message;
+    }
+
+    /**
+     * 查找所有用户
+     *
+     * @param request
+     * @param response
+     * @return
+     */
+    public String findAllAdminUser(HttpServletRequest request, HttpServletResponse response) {
+        String message = "";
+        String nowPage = request.getParameter("nowPage");
+        String pageNum = request.getParameter("pageNum");
+        PageInfo<AdminUserEntity> pageInfo = adminUserService.findAllAdminUser(nowPage, pageNum);
+        message = "a:" + JSONObject.toJSONString(pageInfo, SerializerFeature.DisableCircularReferenceDetect, SerializerFeature.WriteDateUseDateFormat);
+        return message;
+    }
+
+    /**
+     * 删除用户
+     * @param request
+     * @param response
+     * @return
+     */
+    public String deleteAdminUser(HttpServletRequest request, HttpServletResponse response) {
+        String message = "";
+        String idStr = request.getParameter("id");
+        Integer id = ConvertUtils.StringConvertInteger(idStr);
+        boolean flag = adminUserService.deleteUserById(id);
+        message = flag ? "a:{message:'删除成功'}" : "a:{message:'删除失败'}";
+        return message;
+    }
+
+    /**
+     * 查询所有角色
+     */
+    public String findAllRole(HttpServletRequest request, HttpServletResponse response){
+        String message = "";
+        List<Role> list = roleService.findAllRole();
+        message = "a:" + JSONObject.toJSONString(list, SerializerFeature.DisableCircularReferenceDetect, SerializerFeature.WriteDateUseDateFormat);;
+        return message;
+    }
+
+    /**
+     * 添加用户
+     * @param request
+     * @param response
+     * @return
+     */
+    public String addAdminUser(HttpServletRequest request, HttpServletResponse response) {
+        String message = "";
+        // 获取数据
+        String userName = request.getParameter("userName");
+        String pwd = request.getParameter("pwd");
+        String roleStr = request.getParameter("role");
+        String stateStr = request.getParameter("state");
+        //加密
+        pwd = Md5Util.encode(pwd);
+        //类型转换
+        Integer state = ConvertUtils.StringConvertInteger(stateStr);
+        Integer role = ConvertUtils.StringConvertInteger(roleStr);
+        AdminUser userByName = adminUserService.findUserByName(userName);
+        if(userByName!=null){
+            message = "a:{message:'该用户名已被注册！'}";
+        }else {
+            AdminUser adminUser = new AdminUser(null,userName,pwd,role,state,new Date(),null);
+            boolean flag = adminUserService.addUser(adminUser);
+            message = flag ? "a:{message:'添加成功'}":"a:{message:'添加失败'}";
+        }
+        return message;
+    }
+}

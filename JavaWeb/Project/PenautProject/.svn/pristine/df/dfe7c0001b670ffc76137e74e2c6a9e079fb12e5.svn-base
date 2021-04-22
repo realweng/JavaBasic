@@ -1,0 +1,90 @@
+package com.javasm.service;
+
+import com.javasm.entity.Menu;
+import com.javasm.util.PageInfo;
+import com.javasm.vo.MenuEntity;
+
+import java.util.List;
+
+/**
+ * @Author：wengxingguo
+ * @Version：1.0
+ * @Date：2021/4/18-19:25
+ * @Since:jdk1.8
+ * @Description:菜单业务处理层接口
+ */
+public interface MenuService {
+    /**
+     * 通过角色id找对应的菜单
+     * @param roleId
+     * @return
+     */
+    public List<MenuEntity> findMenuByRoleId(Integer roleId);
+
+    /**
+     * 通过父级id找子目录
+     * @param parentId
+     * @return
+     */
+    public List<MenuEntity> findMenuByParentId(Integer parentId);
+
+    /**
+     * 通过用户的角色id查询用户对应的菜单
+     * @param roleId
+     * @return
+     */
+    List<MenuEntity> showMenuByUserRoleId(Integer roleId);
+
+    /**
+     * 分页查询所有的菜单
+     * @param
+     * @return
+     */
+    public PageInfo<MenuEntity> findAllMenuEntityByPage(String nowPage, String pageNum);
+
+    /**
+     * 统计所有的行 包括状态为1的
+     * @return
+     */
+    public Integer countAll();
+
+    /**
+     * 查询所有的菜单信息
+     * @return
+     */
+    public List<MenuEntity> findAllMenuEntity();
+
+    /**
+     * 删除菜单
+     * @param mid
+     * @return
+     */
+    public boolean deleteMenu(Integer mid);
+
+    /**
+     * 查找所有父级
+     * @return
+     */
+    public List<Menu> findAllParent();
+
+    /**
+     * 添加菜单
+     * @param menu
+     * @return
+     */
+    public boolean addMenu(Menu menu);
+
+    /**
+     * 更新菜单
+     * @param menu
+     * @return
+     */
+    public boolean updateMenu(Menu menu);
+
+    /**
+     * 通过id找菜单
+     * @param id
+     * @return
+     */
+    public Menu findMenuById(Integer id);
+}
