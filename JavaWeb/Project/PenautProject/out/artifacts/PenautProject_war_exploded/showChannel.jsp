@@ -46,9 +46,9 @@
     </el-form>
     <!-- 表格数据 -->
     <el-table :data="channelEntityList" style="width: 1290px" height="300px" stripe border>
-        <el-table-column prop="parentName" label="一级分类" width="120px">
+        <el-table-column prop="parentName" label="父级类型" width="120px">
         </el-table-column>
-        <el-table-column prop="typeName" label="二级分类" width="120px">
+        <el-table-column prop="typeName" label="分类名称" width="120px">
         </el-table-column>
         <el-table-column prop="channelNumber" label="渠道号">
         </el-table-column>

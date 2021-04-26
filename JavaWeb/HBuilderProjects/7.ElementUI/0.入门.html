@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8" />
+		<title></title>
+		<!-- 1.在html页面中导入vue.js -->
+		<script src="js/vue.js" type="text/javascript" charset="utf-8"></script>
+	</head>
+	<body>
+		<!-- 2.创建父级节点元素 -->
+		<div id="myVue">
+			<!-- 4.将vue对象中的数据显示在浏览器之上 -->
+			{{message}}
+		</div>
+		<script type="text/javascript">
+			// 3.创建vue对象
+			var myVue = new Vue({
+				// el: 挂载对象
+				el: "#myVue", // "#myVue"：id选择器
+				// data：初始化的数据
+				data: {
+					message: "hello,vue..."
+				}
+			});
+		</script>
+
+		<!-- vue挂载对象 -->
+		<p class="demo">
+			{{name}}：
+			<span style="color: saddlebrown;">{{age}}</span>
+			<span style="color: saddlebrown;">{{flag}}</span>
+			<br />
+			<!-- {{message}}-- -->
+		</p>
+		{{message}}
+		<script type="text/javascript">
+			var vue = new Vue({
+				// el：挂载对象，加载的元素对象（当前元素对象本身、和这个元素中的子类）
+				el: ".demo", // ".demo"：class选择器
+				data: {
+					name: "张三",
+					age: 15,
+					flag: true
+				}
+			});
+			console.log(vue.$el);
+		</script>
+
+		<div id="vue">
+			<br />
+			<label>用户账号：{{userInfo.userName}}</label>
+			<label>密码：{{userInfo.pwd}}</label>
+			<label>角色ID：{{userInfo.roleId}}</label>
+		</div>
+		<script type="text/javascript">
+			var vue2 = new Vue({
+				el: "#vue",
+				data: {
+					userInfo: {
+						userName: "admin",
+						pwd: "123456",
+						roleId: 1
+					}
+				}
+			});
+			console.log(vue2.$data);
+		</script>
+
+
+	</body>
+</html>

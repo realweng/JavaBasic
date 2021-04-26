@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+		<link rel="stylesheet" href="https://unpkg.com/element-ui/lib/theme-chalk/index.css">
+		<!-- vue中的js文件 -->
+		<script src="https://unpkg.com/vue/dist/vue.js"></script>
+		<!-- elementui中的组件 -->
+		<script src="https://unpkg.com/element-ui/lib/index.js"></script>
+	</head>
+	<body>
+		<div id="vue">
+			<!-- 基础选项卡 -->
+			<el-tabs v-model="activeName" @tab-click="checkTab">
+				<el-tab-pane label="用户管理" name="user">用户管理</el-tab-pane>
+				<el-tab-pane label="部门管理" name="dept">部门管理</el-tab-pane>
+				<el-tab-pane label="财务管理" name="caiwu">财务管理</el-tab-pane>
+				<el-tab-pane label="工资管理" name="salary">工资管理</el-tab-pane>
+			</el-tabs>
+			<br />
+
+			<!--  选项卡样式-->
+			<!-- 只需要设置 type 属性为 card 就可以使选项卡改变为标签风格。 -->
+			<el-tabs v-model="activeName2" type="card">
+				<el-tab-pane label="huogou" name="huogou">火锅</el-tab-pane>
+				<el-tab-pane label="caocai" name="chaocai">炒菜</el-tab-pane>
+				<el-tab-pane label="liangcai" name="liangcai">凉菜</el-tab-pane>
+			</el-tabs>
+			<br />
+
+			<!-- 卡片化 -->
+			<el-tabs v-model="activeName3" type="border-card">
+				<el-tab-pane label="huogou" name="huogou">火锅</el-tab-pane>
+				<el-tab-pane label="caocai" name="chaocai">炒菜</el-tab-pane>
+				<el-tab-pane label="liangcai" name="liangcai">凉菜</el-tab-pane>
+			</el-tabs>
+			<br />
+			<!-- 设置选项卡的方向-->
+			<el-radio-group v-model="tabPosition" style="margin-bottom: 30px;">
+				<el-radio-button label="top">top</el-radio-button>
+				<el-radio-button label="right">right</el-radio-button>
+				<el-radio-button label="bottom">bottom</el-radio-button>
+				<el-radio-button label="left">left</el-radio-button>
+			</el-radio-group>
+			<el-tabs :tab-position="tabPosition" v-model="activeName3">
+				<el-tab-pane label="huogou" name="huogou">
+					<!-- 设置图标 -->
+					<span slot="label"><i class="el-icon-date"></i> 我的行程</span>
+					火锅
+				</el-tab-pane>
+				<el-tab-pane label="caocai" name="chaocai">炒菜</el-tab-pane>
+				<el-tab-pane label="liangcai" name="liangcai">凉菜</el-tab-pane>
+			</el-tabs>
+			<br />
+			<br />
+
+			<!-- 添加、删除选项卡 -->
+			<el-tabs v-model="activeTab" type="card" editable @edit="tabsEdit">
+				<el-tab-pane label="主页" :closable="false">
+					<span slot="label"><i class="el-icon-house">主页</i></span>
+				</el-tab-pane>
+				<el-tab-pane v-for="(item,index) in tabArray" :key="item.path" :label="item.tabName"
+					:name="item.tabName">
+					<span slot="label"><i :class="item.icon">{{item.tabName}}</i></span>
+					{{item.tabName}}
+				</el-tab-pane>
+			</el-tabs>
+
+		</div>
+		<script type="text/javascript">
+			var tabsObject = {
+				data() {
+					return {
+						activeName: "dept",
+						activeName2: "huogou",
+						activeName3: "huogou",
+						tabPosition: "left",
+						activeTab: "用户管理",
+						tabArray: [{
+								tabName: "菜单管理",
+								path: "baidu",
+								icon: "el-icon-coordinate"
+							},
+							{
+								tabName: "用户管理",
+								path: "user",
+								icon: "el-icon-s-custom"
+							},
+							{
+								tabName: "角色管理",
+								path: "role",
+								icon: "el-icon-reading"
+							}
+						]
+					}
+				},
+				methods: {
+					checkTab(tab, event) {
+						console.log(this.tabPosition, tab, event);
+					},
+					tabsEdit(targetName, action) {
+						// targetName：目标名称
+						// action：动作
+						console.log(targetName + "," + action);
+						if (action === "add") { // 添加tab
+							// 定义tab名称
+							var newTab = "newTabs" + this.tabArray.length;
+							// 创建tab
+							this.tabArray.push({
+								tabName: newTab,
+								path: newTab,
+								icon: "el-icon-reading"
+							});
+							// 设置tab选中的选项卡
+							this.activeTab = newTab;
+						}
+						if (action === "remove") {
+							var tabsArray = this.tabArray;
+							let activeName = this.activeTab;
+							if (activeName === targetName) {
+								tabsArray.forEach((tab, index) => {
+									if (tab.tabName === targetName) {
+										var nextTab = tabsArray[index + 1] || tabsArray[index - 1];
+										if (nextTab) {
+											activeName = nextTab.tabName;
+										}
+									}
+								});
+							}
+							this.activeTab = activeName;
+							this.tabArray = tabsArray.filter(tab => tab.tabName !== targetName);
+						}
+					}
+				}
+			};
+
+			var vueObject = Vue.extend(tabsObject);
+			new vueObject().$mount("#vue");
+		</script>
+	</body>
+</html>

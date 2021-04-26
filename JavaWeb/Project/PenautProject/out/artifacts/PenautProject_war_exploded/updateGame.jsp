@@ -231,7 +231,9 @@
         <!-- 脚部 -->
         <div style="padding-left: 200px">
             <button type="submit" id="addButton" class="btn btn-primary">修改</button>
-            <button type="submit" class="btn btn-default" data-dismiss="modal">关闭</button>
+            <a href="gameServlet.do?type=queryGame">
+                <button type="submit" class="btn btn-default" data-dismiss="modal">关闭</button>
+            </a>
         </div>
     </form>
 </div>

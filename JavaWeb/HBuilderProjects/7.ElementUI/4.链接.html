@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+		<link rel="stylesheet" href="https://unpkg.com/element-ui/lib/theme-chalk/index.css">
+		<!-- vue中的js文件 -->
+		<script src="https://unpkg.com/vue/dist/vue.js"></script>
+		<!-- elementui中的组件 -->
+		<script src="https://unpkg.com/element-ui/lib/index.js"></script>
+	</head>
+	<body>
+		<div id="vue">
+			<el-row>
+				<el-link href="http://www.baidu.com">百度</el-link>
+				<el-link href="http://www.baidu.com" type="primary">百度</el-link>
+				<el-link href="http://www.baidu.com" type="success">百度</el-link>
+				<el-link href="http://www.baidu.com" type="warning">百度</el-link>
+				<el-link href="http://www.baidu.com" type="info">百度</el-link>
+				<el-link href="http://www.baidu.com" type="danger">百度</el-link>
+			</el-row>
+		</div>
+		<script type="text/javascript">
+			new Vue({
+				el: "#vue"
+			});
+		</script>
+	</body>
+</html>

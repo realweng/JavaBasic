@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+		<link rel="stylesheet" href="https://unpkg.com/element-ui/lib/theme-chalk/index.css">
+		<!-- vue中的js文件 -->
+		<script src="https://unpkg.com/vue/dist/vue.js"></script>
+		<!-- elementui中的组件 -->
+		<script src="https://unpkg.com/element-ui/lib/index.js"></script>
+		<!-- jquery -->
+		<script src="js/jquery-3.2.1.min.js" type="text/javascript" charset="utf-8"></script>
+
+
+		<!-- 导入本页面的css文档 -->
+		<link rel="stylesheet" href="css/main.css" />
+	</head>
+	<body>
+		<div id="vue">
+			<el-container id="main">
+				<el-header style="height: 80px;">
+					<span>XXXX操作系统</span>
+				</el-header>
+				<el-container id="content">
+					<el-aside width="200px">
+						<!-- 左侧导航 -->
+						<el-menu class="el-menu-vertical-demo">
+							<template v-for="(menu,index) in menuArray">
+								<el-submenu v-if="menu.children != null" :index="menu.id">
+									<template slot="title">
+										<i :class="menu.icon"></i>
+										<span>{{menu.menuName}}</span>
+									</template>
+									<el-menu-item v-for="(son,sonindex) in menu.children" @click="addTab(son)"
+										:index="son.id">
+										<i :class="son.icon"></i>
+										<span>{{son.menuName}}</span>
+									</el-menu-item>
+								</el-submenu>
+								<el-menu-item v-if="menu.children == null" @click="addTab(menu)" :index="menu.id">
+									<i :class="menu.icon"></i>
+									<span>{{menu.menuName}}</span>
+								</el-menu-item>
+							</template>
+						</el-menu>
+					</el-aside>
+					<el-main>
+						<div id="mainContent">
+							<!-- 添加选项卡 -->
+							<el-tabs v-model="activeTab" @tab-remove="removeTab">
+								<!-- <el-tab-pane label="主页" :closable="false">
+									<span slot="label"><i class="el-icon-house">主页</i></span>
+								</el-tab-pane> -->
+								<el-tab-pane v-for="(item,index) in tabArray" :key="item.path" :label="item.tabName"
+									:name="item.tabName" :closable="item.closable">
+									<span slot="label"><i :class="item.icon"> {{item.tabName}}</i></span>
+									<iframe name="child" id="child" :src="item.path" width="1920" height="880"
+										frameborder="0" scrolling="no"
+										style="position:related;top: 2.8px;left: 0px;"></iframe>
+								</el-tab-pane>
+							</el-tabs>
+						</div>
+					</el-main>
+				</el-container>
+			</el-container>
+		</div>
+
+		<script type="text/javascript">
+			$(function() {
+				// 获取页面高度
+				var clientHeight = window.innerHeight;
+				// console.log(clientHeight)
+				// 设置content的高度
+				$("#content").height(clientHeight - 80);
+				// console.log($("#content").height());
+
+				//设置mainContent的高度
+				var clientHeight = window.innerHeight;
+				// console.log(clientHeight)
+				// 设置content的高度
+				$(".el-tabs").height(clientHeight - 160);
+				// console.log($(".el-tabs").height());
+			});
+
+			// 设置数据内容
+			var elementObject = {
+				data() {
+					return {
+						activeTab: "主页",
+						menuArray: [{
+							menuName: "用户管理",
+							path: "1.入门.html",
+							icon: "el-icon-apple",
+							id: "1"
+						}, {
+							menuName: "菜单管理",
+							path: "2.1.布局组件.html",
+							icon: "el-icon-burger",
+							id: "2"
+						}, {
+							menuName: "其他",
+							icon: "el-icon-location",
+							id: "3",
+							children: [{
+								menuName: "角色管理",
+								path: "3.图标、按钮.html",
+								icon: "el-icon-bicycle",
+								id: "4"
+							}]
+						}],
+						tabArray: [{
+							tabName: "主页",
+							path: "4.链接.html",
+							icon: "el-icon-house",
+							closable: false
+						}]
+					}
+				},
+				methods: {
+					tabsEdit() {},
+					onSelected(key) {
+						console.log(key);
+					},
+					click(menu) {
+						// 设置当前选中的menu的样式 is-activ
+						$()
+
+					},
+					addTab(menu) { // 添加选项卡
+						console.log(menu);
+						let menuName = menu.menuName;
+						console.log(menuName);
+						let flag = false;
+						this.tabArray.forEach((tab, index) => {
+							if (tab.tabName === menuName) {
+								flag = true;
+							}
+						})
+
+						if (!flag) { // 如果在tab列表中存在该菜单，就不用添加tab选项卡
+							// 定义tab名称
+							var newTab = menuName;
+							console.log(menu.path)
+							// 创建tab
+							this.tabArray.push({
+								tabName: newTab,
+								path: menu.path,
+								icon: "el-icon-reading",
+								closable: true
+							});
+							// 设置tab选中的选项卡
+							this.activeTab = newTab;
+						} else {
+							// 设置tab选中的选项卡
+							this.activeTab = menu.menuName;
+						}
+					},
+					removeTab(targetName) { // 删除tab
+						var tabsArray = this.tabArray;
+						let activeName = this.activeTab;
+						if (activeName === targetName) {
+							tabsArray.forEach((tab, index) => {
+								if (tab.tabName === targetName) {
+									var nextTab = tabsArray[index + 1] || tabsArray[index - 1];
+									if (nextTab) {
+										activeName = nextTab.tabName;
+									}
+								}
+							});
+						}
+						this.activeTab = activeName;
+						this.tabArray = tabsArray.filter(tab => tab.tabName !== targetName);
+					}
+				}
+			}
+
+			var vueObject = Vue.extend(elementObject);
+			new vueObject().$mount("#vue");
+		</script>
+
+	</body>
+</html>

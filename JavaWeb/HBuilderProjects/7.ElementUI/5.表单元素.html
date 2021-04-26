@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>表单元素</title>
+		<link rel="stylesheet" href="https://unpkg.com/element-ui/lib/theme-chalk/index.css">
+		<!-- vue中的js文件 -->
+		<script src="https://unpkg.com/vue/dist/vue.js"></script>
+		<!-- elementui中的组件 -->
+		<script src="https://unpkg.com/element-ui/lib/index.js"></script>
+	</head>
+	<body>
+		<div id="vue">
+			<!-- 在elementUI中表单可以完成数据收集、验证、提交数据 -->
+			<el-row>
+				<el-form ref="form" :model="foodinfo" label-width="180px">
+					<el-form-item label="菜名">
+						<el-input v-model="foodinfo.foodName" style="width: 220px;"></el-input>
+					</el-form-item>
+					<el-form-item label="上架时间">
+						<el-select v-model="foodinfo.rackingTime">
+							<el-option label="2021年3月1号" value="2021-03-01"></el-option>
+							<el-option label="2021年3月8号" value="2021-03-08"></el-option>
+							<el-option label="2021年3月15号" value="2021-03-15"></el-option>
+						</el-select>
+					</el-form-item>
+					<el-form-item label="下架时间">
+						<el-date-picker type="date" v-model="foodinfo.xiajiaTime"></el-date-picker>
+					</el-form-item>
+					<el-form-item>
+						<el-button type="primary" @click="onSubmit">添加信息</el-button>
+						<el-button>取消</el-button>
+					</el-form-item>
+					<el-form-item label="是否打包">
+						<el-switch v-model="foodinfo.dabao"></el-switch>
+					</el-form-item>
+					<el-form-item label="配菜">
+						<!-- v-model和对应的数据进行匹配，如果label中的值和对应的数据中的元素（需要是数组）相同则默认选中 -->
+						<el-checkbox-group v-model="foodinfo.peicais">
+							<el-checkbox label="萝卜"></el-checkbox>
+							<el-checkbox label="茄子"></el-checkbox>
+							<el-checkbox label="肉丝"></el-checkbox>
+							<el-checkbox label="辣椒"></el-checkbox>
+							<el-checkbox label="黄瓜"></el-checkbox>
+						</el-checkbox-group>
+					</el-form-item>
+					<el-form-item label="类型">
+						<el-radio-group v-model="foodinfo.type">
+							<el-radio label="炒菜啊"></el-radio>
+							<el-radio label="火锅啊"></el-radio>
+							<el-radio label="凉拌菜啊"></el-radio>
+						</el-radio-group>
+					</el-form-item>
+				</el-form>
+			</el-row>
+		</div>
+		<script type="text/javascript">
+			// ELement中已将创建了自定义的组件，现在我们可以直接使用这些组件，但是该组件中的数据需要重新进行赋值
+			// 我们可以创建一个对象，在其中可以包含data【数据】和methods【函数】，再通过Vue.extend("")构造器来对组件进行创建
+			// 最后创建组件实例，通过$mount来进行挂载
+
+			// 创建组件对象（不包含template）
+			var foodObject = {
+				data() {
+					return {
+						foodinfo: {
+							foodName: "aa",
+							rackingTime: "2021-03-08",
+							xiajiaTime: "2021-04-01",
+							dabao: true,
+							peicais: ['萝卜', "肉丝"],
+							type: "炒菜啊"
+						}
+					}
+				},
+				methods: {
+					onSubmit() {
+						console.log(this.foodinfo);
+						alert("提交表单数据");
+						// 将数据提交到服务器，使用ajax提交数据
+
+					}
+				}
+			}
+
+			// 使用基础 Vue 构造器，创建一个“子类”。参数是一个包含组件选项的对象。
+			var object = Vue.extend(foodObject);
+
+			// 实例对象，对组件进行挂载
+			new object().$mount("#vue");
+		</script>
+	</body>
+</html>

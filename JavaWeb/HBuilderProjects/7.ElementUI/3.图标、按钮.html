@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>图标</title>
+		<link rel="stylesheet" href="https://unpkg.com/element-ui/lib/theme-chalk/index.css">
+		<!-- vue中的js文件 -->
+		<script src="https://unpkg.com/vue/dist/vue.js"></script>
+		<!-- elementui中的组件 -->
+		<script src="https://unpkg.com/element-ui/lib/index.js"></script>
+	</head>
+	<body>
+		<div id="vue">
+			<el-row>
+				<el-button type="primary" icon="el-icon-eleme">按钮</el-button>
+				<el-button type="success" icon="el-icon-star-off">成功</el-button>
+			</el-row>
+			<br />
+			<el-row>
+				<el-button type="primary" icon="el-icon-eleme" plain>按钮</el-button>
+				<el-button type="success" icon="el-icon-star-off" plain>成功</el-button>
+			</el-row>
+			<br />
+			<el-row>
+				<el-button type="primary" icon="el-icon-eleme" round>按钮</el-button>
+				<el-button type="success" icon="el-icon-star-off" round>成功</el-button>
+			</el-row>
+			<br />
+			<el-row>
+				<el-button type="primary" icon="el-icon-eleme" circle></el-button>
+				<el-button type="success" icon="el-icon-star-off" circle disabled></el-button>
+			</el-row>
+			<br />
+			<el-row>
+				<el-button type="text" icon="el-icon-eleme" circle>文字button</el-button>
+				<el-button type="text" icon="el-icon-star-off" circle disabled>文字button</el-button>
+			</el-row>
+			<br />
+
+			<!-- 按钮组 -->
+			<el-row>
+				<el-button-group>
+					<el-button type="primary">上一页</el-button>
+					<el-button type="primary">下一页</el-button>
+				</el-button-group>
+			</el-row>
+		</div>
+		<script type="text/javascript">
+			new Vue({
+				el: "#vue"
+			});
+		</script>
+	</body>
+</html>

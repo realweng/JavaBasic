@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+		<link rel="stylesheet" href="https://unpkg.com/element-ui/lib/theme-chalk/index.css">
+		<script src="js/vue.js" type="text/javascript" charset="utf-8"></script>
+		<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+		<script src="https://cdn.bootcdn.net/ajax/libs/element-ui/2.15.1/index.min.js"></script>
+
+		<style>
+			.text {
+				font-size: 14px;
+			}
+
+			.item {
+				margin-bottom: 18px;
+			}
+
+			.clearfix:before,
+			.clearfix:after {
+				display: table;
+				content: "";
+			}
+
+			.clearfix:after {
+				clear: both
+			}
+
+			.box-card {
+				width: 480px;
+				margin: 200px auto;
+			}
+
+			.el-input {
+				width: 220px;
+			}
+		</style>
+	</head>
+	<body>
+		<div id="myVue">
+			<el-card class="box-card">
+				<div slot="header" class="clearfix">
+					<span>登录</span>
+					<el-button style="float: right; padding: 3px 0" type="text">操作按钮</el-button>
+				</div>
+				<div class="text item">
+					<el-form ref="form" v-model="userinfo" label-width="80px">
+						<el-form-item label="账号:">
+							<el-input v-model="userinfo.userName"></el-input>
+						</el-form-item>
+						<el-form-item label="密码:">
+							<el-input v-model="userinfo.pwd"></el-input>
+						</el-form-item>
+						<el-form-item>
+							<el-button type="primary" @click="login">登录</el-button>
+						</el-form-item>
+					</el-form>
+				</div>
+			</el-card>
+		</div>
+		<script type="text/javascript">
+			var myData = {
+				data() {
+					return {
+						userinfo: {
+							userName: "",
+							pwd: "",
+							message: ""
+						}
+					}
+				},
+				methods: {
+					login: function() {
+						var vm = this;
+						if (this.userName != "") {
+							// 向服务器发送请求(get)
+							axios({
+								method: "post",
+								url: "login.do",
+								params: {
+									"userName": this.userName,
+									"pwd": this.pwd
+								}
+							}).then(function(response) {
+								vm.message = response.data;
+							}).catch(function(resp) {
+								console.log("请求失败" + resp);
+							});
+						}
+					}
+				}
+			}
+
+			var vueObject = Vue.extend(myData);
+			new vueObject().$mount("#myVue");
+		</script>
+	</body>
+</html>

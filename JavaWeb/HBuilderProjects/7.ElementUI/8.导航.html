@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+		<link rel="stylesheet" href="https://unpkg.com/element-ui/lib/theme-chalk/index.css">
+		<!-- vue中的js文件 -->
+		<script src="https://unpkg.com/vue/dist/vue.js"></script>
+		<!-- elementui中的组件 -->
+		<script src="https://unpkg.com/element-ui/lib/index.js"></script>
+	</head>
+	<body>
+		<div id="vue">
+			<!-- mode：导航的方向    horizontal 水平线  默认为垂直方向-->
+			<el-menu class="el-menu-demo" mode="horizontal">
+				<el-menu-item index="1">用户管理</el-menu-item>
+				<el-submenu index="2">
+					<template slot="title">基础管理</template>
+					<el-menu-item index="2-1">菜单管理</el-menu-item>
+					<el-menu-item index="2-2">角色管理</el-menu-item>
+					<el-menu-item index="2-3">权限设置</el-menu-item>
+				</el-submenu>
+			</el-menu>
+
+			<!-- 侧边导航 -->
+			<el-row class="tac">
+				<el-col :span="3">
+					<h3>默认颜色</h3>
+					<el-menu class="el-menu-vertical-demo" @select="onSelected('www.taobao.com')">
+						<el-menu-item index="1">
+							<i class="el-icon-apple"></i>
+							<span>基础管理</span>
+						</el-menu-item>
+						<el-menu-item index="2">
+							<i class="el-icon-burger"></i>
+							<span>采购管理</span>
+						</el-menu-item>
+						<el-submenu index="3">
+							<template slot="title">
+								<i class="el-icon-location"></i>
+								<span>其他</span>
+							</template>
+							<el-menu-item index="3-1">
+								<i class="el-icon-bicycle"></i>
+								<span>
+									<a href="http://www.baidu.com">百度</a>
+								</span>
+							</el-menu-item>
+						</el-submenu>
+					</el-menu>
+				</el-col>
+			</el-row>
+		</div>
+
+
+		<script type="text/javascript">
+			var menuList = {
+				methods: {
+					onSelected: function(path) {
+						console.log("点击到了。。"+ path);
+					}
+				}
+			};
+			var vueObject = Vue.extend(menuList);
+			new vueObject().$mount("#vue");
+		</script>
+	</body>
+</html>

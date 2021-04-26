@@ -118,7 +118,8 @@
                                         <el-table-column prop="update" label="操作" fixed="right" width="180">
                                             <template slot-scope="scope">
                                                 <el-button @click="handleClick(scope.row)" size="small" type="info">修改</el-button>
-                                                <el-button @click="remove(scope.row)" size="small" type="danger">删除</el-button>
+                                                <%--<el-button @click="remove(scope.row)" size="small" type="danger">删除</el-button>--%>
+                                                <el-button @click="removeDialog = true,removebid=scope.row.bid" size="small" type="danger">删除</el-button>
                                             </template>
                                         </el-table-column>
                                     </el-table>
@@ -215,6 +216,13 @@
                                 </div>
                             </el-dialog>
 
+                            <el-dialog  title="确认删除" :visible.sync="removeDialog">
+                                <div slot="footer" class="dialog-footer">
+                                    <el-button type="primary" @click="remove(),removeDialog = false">确 定</el-button>
+                                    <el-button @click="removeDialog = false">取 消</el-button>
+                                </div>
+                            </el-dialog>
+
                         </div>
 
 
@@ -276,6 +284,8 @@
                 },
                 addDialog: false,
                 updateDialog:false,
+                removeDialog:false,
+                removebid:"",
                 abookInfo: {// 新增图书时，需要提交到服务器的数据
                     type: "addBook",// servlet中调用方法
                     bid:"",
@@ -466,6 +476,7 @@
                     if (response.data=="添加成功") {
                         vm.addDialog = false;// 关闭模态框
                         // 查询游戏列表
+                        vm.selectParams.bookName=vm.abookInfo.bookName;
                         vm.bookShow(vm.selectParams);
                     }
                 }).catch(function (error) {
@@ -531,12 +542,12 @@
                     console.log(error);
                 });
             },
-            remove(row){
+            remove(){
                 axios({
                     method: "post",
                     url: "/bookServlet.do",
                     params:{type: "removeBook",
-                    bid:row.bid}
+                    bid:vm.removebid}
                 }).then(function (response) {
                     if (response.data=="删除成功") {
                         alert("删除成功");

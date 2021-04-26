@@ -106,7 +106,7 @@
     </el-container>
 
     <%-- 更改密码的对话框 --%>
-    <el-dialog title="更改密码" :visible.sync="updatePwdDialog" >
+    <el-dialog width="400px" title="更改密码" :visible.sync="updatePwdDialog" >
         <el-form :model="form" :rules="rules" ref="form">
             <el-form-item label="用户名" :label-width="formLabelWidth" prop="name">
                 <el-input v-model="form.name" autocomplete="off" :readonly="true"></el-input>

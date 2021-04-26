@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<link rel="stylesheet" href="https://unpkg.com/element-ui/lib/theme-chalk/index.css">
+		<link rel="stylesheet" type="text/css" href="css/main2.css" />
+		<script src="js/vue.min.js" type="text/javascript" charset="utf-8"></script>
+		<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+		<script src="https://cdn.bootcdn.net/ajax/libs/element-ui/2.15.1/index.min.js"></script>
+	</head>
+	<body>
+		<div id="myVue">
+			<el-container>
+				<el-header>
+					XXX操作系统
+				</el-header>
+				<el-container>
+					<el-aside width="200px">
+						<!-- 菜单列表 -->
+						<el-menu default-active="2" class="el-menu-vertical-demo" background-color="#545c64"
+							text-color="#fff" active-text-color="#ffd04b">
+							<template v-for="menu in menuList">
+								<el-submenu :index="menu.id" v-if="menu.children!=null">
+									<template slot="title">
+										<i :class="menu.menuIcon"></i>
+										<span>{{menu.menuName}}</span>
+									</template>
+									<!-- <template slot="title">{{childrenMenu.menuName}}</template> -->
+									<el-menu-item v-for="childrenMenu in menu.children" @click="addTab(childrenMenu)"
+										:index="childrenMenu.id">{{childrenMenu.menuName}}
+									</el-menu-item>
+								</el-submenu>
+								<el-menu-item v-if="menu.children==null" @click="addTab(menu)" :index="menu.id">
+									<i :class="menu.menuIcon"></i>
+									<span slot="title">{{menu.menuName}}</span>
+								</el-menu-item>
+							</template>
+						</el-menu>
+					</el-aside>
+
+					<el-main>
+
+						<el-tabs v-model="activeTab" @tab-remove="removeTab">
+							<el-tab-pane v-for="tab in tabArray" :closable="tab.closable" :label="tab.tabName"
+								:name="tab.tabName">
+								<span slot="label"><i :class="tab.icon"> {{tab.tabName}}</i></span>
+								<iframe name="child" id="child" :src="tab.path" width="1920" height="880"
+									frameborder="0" scrolling="no"
+									style="position:related;top: 2.8px;left: 0px;"></iframe>
+								<!-- <div v-html="showHtml"></div> -->
+							</el-tab-pane>
+						</el-tabs>
+
+					</el-main>
+				</el-container>
+			</el-container>
+		</div>
+		<script type="text/javascript">
+			var myVueData = {
+				data() {
+					return {
+						menuList: [{
+							"menuName": "用户管理",
+							"menuIcon": "el-icon-user",
+							"menuUrl": "page/user.html",
+							"id": 0
+						}, {
+							"menuName": "权限管理",
+							"menuIcon": "el-icon-user",
+							"menuUrl": "page/user.html",
+							"children": [{
+								menuName: "角色管理",
+								menuUrl: "0.入门.html",
+								menuIcon: "el-icon-bicycle",
+								id: 3
+							}, {
+								menuName: "权限管理",
+								menuUrl: "0.入门.html",
+								menuIcon: "el-icon-bicycle",
+								id: 4
+							}],
+							id: 1
+						}, {
+							"menuName": "用户管理",
+							"menuIcon": "el-icon-user",
+							"menuUrl": "page/user.html",
+							id: 2
+						}],
+						tabArray: [{
+							tabName: "主页",
+							path: "0.入门.html",
+							icon: "el-icon-house",
+							closable: false
+						}],
+						activeTab: "主页",
+						showHtml: ""
+					}
+				},
+				methods: {
+					// 点击菜单，添加选项卡
+					addTab: function(menu) {
+						// 菜单名称
+						let menuName = menu.menuName;
+						// 菜单url
+						let url = menu.menuUrl;
+						// 图标
+						let menuIcon = menu.menuIcon;
+
+						console.log(menu + " ==> " + url + "==" + menuIcon);
+
+						// 是否需要新建tab
+						let flag = false;
+						this.tabArray.forEach((tab, index) => {
+							if (tab.tabName == menuName) {
+								flag = true;
+							}
+						})
+
+						if (!flag) {
+							// 修改tabArray数组，添加选项卡元素
+							this.tabArray.push({
+								tabName: menuName,
+								path: url,
+								icon: menuIcon,
+								closable: true // 是否可以关闭
+							});
+							console.log(this.tabArray);
+							// 设置tab选中的选项卡
+							this.activeTab = menuName;
+						} else {
+							// 设置tab选中的选项卡
+							this.activeTab = menuName;
+						}
+						// axios.get(url, "").then((response) => {
+						// 	this.loading = false
+						// 	// 处理HTML显示
+						// 	this.showHtml = response.data
+						// }).catch(() => {
+						// 	this.loading = false
+						// 	this.showHtml = '加载失败'
+						// });
+					},
+					removeTab: function(targetName) {
+						var tabsArray = this.tabArray;
+						let activeName = this.activeTab;
+						if (activeName === targetName) {
+							tabsArray.forEach((tab, index) => {
+								if (tab.tabName === targetName) {
+									var nextTab = tabsArray[index + 1] || tabsArray[index - 1];
+									if (nextTab) {
+										activeName = nextTab.tabName;
+									}
+								}
+							});
+						}
+						this.activeTab = activeName;
+						this.tabArray = tabsArray.filter(tab => tab.tabName !== targetName);
+					}
+				}
+			}
+
+			var myVueObject = Vue.extend(myVueData);
+			new myVueObject().$mount("#myVue");
+		</script>
+	</body>
+</html>

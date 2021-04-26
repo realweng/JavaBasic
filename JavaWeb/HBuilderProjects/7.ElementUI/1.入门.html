@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+		<link rel="stylesheet" href="https://unpkg.com/element-ui/lib/theme-chalk/index.css">
+		<script src="https://unpkg.com/vue/dist/vue.js"></script>
+		<script src="https://unpkg.com/element-ui/lib/index.js"></script>
+	</head>
+	<body>
+		<div id="vue">
+			<!-- Element组件语法和vue类似，但是需要Element中自定义的组件 -->
+			<!-- 同时需要通过vue实例对组件进行挂载 -->
+			<el-button @click="show()">Button</el-button>
+		</div>
+		<script type="text/javascript">
+			new Vue({
+				el: "#vue", 
+				methods: {
+					show: function() {
+						alert("aaa");
+					}
+				}
+			});
+		</script>
+	</body>
+</html>

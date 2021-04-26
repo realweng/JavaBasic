@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<link rel="stylesheet" href="https://unpkg.com/element-ui/lib/theme-chalk/index.css">
+		<link rel="stylesheet" type="text/css" href="css/main2.css" />
+		<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/vue@2.5.16/dist/vue.js"></script>
+		<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+		<script src="https://cdn.bootcdn.net/ajax/libs/element-ui/2.15.1/index.min.js"></script>
+	</head>
+	<body>
+		<div id="vue2">
+			<el-form :inline="true" ref="myForm" class="demo-form-inline">
+				<el-form-item label="账号">
+					<el-input placeholder="账号" v-model="selectUser.userName"></el-input>
+				</el-form-item>
+				<el-form-item>
+					<el-button type="warning" plain @click="queryMenu">查询</el-button>
+					<el-button type="success" plain @click="addDialog = true">添加</el-button>
+				</el-form-item>
+			</el-form>
+
+			<el-table :data="userList" style="width: 100%;" stripe border>
+				<el-table-column prop="userid" label="编号" width="150"> </el-table-column>
+				<el-table-column prop="username" label="姓名" width="150"> </el-table-column>
+				<el-table-column prop="password" label="密码" width="150"> </el-table-column>
+			</el-table>
+			<!-- 
+				layout：sizes->每页显示几条数据  prev->上一页  pager->页码  next->下一页  jumper->跳转到某一页
+			 -->
+			<el-pagination background @prev-click="currentChange" @next-click="currentChange"
+				@current-change="currentChange" @size-change="sizeChange" layout="sizes,prev, pager, next, jumper"
+				:page-sizes="[3, 6, 9]" :total="total" :page-size="pageSize" :current-page="page">
+			</el-pagination>
+
+			<el-dialog style="width: 1000px;" title="收货地址" :visible.sync="addDialog">
+				<el-form :model="addUserinfo">
+					<el-form-item label="账号" :label-width="formLabelWidth">
+						<el-input v-model="addUserinfo.userName" autocomplete="off"></el-input>
+					</el-form-item>
+					<el-form-item label="密码" :label-width="formLabelWidth">
+						<el-input v-model="addUserinfo.pwd" autocomplete="off"></el-input>
+					</el-form-item>
+
+					<el-form-item label="性别" :label-width="formLabelWidth">
+						<el-radio-group v-model="addUserinfo.sex">
+							<el-radio label="女" value="1"></el-radio>
+							<el-radio label="男" value="0"></el-radio>
+						</el-radio-group>
+					</el-form-item>
+				</el-form>
+				<div slot="footer" class="dialog-footer">
+					<el-button @click="dialogFormVisible = false">取 消</el-button>
+					<el-button type="primary" @click="addDialog = false">确 定</el-button>
+				</div>
+			</el-dialog>
+		</div>
+
+		<script type="text/javascript">
+			var userList = [{
+				userid: 1,
+				username: "张三",
+				password: "123456"
+			}, {
+				userid: 2,
+				username: "李四",
+				password: "123456"
+			}, {
+				userid: 3,
+				username: "王五",
+				password: "123456"
+			}, {
+				userid: 4,
+				username: "张三",
+				password: "123456"
+			}, {
+				userid: 5,
+				username: "李四",
+				password: "123456"
+			}, {
+				userid: 6,
+				username: "王五",
+				password: "123456"
+			}, {
+				userid: 7,
+				username: "张三",
+				password: "123456"
+			}, {
+				userid: 8,
+				username: "李四",
+				password: "123456"
+			}, {
+				userid: 9,
+				username: "王五",
+				password: "123456"
+			}];
+
+			var userListObject2 = {
+				data() {
+					return {
+						userList: [],
+						total: 9, //总页数
+						page: 2, // 当前页
+						pageSizes: [3, 6, 9], // 可以选择每页显示几条数据
+						pageSize: 3, //没有显示几条数据,
+						addUserinfo: {
+							userName: "",
+							pwd: "",
+							sex: ""
+						},
+						formLabelWidth: "120px",
+						addDialog: false,
+						selectUser: {
+							userName: ""
+						}
+
+					}
+				},
+				methods: {
+					sizeChange(value) {
+						console.log("sizeChange" + value);
+					},
+					currentChange(val) {
+						console.log("currentChange" + val);
+					},
+					saveUserinfo() {
+						// var param = window.Qs.stringify(this.addUserinfo);
+						// console.log(param);
+					},
+					queryMenu() {
+
+					}
+				},
+				mounted: function() {
+					this.userList = userList;
+					// `this` 指向 vm 实例
+					console.log('a is: ' + this.a)
+				}
+			};
+
+			var vueObject2 = Vue.extend(userListObject2);
+			new vueObject2().$mount("#vue2");
+		</script>
+	</body>
+</html>

@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+		<head>
+			<meta charset="utf-8">
+			<link rel="stylesheet" href="https://unpkg.com/element-ui/lib/theme-chalk/index.css">
+			<link rel="stylesheet" type="text/css" href="css/main2.css" />
+			<script src="js/vue.min.js" type="text/javascript" charset="utf-8"></script>
+			<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+			<script src="https://cdn.bootcdn.net/ajax/libs/element-ui/2.15.1/index.min.js"></script>
+			<style>
+				.el-dropdown-link {
+					cursor: pointer;
+					color: #409EFF;
+				}
+
+				.el-icon-arrow-down {
+					font-size: 12px;
+				}
+			</style>
+		</head>
+	</head>
+	<body>
+		<div id="main" style="margin: 0px auto;">
+
+			<el-container>
+				<!-- 导航头部 -->
+				<el-header style="height: 50px;background-color:#0074D9;">
+					<a href="main.html">
+						<img align="left" src="./img/logo_c.png" href="main.html" />
+					</a>
+					<!-- 导航条右侧显示用户信息 修改密码 退出登录-->
+					<div align="right" id="userContorl">
+						<el-dropdown :hide-on-click="false">
+							<span style="color: white; width: 100px; font-size: medium;" class="el-dropdown-link">
+								个人中心<i class="el-icon-arrow-down el-icon--right"></i>
+							</span>
+							<el-dropdown-menu slot="dropdown">
+								<el-dropdown-item></el-dropdown-item>
+								<el-dropdown-item>退出登录</el-dropdown-item>
+							</el-dropdown-menu>
+						</el-dropdown>
+					</div>
+				</el-header>
+				<!-- 页面主体 -->
+				<el-container>
+					<el-aside width="200px">
+						<!-- 菜单列表 -->
+						<el-menu default-active="2" class="el-menu-vertical-demo" background-color="whitesmoke"
+							text-color="#0074D9" active-text-color="#0034aa">
+							<template v-for="menu in menuList">
+								<el-submenu :index="menu.id" v-if="menu.children!=null">
+									<template slot="title">
+										<i style="color: #0074D9;" :class="menu.menuIcon"></i>
+										<span>{{menu.menuName}}</span>
+									</template>
+									<!-- <template slot="title">{{childrenMenu.menuName}}</template> -->
+									<el-menu-item v-for="childrenMenu in menu.children" @click="addTab(childrenMenu)"
+										:index="childrenMenu.id">
+										<div align="right">
+											<i style="color: #0074D9;" :class="childrenMenu.menuIcon"></i>
+											<span>{{childrenMenu.menuName}}</span>
+										</div>
+									</el-menu-item>
+								</el-submenu>
+								<el-menu-item v-if="menu.children==null" @click="addTab(menu)" :index="menu.id">
+									<i style="color: #0074D9;" :class="menu.menuIcon"></i>
+									<span slot="title">{{menu.menuName}}</span>
+								</el-menu-item>
+							</template>
+						</el-menu>
+					</el-aside>
+
+					<el-main>
+						<el-tabs v-model="activeTab" @tab-remove="removeTab">
+							<el-tab-pane v-for="tab in tabArray" :closable="tab.closable" :label="tab.tabName"
+								:name="tab.tabName">
+								<span slot="label"><i :class="tab.icon"> {{tab.tabName}}</i></span>
+								<iframe name="child" id="child" :src="tab.path" width="1500" height="840"
+									frameborder="0" scrolling="no"
+									style="top: 2.8px;left: 0px;"></iframe>
+								<!-- <div v-html="showHtml"></div> -->
+							</el-tab-pane>
+						</el-tabs>
+
+					</el-main>
+				</el-container>
+			</el-container>
+		</div>
+
+		<script type="text/javascript">
+			var mainData = {
+				data() {
+					return {
+						menuList: [{
+							"menuName": "用户管理",
+							"menuIcon": "el-icon-user",
+							"menuUrl": "page/user.html",
+							"id": 0
+						}, {
+							"menuName": "权限管理",
+							"menuIcon": "el-icon-user",
+							"menuUrl": "page/user.html",
+							"children": [{
+								menuName: "角色管理",
+								menuUrl: "0.入门.html",
+								menuIcon: "el-icon-bicycle",
+								id: 3
+							}, {
+								menuName: "权限管理",
+								menuUrl: "0.入门.html",
+								menuIcon: "el-icon-bicycle",
+								id: 4
+							}],
+							id: 1
+						}, {
+							"menuName": "渠道管理",
+							"menuIcon": "el-icon-user",
+							"menuUrl": "page/user.html",
+							"children": [{
+								menuName: "分类管理",
+								menuUrl: "channelType.html",
+								menuIcon: "el-icon-bicycle",
+								id: 6
+							}, {
+								menuName: "渠道管理",
+								menuUrl: "channel.html",
+								menuIcon: "el-icon-bicycle",
+								id: 7
+							}],
+							id: 5
+						}, {
+							"menuName": "用户管理",
+							"menuIcon": "el-icon-user",
+							"menuUrl": "page/user.html",
+							id: 2
+						}],
+						tabArray: [{
+							tabName: "主页",
+							path: "hello.html",
+							icon: "el-icon-house",
+							closable: false
+						}],
+						activeTab: "主页",
+						showHtml: ""
+					}
+				},
+				methods: {
+					// 点击菜单，添加选项卡
+					addTab: function(menu) {
+						// 菜单名称
+						let menuName = menu.menuName;
+						// 菜单url
+						let url = menu.menuUrl;
+						// 图标
+						let menuIcon = menu.menuIcon;
+
+						console.log(menu + " ==> " + url + "==" + menuIcon);
+
+						// 是否需要新建tab
+						let flag = false;
+						this.tabArray.forEach((tab, index) => {
+							if (tab.tabName == menuName) {
+								flag = true;
+							}
+						})
+
+						if (!flag) {
+							// 修改tabArray数组，添加选项卡元素
+							this.tabArray.push({
+								tabName: menuName,
+								path: url,
+								icon: menuIcon,
+								closable: true // 是否可以关闭
+							});
+							console.log(this.tabArray);
+							// 设置tab选中的选项卡
+							this.activeTab = menuName;
+						} else {
+							// 设置tab选中的选项卡
+							this.activeTab = menuName;
+						}
+						// axios.get(url, "").then((response) => {
+						// 	this.loading = false
+						// 	// 处理HTML显示
+						// 	this.showHtml = response.data
+						// }).catch(() => {
+						// 	this.loading = false
+						// 	this.showHtml = '加载失败'
+						// });
+					},
+					removeTab: function(targetName) {
+						var tabsArray = this.tabArray;
+						let activeName = this.activeTab;
+						if (activeName === targetName) {
+							tabsArray.forEach((tab, index) => {
+								if (tab.tabName === targetName) {
+									var nextTab = tabsArray[index + 1] || tabsArray[index - 1];
+									if (nextTab) {
+										activeName = nextTab.tabName;
+									}
+								}
+							});
+						}
+						this.activeTab = activeName;
+						this.tabArray = tabsArray.filter(tab => tab.tabName !== targetName);
+					}
+				}
+			}
+			
+			var Message = {
+				methods:{
+					open() {
+					        this.$message({
+					          message: '恭喜你，这是一条成功消息',
+					          type: 'success'
+					        });
+					     }
+				}
+			};
+
+
+			// Vue.prototype.$message = Message;
+			var mainObject = Vue.extend(mainData);
+			new mainObject().$mount("#main");
+		</script>
+	</body>
+</html>
