@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!--当Mybatis通过getMapper来查找接口实现时,会根据类的全名来Mybatis上下文中的Mapper中查找对应的namespace.
+根据对应的类被调用的方法名来获取id是否存在.-->
+<mapper namespace="com.javasm.dao.UserInfoDao">
+    <!--id不能重复,与dao接口中的方法保持一致-->
+<!--    <select id="getUser"  resultType="com.javasm.entity.UserInfo">-->
+<!--        SELECT * FROM `userinfo` WHERE userId = #{uid}-->
+<!--    </select>-->
+    <select id="getUser"  resultType="com.javasm.entity.UserInfo">
+        SELECT * FROM `userinfo` WHERE userId = #{uid}
+    </select>
+
+    <select id="findAllUserInfo"  resultType="com.javasm.entity.UserInfo">
+        SELECT * FROM `userinfo`
+    </select>
+
+    <select id="findAll" resultType="com.javasm.entity.UserInfo">
+        SELECT * FROM `userinfo` where userName = #{userName} and userSalary = #{userSalary}
+    </select>
+
+    <select id="findAllByMap" resultType="com.javasm.entity.UserInfo">
+        SELECT * FROM `userinfo` where userName = #{userName} and userSalary = #{userSalary}
+    </select>
+
+    <!--添加标签没有返回值的声明. 当添加时需要返回当前自增主键时 可以使用useGeneratedKeys和keyProperty
+        useGeneratedKeys : true/false 是否使用自增主键
+        keyProperty : 当前自增主键赋值给传递进来的对象的什么属性
+    -->
+    <insert id="addUser" useGeneratedKeys="true" keyProperty="userId">
+        INSERT INTO userinfo(userName,userSalary) VALUES(#{userName},#{userSalary})
+    </insert>
+
+    <update id="updateUser">
+        update `userinfo` SET userName = #{userName},userSalary = #{userSalary} WHERE userId = #{userId}
+    </update>
+
+    <delete id="deleteUser">
+        delete from `userInfo` where userId = #{userId}
+    </delete>
+</mapper>
