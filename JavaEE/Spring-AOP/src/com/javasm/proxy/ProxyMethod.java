@@ -25,4 +25,25 @@ public class ProxyMethod {
      * 方法参数
      */
     private Object[] args;
+
+    /**
+     * 返回类型
+     */
+    private Object returnVal;
+
+    /**
+     * 异常类型
+     */
+    private Exception e;
+
+    /**
+     * 构造方法
+     * @param method
+     * @param args
+     */
+    public ProxyMethod(Method method, Object[] args) {
+        this.method = method;
+        this.args = args;
+    }
+
 }

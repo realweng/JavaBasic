@@ -8,5 +8,5 @@ package com.javasm.proxy;
  * @Description:TODO
  */
 public interface Ipay {
-    void pay(double money);
+    int pay(double money);
 }

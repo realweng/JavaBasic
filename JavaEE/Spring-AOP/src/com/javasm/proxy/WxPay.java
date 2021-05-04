@@ -12,7 +12,8 @@ import org.springframework.stereotype.Service;
 @Service
 public class WxPay implements Ipay{
     @Override
-    public void pay(double money) {
+    public int pay(double money) {
         System.out.println("微信支付"+money+"元");
+        return 0;
     }
 }
