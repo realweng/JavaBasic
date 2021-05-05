@@ -33,6 +33,13 @@ public class AnnotationAop {
      * @before和@After分别在不同的方法中,无法进行变量创建. 当前切面类Spring会按照单例创建实例,不允许创建成员属性,会导致线程不安全.
      * 单例多线程涉及到变量可以使用ThreadLocal来解决线程安全的问题.
      *
+     * JdkDynamicAopProxy(有接口时,按照JDK动态代理完成AOP.没有接口按照CGLIB完成AOP)
+     * org.springframework.aop.framework.JdkDynamicAopProxy#getProxy(java.lang.ClassLoader) 根据接口创建代理类. 以及SpringAOP默认需要的功能的三个接口
+     * org.springframework.aop.framework.JdkDynamicAopProxy#invoke(java.lang.Object, java.lang.reflect.Method, java.lang.Object[])
+     *  根据代理接口创建执行链,以及方法对应的执行链缓存等等.
+     *
+     *  197 获取执行链
+     *  210 212 执行执行链
      */
     @Pointcut("execution(* com.javasm.proxy.*.pay(..))")
     public void pointCut(){ }
