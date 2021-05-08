@@ -6,6 +6,7 @@ import com.javasm.service.UserInfoService;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
+import java.util.List;
 
 /**
  * @Author：wengxingguo
@@ -39,5 +40,38 @@ public class UserInfoServiceImpl implements UserInfoService {
     @Override
     public int addUserInfo(UserInfo userInfo) {
         return userInfoDao.addUserInfo(userInfo);
+    }
+
+    /**
+     * 修改用户信息
+     *
+     * @param userInfo
+     * @return
+     */
+    @Override
+    public int updUserInfo(UserInfo userInfo) {
+        return userInfoDao.updUserInfo(userInfo);
+    }
+
+    /**
+     * 查询所有
+     *
+     * @param userInfo
+     * @return
+     */
+    @Override
+    public List<UserInfo> findAll(UserInfo userInfo) {
+        return userInfoDao.findAll(userInfo);
+    }
+
+    /**
+     * 删除用户
+     *
+     * @param userId
+     * @return
+     */
+    @Override
+    public int delUserInfoById(Integer userId) {
+        return userInfoDao.delUserInfoById(userId);
     }
 }

@@ -2,6 +2,8 @@ package com.javasm.service;
 
 import com.javasm.entity.UserInfo;
 
+import java.util.List;
+
 /**
  * @Author：wengxingguo
  * @Version：1.0
@@ -23,4 +25,25 @@ public interface UserInfoService {
      * @return
      */
     int addUserInfo(UserInfo userInfo);
+
+    /**
+     * 修改用户信息
+     * @param userInfo
+     * @return
+     */
+    int updUserInfo(UserInfo userInfo);
+
+    /**
+     * 查询所有
+     * @param userInfo
+     * @return
+     */
+    List<UserInfo> findAll(UserInfo userInfo);
+
+    /**
+     * 删除用户
+     * @param userId
+     * @return
+     */
+    int delUserInfoById(Integer userId);
 }

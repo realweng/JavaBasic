@@ -11,7 +11,8 @@
         <result property="userSalary" column="usersalary"></result>
     </resultMap>
     <sql id="userInfoFields">
-        userid,username,usersalary
+        userid
+        ,username,usersalary
     </sql>
     <select id="getUserInfo" resultMap="userInfoMap">
         select
@@ -21,6 +22,41 @@
 
     <!--  添加后会将自增主键的id返回到对象  -->
     <insert id="addUserInfo" useGeneratedKeys="true" keyProperty="userId">
-        insert into userinfo(userid,username,usersalary) values (#{userId},#{userName},#{userSalary})
+        insert into userinfo(userid, username, usersalary)
+        values (#{userId}, #{userName}, #{userSalary})
     </insert>
+
+    <!--  修改用户信息  -->
+    <update id="updUserInfo">
+        update userinfo
+        <set>
+            <if test="userName != null and userName != ''">
+                username = #{userName},
+            </if>
+            <if test="userSalary !=null and userSalary != ''">
+                usersalary = #{userSalary},
+            </if>
+        </set>
+        where userid = #{userId}
+    </update>
+
+    <select id="findAll" resultMap="userInfoMap">
+        select <include refid="userInfoFields"></include> from userinfo
+        <where>
+            <if test="userId != null and userId != ''">
+                and userid = #{userId}
+            </if>
+            <if test="userName != null and userName != ''">
+                and username = #{userName}
+            </if>
+            <if test="userSalary != null and userSalary != ''">
+                and usersalary #{userSalary}
+            </if>
+        </where>
+    </select>
+
+    <delete id="delUserInfoById">
+        delete from userinfo where userid = #{userId}
+    </delete>
+
 </mapper>
