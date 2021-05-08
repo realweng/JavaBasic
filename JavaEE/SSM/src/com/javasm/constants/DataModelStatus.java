@@ -13,6 +13,8 @@ public enum DataModelStatus {
     LOGIN_FAIL(401,"用户名或密码错误"),
     LOGIN_FAIL_BAN(402,"用户被封禁"),
     ADD_USER_ERROR(450,"用户添加失败啦!"),
+    FIND_DEP_EMPS_EMPTY(409,"没有查询结果"),
+    FIND_EMP_DEP_EMPTY(410,"没有查询结果"),
     DEL_USER_ERROR(444,"删除失败");
 
     private Integer code;
