@@ -45,17 +45,11 @@
 
     <!--  查询结果列名 -->
     <sql id="emp_column">
-        e
-        .
-        empId
-        ,e.empName,e.empPwd,e.empSex,e.enterTime,e.depId
+        e.empId,e.empName,e.empPwd,e.empSex,e.enterTime,e.depId
     </sql>
 
     <sql id="emp_dep_column">
-        e
-        .
-        empId
-        ,e.empName,e.empPwd,e.empSex,e.enterTime,d.depId,d.depName
+        e.empId,e.empName,e.empPwd,e.empSex,e.enterTime,d.depId,d.depName
     </sql>
 
     <select id="getEmp" resultMap="empMap">
