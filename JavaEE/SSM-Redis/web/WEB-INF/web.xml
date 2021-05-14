@@ -45,6 +45,18 @@
         <url-pattern>/*</url-pattern>
     </filter-mapping>
 
+    <!--put patch等rest请求参数转换过滤器
+        不声明过滤器则无法通过SpringMVC的参数注入方式获取参数
+    -->
+    <filter>
+        <filter-name>contentFilter</filter-name>
+        <filter-class>org.springframework.web.filter.FormContentFilter</filter-class>
+    </filter>
+    <filter-mapping>
+        <filter-name>contentFilter</filter-name>
+        <url-pattern>/*</url-pattern>
+    </filter-mapping>
+
     <servlet>
         <!--SpringMVC 中央处理器-->
         <servlet-name>dispatchServlet</servlet-name>
