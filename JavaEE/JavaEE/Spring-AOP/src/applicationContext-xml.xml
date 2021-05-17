@@ -1,0 +1,25 @@
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:aop="http://www.springframework.org/schema/aop"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+       http://www.springframework.org/schema/beans/spring-beans.xsd
+    http://www.springframework.org/schema/context
+    http://www.springframework.org/schema/context/spring-context.xsd
+    http://www.springframework.org/schema/aop
+    http://www.springframework.org/schema/aop/spring-aop.xsd">
+    <!--xmlns : xmlNameSpace-->
+    <!--  切面通知类托管  -->
+    <bean id="wxPay" class="com.javasm.proxy.WxPay"></bean>
+    <bean id="xmlAop" class="com.javasm.aop.XmlAop"></bean>
+    <!--  配置AOP  -->
+    <aop:config>
+        <!--   切面配置 ref:切面通知引用    -->
+        <aop:aspect ref="xmlAop">
+            <aop:pointcut id="pointcut" expression="execution(* com.javasm.proxy.*.pay(..))"/>
+            <aop:before method="doBefore" pointcut-ref="pointcut"></aop:before>
+            <aop:after method="doAfter" pointcut-ref="pointcut"></aop:after>
+            <aop:after-returning method="doReturn" returning="returnVal" pointcut-ref="pointcut"></aop:after-returning>
+        </aop:aspect>
+    </aop:config>
+</beans>

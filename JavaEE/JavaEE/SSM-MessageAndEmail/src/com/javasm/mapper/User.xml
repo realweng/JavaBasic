@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!--当Mybatis通过getMapper来查找接口实现时,会根据类的全名来Mybatis上下文中的Mapper中查找对应的namespace.
+根据对应的类被调用的方法名来获取id是否存在.-->
+<mapper namespace="com.javasm.dao.UserDao">
+    <!--结果集映射,可以很方便的将SQL查询的字段名与实体类的属性关联
+            id: 当前结果集的唯一标志.当前xml中唯一
+            type : 当前结果集对应的实体类
+        -->
+    <resultMap id="userMap" type="User">
+        <!-- id 标签是设置当前查询结果字段中的主键的
+            column : 查询结果集中字段的名称
+            property : 实体类对应的成员变量名
+        -->
+        <id column="uid" property="uid"></id>
+        <!--
+            result是定义非主键的字段
+        -->
+        <result column="userName" property="userName"></result>
+        <result column="pwd" property="pwd"></result>
+        <result column="sex" property="sex"></result>
+        <result column="aihaos" property="aihaos"></result>
+        <result column="address" property="address"></result>
+        <result column="myFile" property="myFile"></result>
+        <result column="registerDate" property="registerDate"></result>
+    </resultMap>
+
+    <sql id="user_column">
+        uid,userName,pwd,sex,aihaos,address,myFile,registerDate
+    </sql>
+
+    <select id="userLogin" resultMap="userMap">
+        select <include refid="user_column"></include> from `user` where userName = #{userName} and pwd = #{pwd}
+    </select>
+
+    <insert id="addUser" useGeneratedKeys="true" keyProperty="uid">
+        insert into `user`(userName,pwd) values (#{userName},#{pwd})
+    </insert>
+
+</mapper>

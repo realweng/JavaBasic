@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!--当Mybatis通过getMapper来查找接口实现时,会根据类的全名来Mybatis上下文中的Mapper中查找对应的namespace.
+根据对应的类被调用的方法名来获取id是否存在.-->
+<mapper namespace="com.javasm.dao.UserInfoDao">
+    <resultMap id="userInfoMap" type="UserInfo">
+        <id property="userId" column="userid"></id>
+        <result property="userName" column="username"></result>
+        <result property="userSalary" column="usersalary"></result>
+    </resultMap>
+    <sql id="userInfoFields">
+        userid
+        ,username,usersalary
+    </sql>
+    <select id="getUserInfo" resultMap="userInfoMap">
+        select
+        <include refid="userInfoFields"></include>
+        from userinfo where userid = #{userId}
+    </select>
+
+    <!--  添加后会将自增主键的id返回到对象  -->
+    <insert id="addUserInfo" useGeneratedKeys="true" keyProperty="userId">
+        insert into userinfo(userid, username, usersalary)
+        values (#{userId}, #{userName}, #{userSalary})
+    </insert>
+
+    <!--  修改用户信息  -->
+    <update id="updUserInfo">
+        update userinfo
+        <set>
+            <if test="userName != null and userName != ''">
+                username = #{userName},
+            </if>
+            <if test="userSalary !=null and userSalary != ''">
+                usersalary = #{userSalary},
+            </if>
+        </set>
+        where userid = #{userId}
+    </update>
+
+    <select id="findAll" resultMap="userInfoMap">
+        select <include refid="userInfoFields"></include> from userinfo
+        <where>
+            <if test="userId != null and userId != ''">
+                and userid = #{userId}
+            </if>
+            <if test="userName != null and userName != ''">
+                and username = #{userName}
+            </if>
+            <if test="userSalary != null and userSalary != ''">
+                and usersalary #{userSalary}
+            </if>
+        </where>
+    </select>
+
+    <delete id="delUserInfoById">
+        delete from userinfo where userid = #{userId}
+    </delete>
+
+</mapper>

@@ -1,0 +1,45 @@
+<!DOCTYPE configuration PUBLIC "-//mybatis.org//DTD Config 3.0//EN" "http://mybatis.org/dtd/mybatis-3-config.dtd">
+<configuration>
+    <!-- configuration 下面的所有节点配置顺序是有严格要求的
+     properties?, settings?, typeAliases?, typeHandlers?, objectFactory?, objectWrapperFactory?, reflectorFactory?, plugins?, environments?, databaseIdProvider?, mappers?
+     -->
+
+    <settings>
+        <!--打印日志-->
+        <setting name="logImpl" value="STDOUT_LOGGING"/>
+        <!-- 启用延迟加载 -->
+        <setting name="lazyLoadingEnabled" value="true"/>
+        <!-- 积极加载改为消极加载 -->
+        <setting name="aggressiveLazyLoading" value="false"/>
+        <!-- 调用toString，equals不触发延迟对象的加载 -->
+        <setting name="lazyLoadTriggerMethods" value="clone,hashCode"/>
+    </settings>
+    <!--  别名  -->
+    <typeAliases>
+        <!--        <typeAlias type="com.javasm.entity.UserInfo" alias="userInfo"></typeAlias>-->
+        <package name="com.javasm.entity"></package>
+    </typeAliases>
+    <!-- 环境配置 [支持多环境] -->
+    <environments default="development">
+        <!--具体某一个环境的配置-->
+        <environment id="development">
+            <!--事务管理声明,一般使用JDBC-->
+            <transactionManager type="JDBC"/>
+            <!-- 配置数据库连接信息 -->
+            <!--数据库使用连接池方式-->
+            <dataSource type="POOLED">
+                <property name="driver" value="com.mysql.jdbc.Driver"/>
+                <property name="url" value="jdbc:mysql://localhost:3306/db_homework"/>
+                <property name="username" value="root"/>
+                <property name="password" value="admin"/>
+            </dataSource>
+        </environment>
+    </environments>
+
+    <!--mapper 映射文件-->
+    <mappers>
+        <mapper resource="com/javasm/mapper/UserInfo.xml"></mapper>
+        <mapper resource="com/javasm/mapper/EmpMapper.xml"></mapper>
+        <mapper resource="com/javasm/mapper/DepMapper.xml"></mapper>
+    </mappers>
+</configuration>
