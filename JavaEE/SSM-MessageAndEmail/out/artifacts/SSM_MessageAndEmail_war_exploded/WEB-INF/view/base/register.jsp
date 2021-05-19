@@ -10,7 +10,7 @@
 <html>
 <head>
     <title>注册</title>
-    <script src="/static/jquery/jquery-3.2.1.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
 </head>
 <body>
 <script>
